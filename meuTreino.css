@@ -1,0 +1,43 @@
+a{
+    text-decoration: none;
+}
+
+.uppercase,
+.font-button{
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.tamanho07{font-size: .7rem;}
+
+.tamanho08,
+.font-button{
+    font-size: .8rem;
+}
+
+.tamanho09{font-size: .9rem;}
+.tamanho10{font-size: 1rem;}
+.tamanho11{font-size: 1.1rem;}
+.tamanho12{font-size: 1.2rem;}
+.tamanho13{font-size: 1.3rem;}
+.tamanho14{font-size: 1.4rem;}
+.tamanho15{font-size: 1.5rem;}
+.tamanho16{font-size: 1.6rem;}
+.tamanho17{font-size: 1.7rem;}
+.tamanho18{font-size: 1.8rem;}
+.tamanho19{font-size: 1.9rem;}
+.tamanho20{font-size: 2rem;}
+
+.flexCenter{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.textoCenter{
+    text-align: center;
+}
+
+.buttonHeight4{
+    height: 4rem;
+}
