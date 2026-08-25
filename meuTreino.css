@@ -1,17 +1,31 @@
 a{
     text-decoration: none;
 }
+.labelText{
+    margin-bottom: 5px;
+}
 
 .uppercase,
-.font-button{
+.font-button,
+.labelText,
+input,
+#modalBody select{
     text-transform: uppercase;
     letter-spacing: 1px;
 }
 
-.tamanho07{font-size: .7rem;}
+
+.tamanho06{font-size: .6rem;}
+
+.tamanho07,
+.labelText{
+    font-size: .7rem;
+}
 
 .tamanho08,
-.font-button{
+.font-button,
+#modalBody input,
+#modalBody select{
     font-size: .8rem;
 }
 
@@ -28,13 +42,16 @@ a{
 .tamanho19{font-size: 1.9rem;}
 .tamanho20{font-size: 2rem;}
 
-.flexCenter{
+.flexCenter,
+.labelText{
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.textoCenter{
+.textoCenter,
+input,
+#modalBody select{
     text-align: center;
 }
 
