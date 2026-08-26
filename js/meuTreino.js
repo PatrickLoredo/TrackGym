@@ -113,7 +113,6 @@ function salvarExerciciosStorage() {
 
 
 function salvarFichasStorage() {
-
     localStorage.setItem(
         STORAGE.fichas,
         JSON.stringify(fichasCadastradas)
@@ -162,7 +161,7 @@ function gerarId(alias, array, inputId) {
    INICIALIZAÇÃO
 ========================================================= */
 
-window.onload = function () {
+/*window.onload = function () {
 
     const modalElement =
         document.getElementById('modalTreino');
@@ -179,7 +178,7 @@ window.onload = function () {
     mostraDataAtual('dataCadastroNovaFicha');
 
     mostraDataAtual('dataInicioNovaFicha');
-};
+};/
 
 
 /* =========================================================
