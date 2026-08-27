@@ -470,9 +470,8 @@ function abreModal(escolha) {
                         <i class="fa fa-check"></i>&nbsp;&nbsp;
 
                         <span class="font-button">
-                            Concluir ficha
+                            Abrir esta Ficha
                         </span>
-
                     </button>
 
                 </div>
