@@ -342,6 +342,8 @@ function exibeFichasTreinos() {
                 <div class="col">
                     <div class="card" id="cardFicha_${fichasCadastradas[i].idFicha}">
                         <div class="card-header bg-primary text-light"
+                        type="button"
+                        id="headerFicha_${fichasCadastradas[i].idFicha}"
                         data-bs-toggle="collapse"
                         data-bs-target="#cardBodyFicha_${fichasCadastradas[i].idFicha}"
                         onclick="mudaChevronExerciciosCadastrados('chevronFicha${fichasCadastradas[i].idFicha}','cardFicha_${fichasCadastradas[i].idFicha}')">
