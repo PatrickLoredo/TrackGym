@@ -934,8 +934,8 @@ function adicionaExerciciosFicha(idSelect,tipoTreino) {
 /* =========================================================
    CONFIRMAR EXERCÍCIO
 ========================================================= */
-function confirmaExercicioFicha(
-    tipoTreino) {
+function confirmaExercicioFicha(tipoTreino) {
+
     const select = document.getElementById(`selectExercicio_${tipoTreino}`);
 
     if (!select || !select.value) {
@@ -944,7 +944,10 @@ function confirmaExercicioFicha(
     }
 
     const idExercicio = select.value;
-    const exercicio = exerciciosCadastrados.find(exercicio =>exercicio.id === idExercicio);
+
+    const exercicio = exerciciosCadastrados.find(
+        exercicio => exercicio.id === idExercicio
+    );
 
     if (!exercicio) return;
 
@@ -956,13 +959,15 @@ function confirmaExercicioFicha(
     }
 
     const treino = ficha.treinos[tipoTreino];
-    const jaExiste = treino.exercicios.some(exercicio =>exercicio.id === idExercicio);
+
+    const jaExiste = treino.exercicios.some(
+        exercicio => exercicio.id === idExercicio
+    );
 
     if (jaExiste) {
         alert('Este exercício já está neste treino.');
         return;
     }
-
 
     treino.exercicios.push({
         id: exercicio.id,
@@ -972,7 +977,9 @@ function confirmaExercicioFicha(
         pesoAtual: exercicio.pesoAtual,
         maiorPeso: exercicio.maiorPeso
     });
+
     salvarFichasStorage();
+
     renderizarExerciciosTreino(tipoTreino);
 }
 
