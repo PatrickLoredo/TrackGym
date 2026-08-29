@@ -330,98 +330,55 @@ function abreModal(escolha) {
 }
 
 function exibeFichasTreinos() {
-
     const campoModalBody = document.getElementById('modalBody');
-
     if (!campoModalBody) return;
-
     let htmlFichas = '';
 
     for (let i = 0; i < fichasCadastradas.length; i++) {
-
         const ficha = fichasCadastradas[i];
-
         let htmlTreinos = '';
 
         for (let j = 0; j < ficha.treinos.length; j++) {
-
             const treino = ficha.treinos[j];
 
             htmlTreinos += `
                 <div class="row mb-2">
-
                     <div class="col">
                         <strong>${treino.nomeTreino}</strong>
                     </div>
-
                     <div class="col-auto">
-                        <span class="badge bg-info">
-                            ${treino.series} séries
-                        </span>
+                        <span class="badge bg-info">${treino.series} séries</span>
                     </div>
-
                 </div>
             `;
         }
 
         htmlFichas += `
             <div class="row mb-3">
-
                 <div class="col">
-
-                    <div class="card"
-                        id="cardFicha_${ficha.idFicha}">
-
-                        <div
-                            class="card-header bg-primary text-light"
-                            type="button"
-                            id="headerFicha_${ficha.idFicha}"
+                    <div class="card" id="cardFicha_${ficha.idFicha}">
+                        <div class="card-header bg-dark text-light" type="button" id="headerFicha_${ficha.idFicha}"
                             data-bs-toggle="collapse"
                             data-bs-target="#cardBodyFicha_${ficha.idFicha}"
-                            onclick="mudaChevronExerciciosCadastrados(
-                                'chevronFicha${ficha.idFicha}',
-                                'cardFicha_${ficha.idFicha}'
-                            )">
+                            onclick="mudaChevronExerciciosCadastrados( 'chevronFicha${ficha.idFicha}', 'cardFicha_${ficha.idFicha}' )">
 
                             <div class="row">
-
                                 <div class="col">
-
-                                    <span class="uppercase">
-                                        Ficha ${ficha.idFicha}
-                                    </span>
-
+                                    <span class="uppercase">Ficha ${ficha.idFicha}</span>
                                 </div>
 
                                 <div class="col-auto">
-
-                                    <span class="badge rounded-pill bg-success">
-                                        ${ficha.statusFicha}
-                                    </span>
-
+                                    <span class="badge rounded-pill bg-success">${ficha.statusFicha}</span>
                                 </div>
-
                             </div>
-
                         </div>
 
-
-                        <div
-                            class="card-body collapse"
-                            id="cardBodyFicha_${ficha.idFicha}">
-
-                            ${htmlTreinos}
-
-                        </div>
-
+                        <div class="card-body collapse" id="cardBodyFicha_${ficha.idFicha}">${htmlTreinos}</div>
                     </div>
-
                 </div>
-
             </div>
         `;
     }
-
     campoModalBody.innerHTML = htmlFichas;
 }
 
