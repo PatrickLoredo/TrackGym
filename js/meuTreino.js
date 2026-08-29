@@ -336,52 +336,32 @@ function exibeFichasTreinos() {
     // Limpa o conteúdo anterior
     campoModalBody.innerHTML = '';
    
-    for (let i = 0; i < fichasCadastradas.length; i++) {
-        const ficha = fichasCadastradas[i];
-        
-
+    for(let i = 0; i < fichasCadastradas.length; i++) {
         campoModalBody.innerHTML += `
-            <div class="row mb-2">
+            <div class="row mb-3">
                 <div class="col">
-                    <div class="card">
-                        <div class="card-header bg-primary text-light"
-                            type="button"
-                            id="headerFicha${ficha.idFicha}"
-                            data-bs-toggle="collapse"
-                            data-bs-target="#cardBodyFicha${ficha.idFicha}"
-                            onclick="mudaChevronExerciciosCadastrados(
-                                'chevronFicha${ficha.idFicha}',
-                                'headerFicha${ficha.idFicha}')">
-
+                    <div class="card" id="cardFicha_${fichasCadastradas[i].idFicha}">
+                        <div class="card-header bg-primary text-light">
                             <div class="row">
                                 <div class="col">
-                                    <span class="uppercase">
-                                        Ficha ${ficha.idFicha}
-                                    </span>
+                                    <span class="uppercase">Ficha ${fichasCadastradas[i].idFicha}</span>
                                 </div>
-
                                 <div class="col-auto">
-                                    <span class="badge bg-success">
-                                        ${ficha.statusFicha}
-                                    </span>
+                                    <span class="uppercase">Status: ${fichasCadastradas[i].statusFicha}</span>
                                 </div>
                             </div>
                         </div>
-
-
-                        <div class="card-footer">
-                            <button class="btn btn-sm btn-danger" onclick="if(confirm('Deseja realmente excluir a ficha ${ficha.idFicha}?')) { fichasCadastradas.splice(${i}, 1); salvarFichasStorage(); exibeFichasTreinos(); }">
-                                <i class="fa fa-trash"></i>&nbsp;
-                                <span class="font-button">Excluir</span>
-                            </button>
+                        <div class="card-body" id="cardBodyFicha_${fichasCadastradas[i].idFicha}">
+                        
                         </div>
                     </div>
                 </div>
             </div>
-        `;
-
-        mostrarDataCorrigida(ficha.dataCadastro, `dataCadastroFicha${ficha.idFicha}`);
-        mostrarDataCorrigida(ficha.dataInicio, `dataInicioFicha${ficha.idFicha}`);
+        `
+        for(let j = 0; j < treinos.length; j++) {
+            const ficha = fichasCadastradas[i];
+            const treino = treinos[j];
+        }
     }
 }
 
