@@ -412,7 +412,18 @@ function mostraExerciciosTreino(idFicha, letra) {
                         <i class="fa-solid fa-dumbbell"></i>&nbsp;&nbsp;
                         <span>${exercicio.nome}</span>
                     </span>
+                </div>
             </div>
+            <div class="row mb-2">
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-3 mb-2">
+                                    <label class="labelText flexCenter">Séries</label>
+                                    <input type="number" class="form-control" value="${exercicio.series}" disabled>
+                                </div>
+                            </div>
         `;
     }
 }
