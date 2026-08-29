@@ -295,10 +295,47 @@ function abreModal(escolha) {
     if (escolha === 'Meus Exercícios Cadastrados') {
         populaBtnExerciciosCadastrados();
     }
+
+    /* =====================================================
+       MINHAS FICHAS DE TREINAMENTO
+    ===================================================== */
+    if (escolha === 'Minhas Fichas de Treinamento') {
+        exibeFichasTreinos();
+    }
 }
 
 function exibeFichasTreinos(){
-    
+    const campoModalBody = document.getElementById('modalBody');
+    if (!campoModalBody) return;
+
+    for(let i=0;i<fichasCadastradas.length;i++){
+        const ficha = fichasCadastradas[i];
+        campoModalBody.innerHTML += `
+            <div class="row mb-2">
+                <div class="col">
+                    <div class="card">
+                        <div class="card-header bg-primary text-light">
+                            <div class="row">
+                                <div class="col">
+                                    <span class="uppercase">Ficha ${ficha.idFicha}</span>
+                                </div>
+                                <div class="col-auto">
+                                    <span class="badge bg-success">${ficha.statusFicha}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <p><strong>Data Cadastro:</strong> ${ficha.dataCadastro}</p>
+                            <p><strong>Data Início:</strong> ${ficha.dataInicio}</p>
+                            <p><strong>Qtd Treinos:</strong> ${ficha.qtdSubfichas}</p>
+                            <p><strong>Última Letra Exercitada:</strong> ${ficha.ultimaLetraExercitada}</p>
+                            <p><strong>Treinos:</strong> ${Object.keys(ficha.treinos).join(', ')}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
 }
 
 /* =========================================================
