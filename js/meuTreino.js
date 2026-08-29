@@ -347,7 +347,7 @@ function exibeFichasTreinos() {
                                     <span class="uppercase">Ficha ${fichasCadastradas[i].idFicha}</span>
                                 </div>
                                 <div class="col-auto">
-                                    <span class="uppercase">Status: ${fichasCadastradas[i].statusFicha}</span>
+                                    <span class="uppercase">Status: ${fichasCadastradas[i].statusFicha} lelele</span>
                                 </div>
                             </div>
                         </div>
