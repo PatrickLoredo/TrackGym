@@ -347,7 +347,9 @@ function exibeFichasTreinos() {
                                     <span class="uppercase">Ficha ${fichasCadastradas[i].idFicha}</span>
                                 </div>
                                 <div class="col-auto">
-                                    <span class="uppercase">Status: ${fichasCadastradas[i].statusFicha} lelele</span>
+                                    span class="badge rounded-pill bg-success">
+                                        ${fichasCadastradas[i].statusFicha}
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -358,9 +360,21 @@ function exibeFichasTreinos() {
                 </div>
             </div>
         `
-        for(let j = 0; j < treinos.length; j++) {
-            const ficha = fichasCadastradas[i];
-            const treino = treinos[j];
+        for(let j = 0; j < fichasCadastradas[i].treinos.length; j++) {
+            const treino = fichasCadastradas[i].treinos[j];
+            const cardBody = document.getElementById(`cardBodyFicha_${fichasCadastradas[i].idFicha}`);
+            if (cardBody) {
+                cardBody.innerHTML += `
+                    <div class="row mb-2">
+                        <div class="col">
+                            <strong>${treino.nomeTreino}</strong>
+                        </div>
+                        <div class="col-auto">
+                            <span class="badge bg-info">${treino.series} séries</span>
+                        </div>
+                    </div>
+                `;
+            }
         }
     }
 }
