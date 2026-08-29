@@ -364,10 +364,6 @@ function exibeFichasTreinos() {
                                     <i class="fa-solid fa-dumbbell"></i>&nbsp;&nbsp;
                                     <strong>${exercicio.nomeExercicio}</strong>
                                 </div>
-
-                                <div class="col-auto">
-                                    <span class="badge rounded-pill bg-info">${exercicio.series} x ${exercicio.repeticoes}</span>
-                                </div>
                             </div>
                         </div>
 
@@ -379,6 +375,19 @@ function exibeFichasTreinos() {
                                 <div class="col-12 mb-3">
                                     <label class="labelText">Exercício</label>
                                     <input type="text" class="form-control" value="${exercicio.nomeExercicio || ''}" disabled >
+                                </div>
+
+                                <!-- SERIES -->
+                                <div class="col mb-3">
+                                    <label class="labelText">Séries</label>
+                                    <input type="number" class="form-control" value="${exercicio.series || ''}" disabled >
+                                </div>
+
+                                <!-- REPETIÇÕES -->
+                                <div class="col mb-3">
+                                    <label class="labelText">Repetições</label>
+
+                                    <input type="number" class="form-control" value="${exercicio.repeticoes || ''}" disabled >
                                 </div>
 
                                 <!-- PESO ATUAL -->
