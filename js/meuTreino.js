@@ -406,19 +406,7 @@ function mostraExerciciosTreino(idFicha, letra) {
 
     for (const exercicio of treino.exercicios) {
         area.innerHTML += `
-            <div class="row mb-2">
-                <div class="col">
-                    <div class="card">
-                        <div class="card-header bg-info text-light">
-                            <div class="row">
-                                <div class="col">
-                                    <span class="uppercase">${exercicio.nomeExercicio}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div class="row mb-1">teste</div>
         `;
     }
 }
@@ -764,14 +752,7 @@ function confirmaExercicioFicha(
     }
 
 
-    treino.exercicios.push({
-    id: exercicio.id,
-    nomeExercicio: exercicio.nomeExercicio,
-    series: exercicio.series,
-    repeticoes: exercicio.repeticoes,
-    pesoAtual: exercicio.pesoAtual,
-    maiorPeso: exercicio.maiorPeso
-});
+    treino.exercicios.push({id: exercicio.id, nome: exercicio.nomeExercicio});
     salvarFichasStorage();
     renderizarExerciciosTreino(tipoTreino);
 }
