@@ -297,6 +297,10 @@ function abreModal(escolha) {
     }
 }
 
+function exibeFichasTreinos(){
+    
+}
+
 /* =========================================================
    EXERCÍCIOS
 ========================================================= */
@@ -1160,6 +1164,3 @@ function salvaCadastroFinalExercicio(
     populaBtnExerciciosCadastrados();
 }
 
-function exibeFichasTreinos(){
-    
-}
