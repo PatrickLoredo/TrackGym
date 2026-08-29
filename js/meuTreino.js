@@ -117,14 +117,16 @@ function mostraDataAtual(idCampo) {
     campo.value = `${ano}-${mes}-${dia}`;
 }
 
-function mostrarDataCorrigida(data ,idCampoExibicao) {
+function mostrarDataCorrigida(data, idCampoExibicao) {
+
     const dataObj = new Date(data);
+
     const dia = String(dataObj.getDate()).padStart(2, '0');
     const mes = String(dataObj.getMonth() + 1).padStart(2, '0');
     const ano = dataObj.getFullYear();
 
-    let dataCorrigida = `${ano}-${mes}-${dia}`;
-    let dataExibicao = `${dia}/${mes}/${ano}`;
+    const dataCorrigida = `${ano}-${mes}-${dia}`;
+    const dataExibicao = `${dia}/${mes}/${ano}`;
 
     const campo = document.getElementById(idCampoExibicao);
 
@@ -134,6 +136,8 @@ function mostrarDataCorrigida(data ,idCampoExibicao) {
 
     console.log(dataCorrigida);
     console.log(dataExibicao);
+
+    return dataCorrigida;
 }
 
 /* =========================================================
