@@ -310,11 +310,17 @@ function exibeFichasTreinos(){
 
     for(let i=0;i<fichasCadastradas.length;i++){
         const ficha = fichasCadastradas[i];
+
         campoModalBody.innerHTML += `
             <div class="row mb-2">
                 <div class="col">
                     <div class="card">
-                        <div class="card-header bg-primary text-light">
+                        <div class="card-header bg-primary text-light"
+                            type="button"
+                            id="headerFicha${ficha.idFicha}"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#cardBodyFicha${ficha.idFicha}"
+                            onclick="mudaChevronExerciciosCadastrados('chevronFicha${ficha.idFicha}','headerFicha${ficha.idFicha}')">
                             <div class="row">
                                 <div class="col">
                                     <span class="uppercase">Ficha ${ficha.idFicha}</span>
@@ -324,7 +330,7 @@ function exibeFichasTreinos(){
                                 </div>
                             </div>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body collapse" id="cardBodyFicha${ficha.idFicha}">
                             <p><strong>Data Cadastro:</strong> ${ficha.dataCadastro}</p>
                             <p><strong>Data Início:</strong> ${ficha.dataInicio}</p>
                             <p><strong>Qtd Treinos:</strong> ${ficha.qtdSubfichas}</p>
