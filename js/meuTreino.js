@@ -408,7 +408,8 @@ function mostraExerciciosTreino(idFicha, letra) {
         area.innerHTML += `
             <div class="row mb-1">
                 <div class="col">
-                    <span class="badge rounded-pill bg-success py-2 w-100 uppercase">
+                    <span class="badge rounded-pill bg-success py-2 w-100 uppercase"
+                    type="button" data-bs-toggle="collapse" data-bs-target="#exercicio-${exercicio.id}">
                         <i class="fa-solid fa-dumbbell"></i>&nbsp;&nbsp;
                         <span>${exercicio.nome}</span>
                     </span>
@@ -417,7 +418,7 @@ function mostraExerciciosTreino(idFicha, letra) {
             <div class="row mb-2">
                 <div class="col">
                     <div class="card">
-                        <div class="card-body">
+                        <div class="card-body" id="exercicio-${exercicio.id}">
                             <div class="row">
                                 <div class="col-3 mb-2">
                                     <label class="labelText flexCenter">Séries</label>
