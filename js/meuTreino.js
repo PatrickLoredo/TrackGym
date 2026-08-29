@@ -325,302 +325,102 @@ function abreModal(escolha) {
        MINHAS FICHAS DE TREINAMENTO
     ===================================================== */
     if (escolha === 'Minhas Fichas de Treinamento') {
-        exibeFichasTreinos();
+        mostraTodasFichas();
     }
 }
 
-function exibeFichasTreinos() {
-
+function mostraTodasFichas(){
     const campo = document.getElementById('modalBody');
 
-    if (!campo) return;
-
-    campo.innerHTML = '';
-
-    for (let i = 0; i < fichasCadastradas.length; i++) {
-
+    for let i = 0; i < fichasCadastradas.length; i++) {
         const ficha = fichasCadastradas[i];
-
-        // ==========================================
-        // CRIA A FICHA
-        // ==========================================
-
         campo.innerHTML += `
-
             <div class="row mb-3">
-
                 <div class="col">
-
                     <div class="card">
-
-                        <!-- HEADER DA FICHA -->
-
-                        <div
-                            class="card-header bg-primary text-light"
-                            type="button"
-                            data-bs-toggle="collapse"
-                            data-bs-target="#bodyFicha${ficha.idFicha}"
-                        >
-
+                        <div class="card-header bg-primary text-light" type="button" 
+                        data-bs-toggle="collapse" data-bs-target="#ficha-${ficha.idFicha}"
+                        onclick="mostraTodosTreinosFicha('${ficha.idFicha}')">
                             <div class="row">
-
                                 <div class="col">
-
-                                    <span class="uppercase">
-                                        Ficha: ${ficha.idFicha}
-                                    </span>
-
+                                    <span class="uppercase">${ficha.idFicha}</span>
                                 </div>
-
                                 <div class="col-auto">
-
-                                    <span class="rounded-pill bg-success px-2 py-1">
-
-                                        ${ficha.statusFicha}
-
-                                    </span>
-
+                                    <span class="rounded-pill bg-success px-2 py-1">${ficha.statusFicha}</span>
                                 </div>
-
                             </div>
-
                         </div>
-
-
-                        <!-- BODY DA FICHA -->
-
-                        <div
-                            class="card-body collapse"
-                            id="bodyFicha${ficha.idFicha}"
-                        >
-
-                        </div>
-
+                        <div class="card-body" id="ficha-${ficha.idFicha}"></div>
                     </div>
-
                 </div>
-
             </div>
+        </div>
+    `
+}}
 
-        `;
+function mostraTodosTreinosFicha(idFicha) {
+    const ficha = fichasCadastradas.find(ficha => ficha.idFicha === idFicha);
+    if (!ficha) return;
 
-        // ==========================================
-        // LOCALIZA BODY DA FICHA
-        // ==========================================
+    const area = document.getElementById(`ficha-${idFicha}`);
+    if (!area) return;
 
-        const bodyFicha =
-            document.getElementById(`bodyFicha${ficha.idFicha}`);
+    area.innerHTML = '';
 
-        if (!bodyFicha) continue;
-
-
-        // ==========================================
-        // PERCORRE OS TREINOS DA FICHA
-        // ==========================================
-
-        for (const [letraTreino, treino] of Object.entries(ficha.treinos)) {
-
-            bodyFicha.innerHTML += `
-
-                <div class="card mb-3">
-
-                    <!-- HEADER DO TREINO -->
-
-                    <div
-                        class="card-header bg-dark text-light"
-                        type="button"
-
-                        data-bs-toggle="collapse"
-
-                        data-bs-target="#bodyTreino${ficha.idFicha}_${letraTreino}"
-                    >
-
-                        <div class="row">
-
-                            <div class="col">
-
-                                <span class="uppercase">
-                                    Treino ${letraTreino}
-                                </span>
-
-                            </div>
-
-                            <div class="col-auto">
-
-                                <span class="rounded-pill bg-success px-2 py-1">
-
-                                    Exercícios:
-                                    ${treino.exercicios.length}
-
-                                </span>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- BODY DO TREINO -->
-
-                    <div
-                        class="card-body collapse"
-                        id="bodyTreino${ficha.idFicha}_${letraTreino}"
-                    >
-
-                    </div>
-
-                </div>
-
-            `;
-
-
-            // ==========================================
-            // LOCALIZA BODY DO TREINO
-            // ==========================================
-
-            const bodyTreino =
-                document.getElementById(
-                    `bodyTreino${ficha.idFicha}_${letraTreino}`
-                );
-
-            if (!bodyTreino) continue;
-
-
-            // ==========================================
-            // PERCORRE OS EXERCÍCIOS
-            // ==========================================
-
-            for (let k = 0; k < treino.exercicios.length; k++) {
-
-                const exercicio = treino.exercicios[k];
-
-                bodyTreino.innerHTML += `
-
-                    <div class="card mb-2">
-
-                        <!-- HEADER DO EXERCÍCIO -->
-
-                        <div
-                            class="card-header bg-secondary text-light"
-                            type="button"
-
-                            data-bs-toggle="collapse"
-
-                            data-bs-target="#bodyExercicio${ficha.idFicha}_${letraTreino}_${k}"
-                        >
-
-                            <span class="uppercase">
-
-                                ${exercicio.nomeExercicio}
-
-                            </span>
-
-                        </div>
-
-
-                        <!-- BODY DO EXERCÍCIO -->
-
-                        <div
-                            class="card-body collapse"
-                            id="bodyExercicio${ficha.idFicha}_${letraTreino}_${k}"
-                        >
-
+    for (let i = 0; i < ficha.qtdSubfichas; i++) {
+        const letra = treinos[i];
+        const treino = ficha.treinos[letra];
+        
+        area.innerHTML += `
+            <div class="row mb-2">
+                <div class="col">
+                    <div class="card">
+                        <div class="card-header bg-secondary text-light"
+                        type="button" data-bs-toggle="collapse" data-bs-target="#treino-${idFicha}-${letra}"
+                        onclick="mostraExerciciosTreino('${idFicha}','${letra}')">
                             <div class="row">
-
-                                <div class="col-12 mb-2">
-
-                                    <label class="labelText">
-                                        Exercício
-                                    </label>
-
-                                    <input
-                                        type="text"
-                                        class="form-control"
-                                        value="${exercicio.nomeExercicio || ''}"
-                                        disabled
-                                    >
-
+                                <div class="col">
+                                    <span class="uppercase">Treino ${letra}</span>
                                 </div>
-
-
-                                <div class="col mb-2">
-
-                                    <label class="labelText">
-                                        Séries
-                                    </label>
-
-                                    <input
-                                        type="number"
-                                        class="form-control"
-                                        value="${exercicio.series || ''}"
-                                        disabled
-                                    >
-
-                                </div>
-
-
-                                <div class="col mb-2">
-
-                                    <label class="labelText">
-                                        Repetições
-                                    </label>
-
-                                    <input
-                                        type="number"
-                                        class="form-control"
-                                        value="${exercicio.repeticoes || ''}"
-                                        disabled
-                                    >
-
-                                </div>
-
-
-                                <div class="col mb-2">
-
-                                    <label class="labelText">
-                                        Peso Atual
-                                    </label>
-
-                                    <input
-                                        type="number"
-                                        class="form-control"
-                                        value="${exercicio.pesoAtual || ''}"
-                                        disabled
-                                    >
-
-                                </div>
-
-
-                                <div class="col mb-2">
-
-                                    <label class="labelText">
-                                        Peso Máximo
-                                    </label>
-
-                                    <input
-                                        type="number"
-                                        class="form-control"
-                                        value="${exercicio.maiorPeso || ''}"
-                                        disabled
-                                    >
-
-                                </div>
-
                             </div>
-
                         </div>
-
+                        <div class="card-body collapse" id="treino-${idFicha}-${letra}"></div>
                     </div>
-
-                `;
-
-            }
-
-        }
-
+                </div>
+            </div>
+        `;
     }
+}
 
+function mostraExerciciosTreino(idFicha, letra) {
+    const ficha = fichasCadastradas.find(ficha => ficha.idFicha === idFicha);
+    if (!ficha) return;
+
+    const area = document.getElementById(`treino-${idFicha}-${letra}`);
+    if (!area) return;
+
+    area.innerHTML = '';
+
+    const treino = ficha.treinos[letra];
+    if (!treino) return;
+
+    for (const exercicio of treino.exercicios) {
+        area.innerHTML += `
+            <div class="row mb-2">
+                <div class="col">
+                    <div class="card">
+                        <div class="card-header bg-info text-light">
+                            <div class="row">
+                                <div class="col">
+                                    <span class="uppercase">${exercicio.nomeExercicio}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
 }
 
 /* =========================================================
@@ -934,8 +734,8 @@ function adicionaExerciciosFicha(idSelect,tipoTreino) {
 /* =========================================================
    CONFIRMAR EXERCÍCIO
 ========================================================= */
-function confirmaExercicioFicha(tipoTreino) {
-
+function confirmaExercicioFicha(
+    tipoTreino) {
     const select = document.getElementById(`selectExercicio_${tipoTreino}`);
 
     if (!select || !select.value) {
@@ -944,10 +744,7 @@ function confirmaExercicioFicha(tipoTreino) {
     }
 
     const idExercicio = select.value;
-
-    const exercicio = exerciciosCadastrados.find(
-        exercicio => exercicio.id === idExercicio
-    );
+    const exercicio = exerciciosCadastrados.find(exercicio =>exercicio.id === idExercicio);
 
     if (!exercicio) return;
 
@@ -959,27 +756,16 @@ function confirmaExercicioFicha(tipoTreino) {
     }
 
     const treino = ficha.treinos[tipoTreino];
-
-    const jaExiste = treino.exercicios.some(
-        exercicio => exercicio.id === idExercicio
-    );
+    const jaExiste = treino.exercicios.some(exercicio =>exercicio.id === idExercicio);
 
     if (jaExiste) {
         alert('Este exercício já está neste treino.');
         return;
     }
 
-    treino.exercicios.push({
-        id: exercicio.id,
-        nomeExercicio: exercicio.nomeExercicio,
-        series: exercicio.series,
-        repeticoes: exercicio.repeticoes,
-        pesoAtual: exercicio.pesoAtual,
-        maiorPeso: exercicio.maiorPeso
-    });
 
+    treino.exercicios.push({id: exercicio.id, nome: exercicio.nomeExercicio});
     salvarFichasStorage();
-
     renderizarExerciciosTreino(tipoTreino);
 }
 
