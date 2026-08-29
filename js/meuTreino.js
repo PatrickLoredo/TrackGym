@@ -130,6 +130,8 @@ function mostrarDataCorrigida(data ,idCampoExibicao) {
     if (campo) {
         campo.value = dataCorrigida;
     }
+
+    console.log(dataCorrigida);
 }
 
 /* =========================================================
