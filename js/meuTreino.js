@@ -382,6 +382,13 @@ function exibeFichasTreinos() {
                                 </div>
                             </div>
                         </div>
+
+                        <div class="card-footer">
+                            <button class="btn btn-sm btn-danger" onclick="if(confirm('Deseja realmente excluir a ficha ${ficha.idFicha}?')) { fichasCadastradas.splice(${i}, 1); salvarFichasStorage(); exibeFichasTreinos(); }">
+                                <i class="fa fa-trash"></i>&nbsp;
+                                <span class="font-button">Excluir</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
