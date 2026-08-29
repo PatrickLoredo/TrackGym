@@ -330,56 +330,274 @@ function abreModal(escolha) {
 }
 
 function exibeFichasTreinos() {
+
     const campoModalBody = document.getElementById('modalBody');
+
     if (!campoModalBody) return;
+
     let htmlFichas = '';
 
     for (let i = 0; i < fichasCadastradas.length; i++) {
+
         const ficha = fichasCadastradas[i];
 
         let htmlTreinos = '';
 
-        for (let j = 0; j < fichasCadastradas[i].treinos.length; j++) {
-            const treino = fichasCadastradas[i].treinos[j];
+        // ==========================================
+        // TREINOS DA FICHA
+        // ==========================================
+
+        for (let j = 0; j < ficha.treinos.length; j++) {
+
+            const treino = ficha.treinos[j];
+
+            let htmlExercicios = '';
+
+            // ==========================================
+            // EXERCÍCIOS DO TREINO
+            // ==========================================
+
+            for (let k = 0; k < treino.exercicios.length; k++) {
+
+                const exercicio = treino.exercicios[k];
+
+                htmlExercicios += `
+                    
+                    <div class="row mb-3">
+
+                        <!-- NOME DO EXERCÍCIO -->
+                        <div class="col-12 mb-2">
+
+                            <label class="labelText">
+                                Exercício
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-control"
+                                value="${exercicio.nomeExercicio}"
+                                disabled
+                            >
+
+                        </div>
+
+
+                        <!-- SÉRIES -->
+                        <div class="col">
+
+                            <label class="labelText">
+                                Séries
+                            </label>
+
+                            <input
+                                type="number"
+                                class="form-control"
+                                value="${exercicio.series}"
+                                disabled
+                            >
+
+                        </div>
+
+
+                        <!-- REPETIÇÕES -->
+                        <div class="col">
+
+                            <label class="labelText">
+                                Repetições
+                            </label>
+
+                            <input
+                                type="number"
+                                class="form-control"
+                                value="${exercicio.repeticoes}"
+                                disabled
+                            >
+
+                        </div>
+
+
+                        <!-- PESO ATUAL -->
+                        <div class="col">
+
+                            <label class="labelText">
+                                Peso Atual
+                            </label>
+
+                            <input
+                                type="number"
+                                class="form-control"
+                                value="${exercicio.pesoAtual}"
+                                disabled
+                            >
+
+                        </div>
+
+
+                        <!-- PESO MÁXIMO -->
+                        <div class="col">
+
+                            <label class="labelText">
+                                Peso Máximo
+                            </label>
+
+                            <input
+                                type="number"
+                                class="form-control"
+                                value="${exercicio.pesoMaximo}"
+                                disabled
+                            >
+
+                        </div>
+
+                    </div>
+
+                `;
+            }
+
+
+            // ==========================================
+            // CARD DO TREINO
+            // ==========================================
 
             htmlTreinos += `
-                <div class="row mb-2">
-                    <div class="col">
-                        <strong>${treino.nomeTreino}</strong>
+
+                <div class="card mb-3">
+
+                    <!-- HEADER DO TREINO -->
+
+                    <div
+                        class="card-header bg-secondary text-light"
+                        type="button"
+
+                        id="headerTreino_${ficha.idFicha}_${j}"
+
+                        data-bs-toggle="collapse"
+
+                        data-bs-target="#cardBodyTreino_${ficha.idFicha}_${j}"
+
+                    >
+
+                        <div class="row">
+
+                            <div class="col">
+
+                                <strong>
+                                    ${treino.nomeTreino}
+                                </strong>
+
+                            </div>
+
+                            <div class="col-auto">
+
+                                <span class="badge rounded-pill bg-info">
+
+                                    ${treino.exercicios.length}
+                                    exercícios
+
+                                </span>
+
+                            </div>
+
+                        </div>
+
                     </div>
-                    <div class="col-auto">
-                        <span class="badge bg-info">${treino.series} séries</span>
+
+
+                    <!-- BODY DO TREINO -->
+
+                    <div
+                        class="card-body collapse"
+                        id="cardBodyTreino_${ficha.idFicha}_${j}"
+                    >
+
+                        ${htmlExercicios}
+
                     </div>
+
                 </div>
+
             `;
         }
 
+
+        // ==========================================
+        // CARD DA FICHA
+        // ==========================================
+
         htmlFichas += `
+
             <div class="row mb-3">
+
                 <div class="col">
-                    <div class="card" id="cardFicha_${ficha.idFicha}">
-                        <div class="card-header bg-dark text-light" type="button" id="headerFicha_${ficha.idFicha}"
+
+                    <div
+                        class="card"
+                        id="cardFicha_${ficha.idFicha}"
+                    >
+
+                        <!-- HEADER DA FICHA -->
+
+                        <div
+                            class="card-header bg-dark text-light"
+                            type="button"
+
+                            id="headerFicha_${ficha.idFicha}"
+
                             data-bs-toggle="collapse"
+
                             data-bs-target="#cardBodyFicha_${ficha.idFicha}"
-                            onclick="mudaChevronExerciciosCadastrados( 'chevronFicha${ficha.idFicha}', 'cardFicha_${ficha.idFicha}' )">
+                        >
 
                             <div class="row">
+
                                 <div class="col">
-                                    <span class="uppercase">Ficha ${ficha.idFicha}</span>
+
+                                    <strong>
+                                        Ficha ${ficha.idFicha}
+                                    </strong>
+
                                 </div>
 
                                 <div class="col-auto">
-                                    <span class="badge rounded-pill bg-success">${ficha.statusFicha}</span>
+
+                                    <span
+                                        class="badge rounded-pill bg-success"
+                                    >
+                                        ${ficha.statusFicha}
+                                    </span>
+
                                 </div>
+
                             </div>
+
                         </div>
 
-                        <div class="card-body collapse" id="cardBodyFicha_${ficha.idFicha}">${htmlTreinos}</div>
+
+                        <!-- BODY DA FICHA -->
+
+                        <div
+                            class="card-body collapse"
+                            id="cardBodyFicha_${ficha.idFicha}"
+                        >
+
+                            ${htmlTreinos}
+
+                        </div>
+
                     </div>
+
                 </div>
+
             </div>
+
         `;
     }
+
+
+    // ==========================================
+    // INSERE TUDO NO MODAL
+    // ==========================================
+
     campoModalBody.innerHTML = htmlFichas;
 }
 
