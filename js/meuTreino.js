@@ -331,323 +331,37 @@ function abreModal(escolha) {
 
 function exibeFichasTreinos() {
 
-    const campoModalBody = document.getElementById('modalBody');
+    for (let i = 0; i < fichasCadastradas.length; i++) {
 
-    if (!campoModalBody) return;
+        const ficha = fichasCadastradas[i];
 
-    let htmlFichas = '';
+        console.log('======================');
+        console.log('FICHA:', ficha.idFicha);
 
-    fichasCadastradas.forEach(ficha => {
-
-        let htmlTreinos = '';
-
-        // =====================================================
+        // ==========================================
         // TREINOS DA FICHA
-        // =====================================================
+        // ==========================================
 
-        Object.entries(ficha.treinos).forEach(([letraTreino, treino]) => {
+        for (const [letraTreino, treino] of Object.entries(ficha.treinos)) {
 
-            let htmlExercicios = '';
+            console.log('TREINO:', letraTreino);
 
-            // =================================================
+            // ======================================
             // EXERCÍCIOS DO TREINO
-            // =================================================
+            // ======================================
 
-            treino.exercicios.forEach((exercicio, indiceExercicio) => {
+            for (let k = 0; k < treino.exercicios.length; k++) {
 
-                htmlExercicios += `
+                const exercicio = treino.exercicios[k];
 
-                    <div class="card mb-3">
+                console.log('EXERCÍCIO:', exercicio);
 
-                        <!-- HEADER DO EXERCÍCIO -->
+            }
 
-                        <div
-                            class="card-header bg-primary text-light"
-                            type="button"
-                            id="headerExercicio_${ficha.idFicha}_${letraTreino}_${indiceExercicio}"
-                            data-bs-toggle="collapse"
-                            data-bs-target="#cardBodyExercicio_${ficha.idFicha}_${letraTreino}_${indiceExercicio}"
-                        >
+        }
 
-                            <div class="row">
+    }
 
-                                <div class="col">
-
-                                    <i class="fa-solid fa-dumbbell"></i>
-                                    &nbsp;&nbsp;
-
-                                    <strong>
-                                        ${exercicio.nomeExercicio}
-                                    </strong>
-
-                                </div>
-
-                                <div class="col-auto">
-
-                                    <span class="badge rounded-pill bg-info">
-
-                                        ${exercicio.series} séries
-
-                                    </span>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-
-                        <!-- BODY DO EXERCÍCIO -->
-
-                        <div
-                            class="card-body collapse"
-                            id="cardBodyExercicio_${ficha.idFicha}_${letraTreino}_${indiceExercicio}"
-                        >
-
-                            <div class="row">
-
-                                <!-- NOME -->
-
-                                <div class="col-12 mb-3">
-
-                                    <label class="labelText">
-                                        Exercício
-                                    </label>
-
-                                    <input
-                                        type="text"
-                                        class="form-control"
-                                        value="${exercicio.nomeExercicio || ''}"
-                                        disabled
-                                    >
-
-                                </div>
-
-
-                                <!-- SÉRIES -->
-
-                                <div class="col mb-3">
-
-                                    <label class="labelText">
-                                        Séries
-                                    </label>
-
-                                    <input
-                                        type="number"
-                                        class="form-control"
-                                        value="${exercicio.series || ''}"
-                                        disabled
-                                    >
-
-                                </div>
-
-
-                                <!-- REPETIÇÕES -->
-
-                                <div class="col mb-3">
-
-                                    <label class="labelText">
-                                        Repetições
-                                    </label>
-
-                                    <input
-                                        type="number"
-                                        class="form-control"
-                                        value="${exercicio.repeticoes || ''}"
-                                        disabled
-                                    >
-
-                                </div>
-
-
-                                <!-- PESO ATUAL -->
-
-                                <div class="col mb-3">
-
-                                    <label class="labelText">
-                                        Peso Atual
-                                    </label>
-
-                                    <input
-                                        type="number"
-                                        class="form-control"
-                                        value="${exercicio.pesoAtual || ''}"
-                                        disabled
-                                    >
-
-                                </div>
-
-
-                                <!-- PESO MÁXIMO -->
-
-                                <div class="col mb-3">
-
-                                    <label class="labelText">
-                                        Peso Máximo
-                                    </label>
-
-                                    <input
-                                        type="number"
-                                        class="form-control"
-                                        value="${exercicio.maiorPeso || ''}"
-                                        disabled
-                                    >
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                `;
-            });
-
-
-            // =================================================
-            // CARD DO TREINO
-            // =================================================
-
-            htmlTreinos += `
-
-                <div class="card mb-3">
-
-                    <!-- HEADER DO TREINO -->
-
-                    <div
-                        class="card-header bg-secondary text-light"
-                        type="button"
-                        id="headerTreino_${ficha.idFicha}_${letraTreino}"
-
-                        data-bs-toggle="collapse"
-
-                        data-bs-target="#cardBodyTreino_${ficha.idFicha}_${letraTreino}"
-                    >
-
-                        <div class="row">
-
-                            <div class="col">
-
-                                <strong>
-                                    Treino ${letraTreino}
-                                </strong>
-
-                            </div>
-
-                            <div class="col-auto">
-
-                                <span class="badge rounded-pill bg-info">
-
-                                    ${treino.exercicios.length}
-                                    exercícios
-
-                                </span>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- BODY DO TREINO -->
-
-                    <div
-                        class="card-body collapse"
-                        id="cardBodyTreino_${ficha.idFicha}_${letraTreino}"
-                    >
-
-                        ${htmlExercicios}
-
-                    </div>
-
-                </div>
-
-            `;
-
-        });
-
-
-        // =====================================================
-        // CARD DA FICHA
-        // =====================================================
-
-        htmlFichas += `
-
-            <div class="row mb-3">
-
-                <div class="col">
-
-                    <div
-                        class="card"
-                        id="cardFicha_${ficha.idFicha}"
-                    >
-
-                        <!-- HEADER DA FICHA -->
-
-                        <div
-                            class="card-header bg-dark text-light"
-                            type="button"
-
-                            id="headerFicha_${ficha.idFicha}"
-
-                            data-bs-toggle="collapse"
-
-                            data-bs-target="#cardBodyFicha_${ficha.idFicha}"
-                        >
-
-                            <div class="row">
-
-                                <div class="col">
-
-                                    <strong>
-                                        Ficha ${ficha.idFicha}
-                                    </strong>
-
-                                </div>
-
-                                <div class="col-auto">
-
-                                    <span class="badge rounded-pill bg-success">
-
-                                        ${ficha.statusFicha}
-
-                                    </span>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-
-                        <!-- BODY DA FICHA -->
-
-                        <div
-                            class="card-body collapse"
-                            id="cardBodyFicha_${ficha.idFicha}"
-                        >
-
-                            ${htmlTreinos}
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        `;
-    });
-
-
-    // =====================================================
-    // INSERE TUDO NO MODAL
-    // =====================================================
-
-    campoModalBody.innerHTML = htmlFichas;
 }
 
 /* =========================================================
