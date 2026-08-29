@@ -330,37 +330,50 @@ function abreModal(escolha) {
 }
 
 function exibeFichasTreinos() {
-
     for (let i = 0; i < fichasCadastradas.length; i++) {
-
+        const campo = document.getElementById('modalBody');
         const ficha = fichasCadastradas[i];
 
-        console.log('======================');
-        console.log('FICHA:', ficha.idFicha);
+        campo.innerHTML += `
+            <div class="row mb-3">
+                <div class="col">
+                    <div class="card">
+                        <div class="card-header bg-primary text-light">
+                            <div class="row">
+                                <div class="col">
+                                    <span class="uppercase">Ficha: ${ficha.idFicha}</span>
+                                </div>
+                                <div class="col-auto">
+                                    <span class="rounded-pill bg-success px-2 py-1">
+                                        ${ficha.statusFicha}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body" id="bodyFicha${ficha.idFicha}"></div>
+                    </div>
+                </div>
+            </div>
+        `;
 
-        // ==========================================
-        // TREINOS DA FICHA
-        // ==========================================
-
-        for (const [letraTreino, treino] of Object.entries(ficha.treinos)) {
-
-            console.log('TREINO:', letraTreino);
-
-            // ======================================
-            // EXERCÍCIOS DO TREINO
-            // ======================================
-
-            for (let k = 0; k < treino.exercicios.length; k++) {
-
-                const exercicio = treino.exercicios[k];
-
-                console.log('EXERCÍCIO:', exercicio);
-
+        const bodyFicha = document.getElementById(`bodyFicha${ficha.idFicha}`);
+        if (bodyFicha) {
+            for(let j = 0; j < treinos.length; j++) {
+                const treino = treinos[j];
+                if (ficha.treinos[treino]) {
+                    bodyFicha.innerHTML += `
+                        <div class="row mb-2">
+                            <div class="col">
+                                <span class="badge rounded-pill bg-success py-2 w-100 uppercase">
+                                    Treino ${treino} - Exercícios: ${ficha.treinos[treino].exercicios.length}
+                                </span>
+                            </div>
+                        </div>
+                    `;
+                }
             }
-
+                
         }
-
-    }
 
 }
 
