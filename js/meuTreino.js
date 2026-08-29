@@ -341,13 +341,16 @@ function exibeFichasTreinos() {
             <div class="row mb-3">
                 <div class="col">
                     <div class="card" id="cardFicha_${fichasCadastradas[i].idFicha}">
-                        <div class="card-header bg-primary text-light">
+                        <div class="card-header bg-primary text-light"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#cardBodyFicha_${fichasCadastradas[i].idFicha}"
+                        onclick="mudaChevronExerciciosCadastrados('chevronFicha${fichasCadastradas[i].idFicha}','cardFicha_${fichasCadastradas[i].idFicha}')">
                             <div class="row">
                                 <div class="col">
                                     <span class="uppercase">Ficha ${fichasCadastradas[i].idFicha}</span>
                                 </div>
                                 <div class="col-auto">
-                                    span class="badge rounded-pill bg-success">
+                                    <span class="badge rounded-pill bg-success">
                                         ${fichasCadastradas[i].statusFicha}
                                     </span>
                                 </div>
