@@ -119,28 +119,26 @@ function mostraDataAtual(idCampo) {
 
 function mostrarDataCorrigida(data, idCampoExibicao) {
 
-    console.log('Data recebida:', data);
-    console.log('ID procurado:', idCampoExibicao);
+    if (!data) {
+        console.error('Data não informada:', data);
+        return;
+    }
 
-    const dataObj = new Date(data);
-
-    console.log('Data objeto:', dataObj);
-    console.log('Data válida:', !isNaN(dataObj));
-
-    const dia = String(dataObj.getDate()).padStart(2, '0');
-    const mes = String(dataObj.getMonth() + 1).padStart(2, '0');
-    const ano = dataObj.getFullYear();
+    // Data no formato YYYY-MM-DD
+    const [ano, mes, dia] = data.split('-');
 
     const dataCorrigida = `${ano}-${mes}-${dia}`;
+    const dataExibicao = `${dia}/${mes}/${ano}`;
 
     const campo = document.getElementById(idCampoExibicao);
-
-    console.log('Campo encontrado:', campo);
-    console.log('Data corrigida:', dataCorrigida);
 
     if (campo) {
         campo.value = dataCorrigida;
     }
+
+    console.log('Data recebida:', data);
+    console.log('Data corrigida:', dataCorrigida);
+    console.log('Data para exibição:', dataExibicao);
 }
 
 /* =========================================================
