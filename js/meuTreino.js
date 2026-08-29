@@ -99,8 +99,35 @@ function salvarExerciciosStorage() {
 }
 
 // [OK] - Salva as Fichas no LocalStorage
-function salvarFichasStorage() {
-    localStorage.setItem(STORAGE.fichas,JSON.stringify(fichasCadastradas));
+function salvarFichaStorage(ficha) {
+
+    if (!ficha) {
+        console.error('Ficha inválida.');
+        return false;
+    }
+
+    const fichas =
+        JSON.parse(localStorage.getItem('fichasTreinamento')) || [];
+
+    const indice = fichas.findIndex(
+        fichaExistente => fichaExistente.idFicha === ficha.idFicha
+    );
+
+    if (indice === -1) {
+
+        fichas.push(ficha);
+
+    } else {
+
+        fichas[indice] = ficha;
+    }
+
+    localStorage.setItem(
+        'fichasTreinamento',
+        JSON.stringify(fichas)
+    );
+
+    return true;
 }
 
 /* =========================================================
@@ -329,6 +356,13 @@ function abreModal(escolha) {
     }
 }
 
+function carregarFichasStorage() {
+
+    return JSON.parse(
+        localStorage.getItem('fichasTreinamento')
+    ) || [];
+}
+
 function mostraTodasFichas(){
     const campo = document.getElementById('modalBody');
 
@@ -425,6 +459,10 @@ function mostraExerciciosTreino(idFicha, letra) {
                                     <input type="number" class="form-control" value="${exercicio.series}" disabled>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         `;
     }
 }
@@ -433,11 +471,12 @@ function mostraExerciciosTreino(idFicha, letra) {
    EXERCÍCIOS
 ========================================================= */
 function salvarCadastroExercicio() {
+
     const id = document.getElementById('idCadastroNovoExercicio').value;
     const dataCadastro = document.getElementById('dataCadastroNovoExercicio').value;
     const series = document.getElementById('seriesCadastroNovoExercicio').value;
     const repeticoes = document.getElementById('repeticoesCadastroNovoExercicio').value;
-    const nome = ocument.getElementById('nomeCadastroNovoExercicio').value.trim();
+    const nome = document.getElementById('nomeCadastroNovoExercicio').value.trim();
     const maiorPeso = document.getElementById('maiorPesoCadastroNovoExercicio').value;
     const pesoAtual = document.getElementById('pesoAtualCadastroNovoExercicio').value;
     const dificuldade = document.getElementById('dificuldadeCadastroNovoExercicio').value;
@@ -447,35 +486,43 @@ function salvarCadastroExercicio() {
         return;
     }
 
-    const existe = exerciciosCadastrados.some(exercicio => 
+    const existe = exerciciosCadastrados.some(exercicio =>
         exercicio.nomeExercicio.toLowerCase() === nome.toLowerCase()
-        );
+    );
 
     if (existe) {
         alert('Este exercício já está cadastrado.');
         return;
     }
 
-    const exercicio =
-        new ExercicioAcademia(
-            id,
-            dataCadastro,
-            series,
-            repeticoes,
-            nome,
-            maiorPeso,
-            pesoAtual,
-            dificuldade
-        );
+    const exercicio = new ExercicioAcademia(
+        id,
+        dataCadastro,
+        series,
+        repeticoes,
+        nome,
+        maiorPeso,
+        pesoAtual,
+        dificuldade
+    );
 
+    // Adiciona na base mestre
     exerciciosCadastrados.push(exercicio);
+
+    // Guarda o ID
     idsCadastradosExercicios.push(id);
+
+    // Persiste no LocalStorage
     salvarExerciciosStorage();
+
     alert(`Exercício "${nome}" cadastrado com sucesso!`);
 
     if (confirm('Deseja cadastrar outro exercício?')) {
+
         limparCamposExercicio();
+
     } else {
+
         document.getElementById('x-timesCadastro').click();
     }
 }
@@ -646,16 +693,47 @@ function obterFichaEmEdicao() {
     return fichasCadastradas.find(ficha => ficha.idFicha === id);
 }
 
+function criarExercicioParaFicha(idExercicio) {
+
+    const exercicioBase = buscarExercicioPorId(idExercicio);
+
+    if (!exercicioBase) {
+        console.error(`Exercício ${idExercicio} não encontrado.`);
+        return null;
+    }
+
+    return {
+        idExercicio: exercicioBase.id,
+
+        nomeExercicio: exercicioBase.nomeExercicio,
+
+        series: exercicioBase.series,
+
+        repeticoes: exercicioBase.repeticoes,
+
+        peso: exercicioBase.pesoAtual,
+
+        maiorPeso: exercicioBase.maiorPeso,
+
+        dificuldade: exercicioBase.dificuldade
+    };
+}
 
 /* =========================================================
    CRIAR FICHA TEMPORÁRIA
 ========================================================= */
 function criarEstruturaFicha(qtdTreinos) {
+
     const treinosFicha = {};
 
-    for (let i = 0;i < qtdTreinos;i++) {
-        const letra = treinos[i];
-        treinosFicha[letra] = { categorias: [], exercicios: []};
+    for (let i = 0; i < qtdTreinos; i++) {
+
+        const letra = String.fromCharCode(65 + i);
+
+        treinosFicha[letra] = {
+            categorias: [],
+            exercicios: []
+        };
     }
 
     return treinosFicha;
@@ -700,40 +778,50 @@ function criarFicha() {
     alert(`Ficha ${idFicha} criada com sucesso!`);
 }
 
+function buscarExercicioPorId(idExercicio) {
+
+    return exerciciosCadastrados.find(
+        exercicio => exercicio.id === idExercicio
+    );
+}
 
 /* =========================================================
    ADICIONAR EXERCÍCIO
 ========================================================= */
 
-function adicionaExerciciosFicha(idSelect,tipoTreino) {
-    const campo =document.getElementById(idSelect);
+function adicionarExercicioNaFicha(ficha, letraTreino, idExercicio) {
 
-    if (!campo) return;
+    if (!ficha || !ficha.treinos) {
+        console.error('Ficha inválida.');
+        return false;
+    }
 
-    campo.innerHTML = `
-        <div class="row mb-2">
-            <div class="col input-group">
-                <select class="form-select" id="selectExercicio_${tipoTreino}">
-                    <option value="">Selecione um exercício</option>
-                </select>
+    if (!ficha.treinos[letraTreino]) {
+        console.error(`Treino ${letraTreino} não existe na ficha.`);
+        return false;
+    }
 
-                <button class="btn btn-success" onclick="confirmaExercicioFicha('${tipoTreino}')">
-                    <i class="fa fa-check"></i>
-                </button>
-            </div>
-        </div>
-    `;
+    const exercicioFicha = criarExercicioParaFicha(idExercicio);
 
-    const select = document.getElementById(`selectExercicio_${tipoTreino}`);
+    if (!exercicioFicha) {
+        return false;
+    }
 
-    exerciciosCadastrados.forEach(exercicio => {
-            select.innerHTML += `
-                <option value="${exercicio.id}">
-                    ${exercicio.nomeExercicio}
-                </option>
-            `;
-        }
+    const exercicios = ficha.treinos[letraTreino].exercicios;
+
+    // Impede duplicação no mesmo treino
+    const existe = exercicios.some(
+        exercicio => exercicio.idExercicio === idExercicio
     );
+
+    if (existe) {
+        alert('Este exercício já está cadastrado neste treino.');
+        return false;
+    }
+
+    exercicios.push(exercicioFicha);
+
+    return true;
 }
 
 
