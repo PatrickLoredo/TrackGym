@@ -124,7 +124,6 @@ function mostrarDataCorrigida(data, idCampoExibicao) {
         return;
     }
 
-    // Data no formato YYYY-MM-DD
     const [ano, mes, dia] = data.split('-');
 
     const dataCorrigida = `${ano}-${mes}-${dia}`;
@@ -134,6 +133,8 @@ function mostrarDataCorrigida(data, idCampoExibicao) {
 
     if (campo) {
         campo.value = dataCorrigida;
+
+        console.log('VALOR DO INPUT:', campo.value);
     }
 
     console.log('Data recebida:', data);
