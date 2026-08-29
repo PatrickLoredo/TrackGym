@@ -124,6 +124,7 @@ function mostrarDataCorrigida(data ,idCampoExibicao) {
     const ano = dataObj.getFullYear();
 
     let dataCorrigida = `${ano}-${mes}-${dia}`;
+    let dataExibicao = `${dia}/${mes}/${ano}`;
 
     const campo = document.getElementById(idCampoExibicao);
 
@@ -132,6 +133,7 @@ function mostrarDataCorrigida(data ,idCampoExibicao) {
     }
 
     console.log(dataCorrigida);
+    console.log(dataExibicao);
 }
 
 /* =========================================================
