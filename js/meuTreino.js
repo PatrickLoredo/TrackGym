@@ -1,13 +1,14 @@
 /* =========================================================
    CONFIGURAÇÕES
 ========================================================= */
-
+// [OK] - Chaves do LocalStorage
 const STORAGE = {
     exercicios: 'exercicioAcademia',
     idsExercicios: 'idsExercicios',
     fichas: 'fichaExercicio'
 };
 
+// [OK] - Categorias de exercícios
 const categoriasExercicios = [
     'trapézio',
     'ombro',
@@ -22,30 +23,25 @@ const categoriasExercicios = [
     'aeróbico'
 ];
 
+// [OK] - Categorias de Fichas
 const treinos = [
     'A', 'B', 'C', 'D', 'E',
     'F', 'G', 'H', 'I', 'J',
     'K', 'L', 'M', 'N', 'O'
 ];
 
-let exerciciosCadastrados =
-    JSON.parse(localStorage.getItem(STORAGE.exercicios)) || [];
-
-let idsCadastradosExercicios =
-    JSON.parse(localStorage.getItem(STORAGE.idsExercicios)) || [];
-
-let fichasCadastradas =
-    JSON.parse(localStorage.getItem(STORAGE.fichas)) || [];
+// [OK] - Arrays de exercícios, ids de Exercicios e fichas cadastradas
+let exerciciosCadastrados = JSON.parse(localStorage.getItem(STORAGE.exercicios)) || [];
+let idsCadastradosExercicios = JSON.parse(localStorage.getItem(STORAGE.idsExercicios)) || [];
+let fichasCadastradas = JSON.parse(localStorage.getItem(STORAGE.fichas)) || [];
 
 let desativado = true;
-
 
 /* =========================================================
    MODELOS
 ========================================================= */
-
+// [OK] - Class de Cadastro de Exercicio
 class ExercicioAcademia {
-
     constructor(
         id,
         dataCadastro,
@@ -68,9 +64,8 @@ class ExercicioAcademia {
     }
 }
 
-
+// [OK] - Class de Cadastro de Ficha de Exercício
 class FichaExercicio {
-
     constructor(
         idFicha,
         dataCadastro,
@@ -97,72 +92,46 @@ class FichaExercicio {
 /* =========================================================
    LOCAL STORAGE
 ========================================================= */
-
+// [OK] - Salva o Exercício e seu respectivo ID no LocalStorage
 function salvarExerciciosStorage() {
-
-    localStorage.setItem(
-        STORAGE.exercicios,
-        JSON.stringify(exerciciosCadastrados)
-    );
-
-    localStorage.setItem(
-        STORAGE.idsExercicios,
-        JSON.stringify(idsCadastradosExercicios)
-    );
+    localStorage.setItem(STORAGE.exercicios,JSON.stringify(exerciciosCadastrados));
+    localStorage.setItem(STORAGE.idsExercicios,JSON.stringify(idsCadastradosExercicios));
 }
 
-
+// [OK] - Salva as Fichas no LocalStorage
 function salvarFichasStorage() {
-    localStorage.setItem(
-        STORAGE.fichas,
-        JSON.stringify(fichasCadastradas)
-    );
+    localStorage.setItem(STORAGE.fichas,JSON.stringify(fichasCadastradas));
 }
-
 
 /* =========================================================
    DATA
 ========================================================= */
-
+// [OK] - Exibe a data Atual no ID DEFINIDO na chamada da função
 function mostraDataAtual(idCampo) {
-
     const campo = document.getElementById(idCampo);
-
     if (!campo) return;
-
     const data = new Date();
-
     const dia = String(data.getDate()).padStart(2, '0');
     const mes = String(data.getMonth() + 1).padStart(2, '0');
     const ano = data.getFullYear();
-
     campo.value = `${ano}-${mes}-${dia}`;
 }
-
 
 /* =========================================================
    GERADOR DE ID
 ========================================================= */
-
+// [OK] Função padrão para gerar IDS
 function gerarId(alias, array, inputId) {
-
-    const campo = document.getElementById(inputId);
-
+    const campo = document.getElementById(inputId); //Localiza o campo de input pelo ID fornecido
     if (!campo) return;
-
-    const numero = array.length + 1;
-
-    campo.value =
-        `${alias}${String(numero).padStart(2, '0')}`;
+    const numero = array.length + 1; //Gera um número baseado no tamanho do array fornecido, incrementado em 1
+    campo.value = `${alias}${String(numero).padStart(2, '0')}`; //Inputa o código gerado no ID localizado
 }
-
 
 /* =========================================================
    INICIALIZAÇÃO
 ========================================================= */
-
 /*window.onload = function () {
-
     const modalElement =
         document.getElementById('modalTreino');
 
@@ -170,13 +139,9 @@ function gerarId(alias, array, inputId) {
         new bootstrap.Modal(modalElement);
 
     modal.show();
-
     abreModal('Cadastrar Ficha');
-
     atualizaQtdTreinos(3);
-
     mostraDataAtual('dataCadastroNovaFicha');
-
     mostraDataAtual('dataInicioNovaFicha');
 };/
 
@@ -185,17 +150,11 @@ function gerarId(alias, array, inputId) {
    MODAL
 ========================================================= */
 
+// [OK] função para Abrir Modal Especifico
 function abreModal(escolha) {
-
-    const tituloModal =
-        document.getElementById('tituloModal');
-
-    const modalBody =
-        document.getElementById('modalBody');
-
-    const modalFooter =
-        document.getElementById('modalFooter');
-
+    const tituloModal = document.getElementById('tituloModal');
+    const modalBody = document.getElementById('modalBody');
+    const modalFooter = document.getElementById('modalFooter');
 
     tituloModal.innerHTML = `
         <h5 class="modal-title uppercase m-auto">
@@ -211,378 +170,159 @@ function abreModal(escolha) {
         </button>
     `;
 
-
     /* =====================================================
        CADASTRO DE EXERCÍCIO
     ===================================================== */
 
     if (escolha === 'Cadastrar Exercício') {
-
         modalBody.innerHTML = `
             <div class="row">
-
                 <div class="col-3 mb-2">
-                    <label class="labelText flexCenter">
-                        ID
-                    </label>
+                    <label class="labelText flexCenter">ID</label>
 
-                    <input
-                        type="text"
-                        class="form-control"
-                        disabled
-                        id="idCadastroNovoExercicio">
+                    <input type="text" class="form-control" disabled id="idCadastroNovoExercicio">
                 </div>
-
 
                 <div class="col-auto mb-2">
-                    <label class="labelText flexCenter">
-                        Data cadastro
-                    </label>
+                    <label class="labelText flexCenter">Data cadastro</label>
 
-                    <input
-                        type="date"
-                        class="form-control"
-                        id="dataCadastroNovoExercicio"
-                        disabled>
+                    <input type="date" class="form-control" id="dataCadastroNovoExercicio" disabled>
                 </div>
-
 
                 <div class="col mb-2">
-                    <label class="labelText flexCenter">
-                        Séries
-                    </label>
+                    <label class="labelText flexCenter">Séries</label>
 
                     <input
-                        type="number"
-                        class="form-control"
-                        min="1"
-                        value="3"
-                        id="seriesCadastroNovoExercicio">
+                        type="number" class="form-control" min="1" value="3" id="seriesCadastroNovoExercicio">
                 </div>
-
 
                 <div class="col mb-2">
-                    <label class="labelText flexCenter">
-                        Repetições
-                    </label>
+                    <label class="labelText flexCenter">Repetições</label>
 
-                    <input
-                        type="number"
-                        class="form-control"
-                        min="1"
-                        value="12"
-                        id="repeticoesCadastroNovoExercicio">
+                    <input type="number" class="form-control" min="1" value="12" id="repeticoesCadastroNovoExercicio">
                 </div>
-
 
                 <div class="col-12 mt-2 mb-2">
+                    <label class="labelText flexCenter">Nome do exercício</label>
 
-                    <label class="labelText flexCenter">
-                        Nome do exercício
-                    </label>
+                    <input type="text" class="form-control" placeholder="Digite o nome do exercício..." id="nomeCadastroNovoExercicio">
+                </div>
 
-                    <input
-                        type="text"
-                        class="form-control"
-                        placeholder="Digite o nome do exercício..."
-                        id="nomeCadastroNovoExercicio">
+                <div class="col-4 mt-2 mb-2">
+                    <label class="labelText flexCenter">Maior Peso</label>
 
+                    <input type="number" class="form-control" min="1" value="1" id="maiorPesoCadastroNovoExercicio">
+                </div>
+
+                <div class="col-4 mt-2 mb-2">
+                    <label class="labelText flexCenter">Peso Atual</label>
+
+                    <input type="number" class="form-control" min="1" value="1" id="pesoAtualCadastroNovoExercicio">
                 </div>
 
 
                 <div class="col-4 mt-2 mb-2">
+                    <label class="labelText flexCenter">Dificuldade</label>
 
-                    <label class="labelText flexCenter">
-                        Maior Peso
-                    </label>
-
-                    <input
-                        type="number"
-                        class="form-control"
-                        min="1"
-                        value="1"
-                        id="maiorPesoCadastroNovoExercicio">
-
-                </div>
-
-
-                <div class="col-4 mt-2 mb-2">
-
-                    <label class="labelText flexCenter">
-                        Peso Atual
-                    </label>
-
-                    <input
-                        type="number"
-                        class="form-control"
-                        min="1"
-                        value="1"
-                        id="pesoAtualCadastroNovoExercicio">
-
-                </div>
-
-
-                <div class="col-4 mt-2 mb-2">
-
-                    <label class="labelText flexCenter">
-                        Dificuldade
-                    </label>
-
-                    <select
-                        class="form-select"
-                        id="dificuldadeCadastroNovoExercicio">
-
-                        <option value="dificuldadeNulo">
-                            -
-                        </option>
-
-                        <option value="Fácil">
-                            Fácil
-                        </option>
-
-                        <option value="Normal">
-                            Normal
-                        </option>
-
-                        <option value="Difícil">
-                            Difícil
-                        </option>
-
+                    <select class="form-select" id="dificuldadeCadastroNovoExercicio">
+                        <option value="dificuldadeNulo">-</option>
+                        <option value="Fácil">Fácil</option>
+                        <option value="Normal">Normal</option>
+                        <option value="Difícil">Difícil</option>
                     </select>
-
                 </div>
-
             </div>
         `;
 
-
         modalFooter.innerHTML = `
-            <button
-                type="button"
-                class="btn btn-sm btn-success"
-                onclick="salvarCadastroExercicio()">
-
+            <button type="button" class="btn btn-sm btn-success" onclick="salvarCadastroExercicio()">
                 <i class="fa fa-save"></i>&nbsp;&nbsp;
-
-                <span class="font-button">
-                    Salvar
-                </span>
-
+                <span class="font-button">Salvar</span>
             </button>
         `;
 
-
-        gerarId(
-            'ex_',
-            idsCadastradosExercicios,
-            'idCadastroNovoExercicio'
-        );
-
-        mostraDataAtual(
-            'dataCadastroNovoExercicio'
-        );
-
+        gerarId('ex_',idsCadastradosExercicios,'idCadastroNovoExercicio');
+        mostraDataAtual('dataCadastroNovoExercicio');
         return;
     }
-
 
     /* =====================================================
        CADASTRO DE FICHA
     ===================================================== */
-
     if (escolha === 'Cadastrar Ficha') {
-
         modalBody.innerHTML = `
-
             <div class="row">
-
                 <div class="col-3 mb-4">
-
-                    <label class="labelText flexCenter">
-                        ID ficha
-                    </label>
-
-                    <input
-                        type="text"
-                        class="form-control"
-                        disabled
-                        id="idCadastroNovaFicha">
-
+                    <label class="labelText flexCenter">ID ficha</label>
+                    <input type="text" class="form-control" disabled id="idCadastroNovaFicha">
                 </div>
-
 
                 <div class="col-auto mb-4">
-
-                    <label class="labelText flexCenter">
-                        Data cadastro
-                    </label>
-
-                    <input
-                        type="date"
-                        class="form-control"
-                        id="dataCadastroNovaFicha"
-                        disabled>
-
+                    <label class="labelText flexCenter">Data cadastro</label>
+                    <input type="date" class="form-control" id="dataCadastroNovaFicha" disabled>
                 </div>
-
 
                 <div class="col-auto mb-4">
-
-                    <label class="labelText flexCenter">
-                        Data início
-                    </label>
-
-                    <input
-                        type="date"
-                        class="form-control"
-                        id="dataInicioNovaFicha">
-
+                    <label class="labelText flexCenter">Data início</label>
+                    <input type="date" class="form-control" id="dataInicioNovaFicha">
                 </div>
-
 
                 <div class="col-3 mb-2">
-
-                    <label class="labelText flexCenter">
-                        Qtd Treinos
-                    </label>
-
-                    <input
-                        type="number"
-                        class="form-control"
-                        min="1"
-                        max="15"
-                        value="3"
+                    <label class="labelText flexCenter">Qtd Treinos</label>
+                    <input type="number" class="form-control" min="1" max="15" value="3"
                         onchange="atualizaQtdTreinos(this.value)">
-
                 </div>
-
 
                 <div class="col mb-2">
-
-                    <label class="labelText flexCenter">
-                        &nbsp;
-                    </label>
-
-                    <button
-                        class="btn btn-sm btn-success"
-                        onclick="criarFicha()">
-
+                    <label class="labelText flexCenter">&nbsp;</label>
+                    <button class="btn btn-sm btn-success" onclick="criarFicha()">
                         <i class="fa fa-check"></i>&nbsp;&nbsp;
-
-                        <span class="font-button">
-                            Abrir esta Ficha
-                        </span>
+                        <span class="font-button">Abrir esta Ficha</span>
                     </button>
-
                 </div>
-
             </div>
-
             <hr>
-
-            <div
-                class="row"
-                id="areaDasFichas">
-            </div>
+            <div class="row" id="areaDasFichas"></div>
         `;
 
-
-        gerarId(
-            'fch_',
-            fichasCadastradas,
-            'idCadastroNovaFicha'
-        );
-
+        gerarId('fch_',fichasCadastradas,'idCadastroNovaFicha');
         return;
     }
-
 
     /* =====================================================
        EXERCÍCIOS CADASTRADOS
     ===================================================== */
-
     if (escolha === 'Meus Exercícios Cadastrados') {
-
         populaBtnExerciciosCadastrados();
-
     }
 }
-
 
 /* =========================================================
    EXERCÍCIOS
 ========================================================= */
-
 function salvarCadastroExercicio() {
-
-    const id =
-        document.getElementById(
-            'idCadastroNovoExercicio'
-        ).value;
-
-    const dataCadastro =
-        document.getElementById(
-            'dataCadastroNovoExercicio'
-        ).value;
-
-    const series =
-        document.getElementById(
-            'seriesCadastroNovoExercicio'
-        ).value;
-
-    const repeticoes =
-        document.getElementById(
-            'repeticoesCadastroNovoExercicio'
-        ).value;
-
-    const nome =
-        document.getElementById(
-            'nomeCadastroNovoExercicio'
-        ).value.trim();
-
-    const maiorPeso =
-        document.getElementById(
-            'maiorPesoCadastroNovoExercicio'
-        ).value;
-
-    const pesoAtual =
-        document.getElementById(
-            'pesoAtualCadastroNovoExercicio'
-        ).value;
-
-    const dificuldade =
-        document.getElementById(
-            'dificuldadeCadastroNovoExercicio'
-        ).value;
-
+    const id = document.getElementById('idCadastroNovoExercicio').value;
+    const dataCadastro = document.getElementById('dataCadastroNovoExercicio').value;
+    const series = document.getElementById('seriesCadastroNovoExercicio').value;
+    const repeticoes = document.getElementById('repeticoesCadastroNovoExercicio').value;
+    const nome = ocument.getElementById('nomeCadastroNovoExercicio').value.trim();
+    const maiorPeso = document.getElementById('maiorPesoCadastroNovoExercicio').value;
+    const pesoAtual = document.getElementById('pesoAtualCadastroNovoExercicio').value;
+    const dificuldade = document.getElementById('dificuldadeCadastroNovoExercicio').value;
 
     if (!nome) {
-
-        alert(
-            'Insira o nome do exercício!'
-        );
-
+        alert('Insira o nome do exercício!');
         return;
     }
 
-
-    const existe =
-        exerciciosCadastrados.some(
-            exercicio =>
-                exercicio.nomeExercicio
-                    .toLowerCase() === nome.toLowerCase()
+    const existe = exerciciosCadastrados.some(exercicio => 
+        exercicio.nomeExercicio.toLowerCase() === nome.toLowerCase()
         );
-
 
     if (existe) {
-
-        alert(
-            'Este exercício já está cadastrado.'
-        );
-
+        alert('Este exercício já está cadastrado.');
         return;
     }
-
 
     const exercicio =
         new ExercicioAcademia(
@@ -596,110 +336,53 @@ function salvarCadastroExercicio() {
             dificuldade
         );
 
-
     exerciciosCadastrados.push(exercicio);
-
     idsCadastradosExercicios.push(id);
-
     salvarExerciciosStorage();
+    alert(`Exercício "${nome}" cadastrado com sucesso!`);
 
-
-    alert(
-        `Exercício "${nome}" cadastrado com sucesso!`
-    );
-
-
-    if (
-        confirm(
-            'Deseja cadastrar outro exercício?'
-        )
-    ) {
-
+    if (confirm('Deseja cadastrar outro exercício?')) {
         limparCamposExercicio();
-
     } else {
-
-        document
-            .getElementById('x-timesCadastro')
-            .click();
+        document.getElementById('x-timesCadastro').click();
     }
 }
-
 
 /* =========================================================
    LIMPAR CAMPOS
 ========================================================= */
-
 function limparCamposExercicio() {
+    document.getElementById('seriesCadastroNovoExercicio').value = 3;
+    document.getElementById('repeticoesCadastroNovoExercicio').value = 12;
+    document.getElementById('nomeCadastroNovoExercicio').value = '';
+    document.getElementById('maiorPesoCadastroNovoExercicio').value = 1;
+    document.getElementById('pesoAtualCadastroNovoExercicio').value = 1;
+    document.getElementById('dificuldadeCadastroNovoExercicio').value = 'dificuldadeNulo';
 
-    document.getElementById(
-        'seriesCadastroNovoExercicio'
-    ).value = 3;
-
-    document.getElementById(
-        'repeticoesCadastroNovoExercicio'
-    ).value = 12;
-
-    document.getElementById(
-        'nomeCadastroNovoExercicio'
-    ).value = '';
-
-    document.getElementById(
-        'maiorPesoCadastroNovoExercicio'
-    ).value = 1;
-
-    document.getElementById(
-        'pesoAtualCadastroNovoExercicio'
-    ).value = 1;
-
-    document.getElementById(
-        'dificuldadeCadastroNovoExercicio'
-    ).value = 'dificuldadeNulo';
-
-
-    gerarId(
-        'ex_',
-        idsCadastradosExercicios,
-        'idCadastroNovoExercicio'
-    );
+    gerarId('ex_',idsCadastradosExercicios,'idCadastroNovoExercicio');
 }
-
 
 /* =========================================================
    CATEGORIAS
 ========================================================= */
 
-function populaCategoriasExercicios(
-    idArea,
-    tipoTreino
-) {
-
-    const area =
-        document.getElementById(idArea);
+function populaCategoriasExercicios(idArea,tipoTreino) {
+    const area = document.getElementById(idArea);
 
     if (!area) return;
 
-
-    const categorias =
-        [...categoriasExercicios]
-            .sort((a, b) =>
-                a.localeCompare(b, 'pt-BR')
-            );
-
+    const categorias = [...categoriasExercicios].sort((a, b) =>
+        a.localeCompare(b, 'pt-BR')
+    );
 
     area.innerHTML = '';
 
-
     categorias.forEach(categoria => {
-
         const idCheckbox =
             `checkbox_${tipoTreino}_${categoria}`;
 
-
         area.innerHTML += `
-
             <div class="col-4 mb-1">
-
                 <input
                     type="checkbox"
                     class="checkboxCategoria"
@@ -708,267 +391,114 @@ function populaCategoriasExercicios(
                     id="${idCheckbox}"
                     onchange="atualizarCategoriasTreino('${tipoTreino}')">
 
-                <label
-                    for="${idCheckbox}"
-                    class="uppercase tamanho08">
-
-                    ${categoria}
-
-                </label>
-
+                <label for="${idCheckbox}" class="uppercase tamanho08">${categoria}</label>
             </div>
-
         `;
     });
 }
 
-
 /* =========================================================
    ATUALIZA CATEGORIAS DO TREINO
 ========================================================= */
-
-function atualizarCategoriasTreino(
-    tipoTreino
-) {
-
-    const checkboxes =
-        document.querySelectorAll(
-            `.checkboxCategoria[data-treino="${tipoTreino}"]`
-        );
-
+function atualizarCategoriasTreino(tipoTreino) {
+    const checkboxes = document.querySelectorAll(`.checkboxCategoria[data-treino="${tipoTreino}"]`);
 
     const categoriasSelecionadas = [];
 
-
     checkboxes.forEach(checkbox => {
-
         if (checkbox.checked) {
-
-            categoriasSelecionadas.push(
-                checkbox.value
-            );
+            categoriasSelecionadas.push(checkbox.value);
         }
-
     });
 
-
-    const fichaAtual =
-        obterFichaEmEdicao();
-
+    const fichaAtual = obterFichaEmEdicao();
 
     if (!fichaAtual) return;
-
-
-    fichaAtual.treinos[tipoTreino].categorias =
-        categoriasSelecionadas;
-
+    
+    fichaAtual.treinos[tipoTreino].categorias = categoriasSelecionadas;
 
     salvarFichasStorage();
-
-
-    exibirCategoriasSelecionadas(
-        tipoTreino,
-        categoriasSelecionadas
-    );
+    exibirCategoriasSelecionadas(tipoTreino,categoriasSelecionadas);
 }
-
 
 /* =========================================================
    EXIBE CATEGORIAS SELECIONADAS
 ========================================================= */
 
-function exibirCategoriasSelecionadas(
-    tipoTreino,
-    categorias
-) {
-
-    const area =
-        document.getElementById(
-            `mostruarioCategorias_${tipoTreino}`
-        );
-
+function exibirCategoriasSelecionadas(tipoTreino,categorias) {
+    const area =document.getElementById(`mostruarioCategorias_${tipoTreino}`);
 
     if (!area) return;
 
-
-    area.innerHTML = categorias
-        .map(categoria => `
-
-            <span
-                class="badge rounded-pill bg-success me-1 mb-1">
-
-                ${categoria}
-
-            </span>
-
-        `)
-        .join('');
+    area.innerHTML = categorias.map(categoria => `
+            <span class="badge rounded-pill bg-success me-1 mb-1">${categoria}</span>
+        `).join('');
 }
-
 
 /* =========================================================
    QUANTIDADE DE TREINOS
 ========================================================= */
 
 function atualizaQtdTreinos(qtd) {
-
     qtd = Number(qtd);
-
-    const area =
-        document.getElementById(
-            'areaDasFichas'
-        );
-
+    const area =document.getElementById('areaDasFichas');
     if (!area) return;
-
-
     area.innerHTML = '';
-
-
-    for (
-        let i = 0;
-        i < qtd;
-        i++
-    ) {
-
-        const treino =
-            treinos[i];
-
+    for (let i = 0; i < qtd; i++) {
+        const treino = treinos[i]; 
 
         area.innerHTML += `
-
             <div class="row">
-
                 <div class="col mb-3">
-
                     <div class="card">
-
-                        <div
-                            class="card-header uppercase textoCenter bg-dark text-light"
-
+                        <div  class="card-header uppercase textoCenter bg-dark text-light"
                             type="button"
-
                             id="header_${treino}"
-
                             data-bs-toggle="collapse"
-
                             data-bs-target="#cardBodyTreino${treino}"
-
-                            onclick="
-                                mudaChevronExerciciosCadastrados(
-                                    'chevronTreino${treino}',
-                                    'header_${treino}'
-                                );
-
-                                populaCategoriasExercicios(
-                                    'areasTreinoFicha${treino}',
-                                    '${treino}'
-                                );
-                            "
-                        >
+                            onclick=" mudaChevronExerciciosCadastrados('chevronTreino${treino}','header_${treino}');
+                            populaCategoriasExercicios('areasTreinoFicha${treino}','${treino}');">
 
                             <div class="row">
-
                                 <div class="col">
-
-                                    <span class="flexCenter">
-                                        Treino ${treino}
-                                    </span>
-
+                                    <span class="flexCenter">Treino ${treino}</span>
                                 </div>
-
                                 <div class="col-1">
-
-                                    <i
-                                        class="fa fa-chevron-down"
-                                        id="chevronTreino${treino}">
-                                    </i>
-
+                                    <i class="fa fa-chevron-down" id="chevronTreino${treino}"></i>
                                 </div>
-
                             </div>
-
                         </div>
 
-
-                        <div
-                            class="card-body collapse"
-                            id="cardBodyTreino${treino}"
-                        >
-
+                        <div class="card-body collapse" id="cardBodyTreino${treino}" >
                             <!-- CATEGORIAS -->
 
-                            <div
-                                class="row"
-                                id="areasTreinoFicha${treino}">
-                            </div>
-
-
-                            <div
-                                class="row mt-2"
-                                id="mostruarioCategorias_${treino}">
-                            </div>
-
-
+                            <div class="row" id="areasTreinoFicha${treino}"></div>
+                            <div class="row mt-2" id="mostruarioCategorias_${treino}"></div>
                             <hr>
-
 
                             <!-- ADICIONAR EXERCÍCIO -->
-
                             <div class="row">
-
                                 <div class="col">
-
-                                    <button
-                                        class="btn btn-sm btn-primary font-button w-100"
-
-                                        onclick="
-                                            adicionaExerciciosFicha(
+                                    <button class="btn btn-sm btn-primary font-button w-100" 
+                                    onclick=" adicionaExerciciosFicha(
                                                 'campoInsereSelect_Treino${treino}',
-                                                '${treino}'
-                                            )
-                                        "
-                                    >
+                                                '${treino}')">
 
-                                        <i class="fa fa-circle-plus"></i>
-
-                                        &nbsp;&nbsp;
-
-                                        <span>
-                                            Adicionar exercício
-                                        </span>
-
+                                        <i class="fa fa-circle-plus"></i>&nbsp;&nbsp;
+                                        <span>Adicionar exercício</span>
                                     </button>
-
                                 </div>
-
                             </div>
 
-
-                            <div
-                                class="row my-3"
-                                id="campoInsereSelect_Treino${treino}">
-                            </div>
-
-
+                            <div class="row my-3" id="campoInsereSelect_Treino${treino}"></div>
                             <hr>
 
-
                             <!-- EXERCÍCIOS INSERIDOS -->
-
-                            <div
-                                class="row"
-                                id="mostruarioExerciciosInseridos_${treino}">
-                            </div>
-
+                            <div class="row" id="mostruarioExerciciosInseridos_${treino}"></div>
                         </div>
-
                     </div>
-
                 </div>
-
             </div>
-
         `;
     }
 }
@@ -977,52 +507,24 @@ function atualizaQtdTreinos(qtd) {
 /* =========================================================
    FICHA EM EDIÇÃO
 ========================================================= */
-
 function obterFichaEmEdicao() {
-
-    const id =
-        document.getElementById(
-            'idCadastroNovaFicha'
-        )?.value;
-
-
+    const id =document.getElementById('idCadastroNovaFicha')?.value;
     if (!id) return null;
 
-
-    return fichasCadastradas.find(
-        ficha => ficha.idFicha === id
-    );
+    return fichasCadastradas.find(ficha => ficha.idFicha === id);
 }
 
 
 /* =========================================================
    CRIAR FICHA TEMPORÁRIA
 ========================================================= */
-
 function criarEstruturaFicha(qtdTreinos) {
-
     const treinosFicha = {};
 
-
-    for (
-        let i = 0;
-        i < qtdTreinos;
-        i++
-    ) {
-
-        const letra =
-            treinos[i];
-
-
-        treinosFicha[letra] = {
-
-            categorias: [],
-
-            exercicios: []
-
-        };
+    for (let i = 0;i < qtdTreinos;i++) {
+        const letra = treinos[i];
+        treinosFicha[letra] = { categorias: [], exercicios: []};
     }
-
 
     return treinosFicha;
 }
@@ -1031,90 +533,39 @@ function criarEstruturaFicha(qtdTreinos) {
 /* =========================================================
    CRIAR FICHA
 ========================================================= */
-
 function criarFicha() {
-
-    const idFicha =
-        document.getElementById(
-            'idCadastroNovaFicha'
-        ).value;
-
-    const dataCadastro =
-        document.getElementById(
-            'dataCadastroNovaFicha'
-        ).value;
-
-    const dataInicio =
-        document.getElementById(
-            'dataInicioNovaFicha'
-        ).value;
+    const idFicha = document.getElementById('idCadastroNovaFicha').value;
+    const dataCadastro = document.getElementById('dataCadastroNovaFicha').value;
+    const dataInicio = document.getElementById('dataInicioNovaFicha').value;
 
 
-    const qtdTreinos =
-        Number(
-            document.querySelector(
-                '#modalBody input[type="number"]'
-            ).value
-        );
-
-
-    const fichaExistente =
-        fichasCadastradas.find(
-            ficha =>
-                ficha.idFicha === idFicha
-        );
-
+    const qtdTreinos = Number(document.querySelector('#modalBody input[type="number"]').value);
+    const fichaExistente = fichasCadastradas.find(ficha =>ficha.idFicha === idFicha);
 
     if (fichaExistente) {
-
-        alert(
-            'Esta ficha já existe.'
-        );
+        alert('Esta ficha já existe.');
 
         return;
     }
 
-
     const novaFicha =
         new FichaExercicio(
-
             idFicha,
-
             dataCadastro,
-
             dataInicio,
-
             'Ativa',
-
             '',
-
             qtdTreinos,
-
             'A',
-
-            criarEstruturaFicha(
-                qtdTreinos
-            )
+            criarEstruturaFicha(qtdTreinos)
         );
 
-
-    fichasCadastradas.push(
-        novaFicha
-    );
-
-
+    fichasCadastradas.push(novaFicha);
     salvarFichasStorage();
 
+    console.log('Ficha criada:', novaFicha);
 
-    console.log(
-        'Ficha criada:',
-        novaFicha
-    );
-
-
-    alert(
-        `Ficha ${idFicha} criada com sucesso!`
-    );
+    alert(`Ficha ${idFicha} criada com sucesso!`);
 }
 
 
@@ -1122,77 +573,33 @@ function criarFicha() {
    ADICIONAR EXERCÍCIO
 ========================================================= */
 
-function adicionaExerciciosFicha(
-    idSelect,
-    tipoTreino
-) {
-
-    const campo =
-        document.getElementById(
-            idSelect
-        );
-
+function adicionaExerciciosFicha(idSelect,tipoTreino) {
+    const campo =document.getElementById(idSelect);
 
     if (!campo) return;
 
-
     campo.innerHTML = `
-
         <div class="row mb-2">
-
             <div class="col input-group">
-
-                <select
-                    class="form-select"
-                    id="selectExercicio_${tipoTreino}">
-
-                    <option value="">
-                        Selecione um exercício
-                    </option>
-
+                <select class="form-select" id="selectExercicio_${tipoTreino}">
+                    <option value="">Selecione um exercício</option>
                 </select>
 
-
-                <button
-                    class="btn btn-success"
-
-                    onclick="
-                        confirmaExercicioFicha(
-                            '${tipoTreino}'
-                        )
-                    "
-                >
-
+                <button class="btn btn-success" onclick="confirmaExercicioFicha('${tipoTreino}')">
                     <i class="fa fa-check"></i>
-
                 </button>
-
             </div>
-
         </div>
-
     `;
 
+    const select = document.getElementById(`selectExercicio_${tipoTreino}`);
 
-    const select =
-        document.getElementById(
-            `selectExercicio_${tipoTreino}`
-        );
-
-
-    exerciciosCadastrados.forEach(
-        exercicio => {
-
+    exerciciosCadastrados.forEach(exercicio => {
             select.innerHTML += `
-
                 <option value="${exercicio.id}">
-
                     ${exercicio.nomeExercicio}
-
                 </option>
-
             `;
-
         }
     );
 }
@@ -1201,96 +608,41 @@ function adicionaExerciciosFicha(
 /* =========================================================
    CONFIRMAR EXERCÍCIO
 ========================================================= */
-
 function confirmaExercicioFicha(
-    tipoTreino
-) {
-
-    const select =
-        document.getElementById(
-            `selectExercicio_${tipoTreino}`
-        );
-
+    tipoTreino) {
+    const select = document.getElementById(`selectExercicio_${tipoTreino}`);
 
     if (!select || !select.value) {
-
-        alert(
-            'Selecione um exercício.'
-        );
-
+        alert('Selecione um exercício.');
         return;
     }
 
-
-    const idExercicio =
-        select.value;
-
-
-    const exercicio =
-        exerciciosCadastrados.find(
-            exercicio =>
-                exercicio.id === idExercicio
-        );
-
+    const idExercicio = select.value;
+    const exercicio = exerciciosCadastrados.find(exercicio =>exercicio.id === idExercicio);
 
     if (!exercicio) return;
 
-
-    const ficha =
-        obterFichaEmEdicao();
-
+    const ficha = obterFichaEmEdicao();
 
     if (!ficha) {
-
-        alert(
-            'A ficha ainda não foi criada.'
-        );
-
+        alert('A ficha ainda não foi criada.');
         return;
     }
 
-
-    const treino =
-        ficha.treinos[tipoTreino];
-
-
-    const jaExiste =
-        treino.exercicios.some(
-            exercicio =>
-                exercicio.id === idExercicio
-        );
-
+    const treino = ficha.treinos[tipoTreino];
+    const jaExiste = treino.exercicios.some(exercicio =>exercicio.id === idExercicio);
 
     if (jaExiste) {
-
-        alert(
-            'Este exercício já está neste treino.'
-        );
-
+        alert('Este exercício já está neste treino.');
         return;
     }
 
 
-    treino.exercicios.push({
-
-        id: exercicio.id,
-
-        nome: exercicio.nomeExercicio
-
-    });
-
-
+    treino.exercicios.push({id: exercicio.id, nome: exercicio.nomeExercicio});
     salvarFichasStorage();
+    renderizarExerciciosTreino(tipoTreino);
 
-
-    renderizarExerciciosTreino(
-        tipoTreino
-    );
-
-
-    document.getElementById(
-        `campoInsereSelect_Treino${tipoTreino}`
-    ).innerHTML = '';
+    document.getElementById(`campoInsereSelect_Treino${tipoTreino}`).innerHTML = '';
 }
 
 
@@ -1298,25 +650,13 @@ function confirmaExercicioFicha(
    RENDERIZAR EXERCÍCIOS DO TREINO
 ========================================================= */
 
-function renderizarExerciciosTreino(
-    tipoTreino
-) {
-
-    const ficha =
-        obterFichaEmEdicao();
-
-
+function renderizarExerciciosTreino(tipoTreino) {
+    const ficha = obterFichaEmEdicao();
     if (!ficha) return;
 
-
-    const area =
-        document.getElementById(
-            `mostruarioExerciciosInseridos_${tipoTreino}`
-        );
-
+    const area = document.getElementById(`mostruarioExerciciosInseridos_${tipoTreino}`);
 
     if (!area) return;
-
 
     const exercicios =
         ficha.treinos[tipoTreino]
@@ -1818,4 +1158,8 @@ function salvaCadastroFinalExercicio(
 
 
     populaBtnExerciciosCadastrados();
+}
+
+function exibeFichasTreinos(){
+    
 }
