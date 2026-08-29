@@ -330,11 +330,17 @@ function abreModal(escolha) {
 }
 
 function exibeFichasTreinos() {
+
     const campoModalBody = document.getElementById('modalBody');
+
     if (!campoModalBody) return;
+
     let htmlFichas = '';
+
     fichasCadastradas.forEach(ficha => {
+
         let htmlTreinos = '';
+
         // =====================================================
         // TREINOS DA FICHA
         // =====================================================
@@ -350,69 +356,151 @@ function exibeFichasTreinos() {
             treino.exercicios.forEach((exercicio, indiceExercicio) => {
 
                 htmlExercicios += `
+
                     <div class="card mb-3">
+
                         <!-- HEADER DO EXERCÍCIO -->
+
                         <div
                             class="card-header bg-primary text-light"
                             type="button"
                             id="headerExercicio_${ficha.idFicha}_${letraTreino}_${indiceExercicio}"
                             data-bs-toggle="collapse"
-                            data-bs-target="#cardBodyExercicio_${ficha.idFicha}_${letraTreino}_${indiceExercicio}">
+                            data-bs-target="#cardBodyExercicio_${ficha.idFicha}_${letraTreino}_${indiceExercicio}"
+                        >
 
                             <div class="row">
+
                                 <div class="col">
-                                    <i class="fa-solid fa-dumbbell"></i>&nbsp;&nbsp;
-                                    <strong>${exercicio.nomeExercicio}</strong>
+
+                                    <i class="fa-solid fa-dumbbell"></i>
+                                    &nbsp;&nbsp;
+
+                                    <strong>
+                                        ${exercicio.nomeExercicio}
+                                    </strong>
+
                                 </div>
+
+                                <div class="col-auto">
+
+                                    <span class="badge rounded-pill bg-info">
+
+                                        ${exercicio.series} séries
+
+                                    </span>
+
+                                </div>
+
                             </div>
+
                         </div>
+
 
                         <!-- BODY DO EXERCÍCIO -->
 
-                        <div class="card-body collapse" id="cardBodyExercicio_${ficha.idFicha}_${letraTreino}_${indiceExercicio}">
+                        <div
+                            class="card-body collapse"
+                            id="cardBodyExercicio_${ficha.idFicha}_${letraTreino}_${indiceExercicio}"
+                        >
+
                             <div class="row">
+
                                 <!-- NOME -->
+
                                 <div class="col-12 mb-3">
-                                    <label class="labelText">Exercício</label>
-                                    <input type="text" class="form-control" value="${exercicio.nomeExercicio || ''}" disabled >
+
+                                    <label class="labelText">
+                                        Exercício
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        value="${exercicio.nomeExercicio || ''}"
+                                        disabled
+                                    >
+
                                 </div>
 
-                                <!-- SERIES -->
+
+                                <!-- SÉRIES -->
+
                                 <div class="col mb-3">
-                                    <label class="labelText">Séries</label>
-                                    <input type="number" class="form-control" value="${exercicio.series || ''}" disabled >
+
+                                    <label class="labelText">
+                                        Séries
+                                    </label>
+
+                                    <input
+                                        type="number"
+                                        class="form-control"
+                                        value="${exercicio.series || ''}"
+                                        disabled
+                                    >
+
                                 </div>
+
 
                                 <!-- REPETIÇÕES -->
-                                <div class="col mb-3">
-                                    <label class="labelText">Repetições</label>
 
-                                    <input type="number" class="form-control" value="${exercicio.repeticoes || ''}" disabled >
+                                <div class="col mb-3">
+
+                                    <label class="labelText">
+                                        Repetições
+                                    </label>
+
+                                    <input
+                                        type="number"
+                                        class="form-control"
+                                        value="${exercicio.repeticoes || ''}"
+                                        disabled
+                                    >
+
                                 </div>
+
 
                                 <!-- PESO ATUAL -->
-                                <div class="col mb-3">
-                                    <label class="labelText">Peso Atual</label>
 
-                                    <input type="number" class="form-control" value="${exercicio.pesoAtual || ''}" disabled >
+                                <div class="col mb-3">
+
+                                    <label class="labelText">
+                                        Peso Atual
+                                    </label>
+
+                                    <input
+                                        type="number"
+                                        class="form-control"
+                                        value="${exercicio.pesoAtual || ''}"
+                                        disabled
+                                    >
+
                                 </div>
+
 
                                 <!-- PESO MÁXIMO -->
-                                <div class="col mb-3">
-                                    <label class="labelText">Peso Máximo</label>
 
-                                    <input type="number" class="form-control" value="${exercicio.maiorPeso || ''}" disabled=>
+                                <div class="col mb-3">
+
+                                    <label class="labelText">
+                                        Peso Máximo
+                                    </label>
+
+                                    <input
+                                        type="number"
+                                        class="form-control"
+                                        value="${exercicio.maiorPeso || ''}"
+                                        disabled
+                                    >
+
                                 </div>
 
-                                <!-- DIFICULDADE -->
-                                <div class="col mb-3">
-                                    <label class="labelText">Dificuldade</label>
-
-                                    <input type="number" class="form-control" value="${exercicio.dificuldade || ''}" disabled=>
-                                </div>
                             </div>
+
                         </div>
+
                     </div>
+
                 `;
             });
 
@@ -422,27 +510,62 @@ function exibeFichasTreinos() {
             // =================================================
 
             htmlTreinos += `
+
                 <div class="card mb-3">
+
                     <!-- HEADER DO TREINO -->
-                    <div class="card-header bg-danger text-light" type="button" id="headerTreino_${ficha.idFicha}_${letraTreino}"
+
+                    <div
+                        class="card-header bg-secondary text-light"
+                        type="button"
+                        id="headerTreino_${ficha.idFicha}_${letraTreino}"
+
                         data-bs-toggle="collapse"
-                        data-bs-target="#cardBodyTreino_${ficha.idFicha}_${letraTreino}">
+
+                        data-bs-target="#cardBodyTreino_${ficha.idFicha}_${letraTreino}"
+                    >
 
                         <div class="row">
+
                             <div class="col">
-                                <strong class="uppercase tamanho08">Treino ${letraTreino}</strong>
+
+                                <strong>
+                                    Treino ${letraTreino}
+                                </strong>
+
                             </div>
 
                             <div class="col-auto">
-                                <span class="badge rounded-pill bg-dark">${treino.exercicios.length} exercícios</span>
+
+                                <span class="badge rounded-pill bg-info">
+
+                                    ${treino.exercicios.length}
+                                    exercícios
+
+                                </span>
+
                             </div>
+
                         </div>
+
                     </div>
 
+
                     <!-- BODY DO TREINO -->
-                    <div class="card-body collapse" id="cardBodyTreino_${ficha.idFicha}_${letraTreino}">${htmlExercicios}</div>
+
+                    <div
+                        class="card-body collapse"
+                        id="cardBodyTreino_${ficha.idFicha}_${letraTreino}"
+                    >
+
+                        ${htmlExercicios}
+
+                    </div>
+
                 </div>
+
             `;
+
         });
 
 
@@ -451,35 +574,69 @@ function exibeFichasTreinos() {
         // =====================================================
 
         htmlFichas += `
+
             <div class="row mb-3">
+
                 <div class="col">
-                    <div class="card" id="cardFicha_${ficha.idFicha}" >
+
+                    <div
+                        class="card"
+                        id="cardFicha_${ficha.idFicha}"
+                    >
 
                         <!-- HEADER DA FICHA -->
 
-                        <div class="card-header bg-dark text-light" type="button" id="headerFicha_${ficha.idFicha}"
+                        <div
+                            class="card-header bg-dark text-light"
+                            type="button"
+
+                            id="headerFicha_${ficha.idFicha}"
+
                             data-bs-toggle="collapse"
-                            data-bs-target="#cardBodyFicha_${ficha.idFicha}" >
+
+                            data-bs-target="#cardBodyFicha_${ficha.idFicha}"
+                        >
 
                             <div class="row">
+
                                 <div class="col">
-                                    <strong> Ficha ${ficha.idFicha}</strong>
+
+                                    <strong>
+                                        Ficha ${ficha.idFicha}
+                                    </strong>
+
                                 </div>
 
                                 <div class="col-auto">
-                                    <span class="badge rounded-pill bg-success">${ficha.statusFicha}</span>
+
+                                    <span class="badge rounded-pill bg-success">
+
+                                        ${ficha.statusFicha}
+
+                                    </span>
+
                                 </div>
+
                             </div>
+
                         </div>
 
 
                         <!-- BODY DA FICHA -->
 
-                        <div class="card-body collapse"id="cardBodyFicha_${ficha.idFicha}">
+                        <div
+                            class="card-body collapse"
+                            id="cardBodyFicha_${ficha.idFicha}"
+                        >
+
                             ${htmlTreinos}
+
                         </div>
+
                     </div>
+
                 </div>
+
             </div>
 
         `;
