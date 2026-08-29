@@ -332,7 +332,7 @@ function abreModal(escolha) {
 function mostraTodasFichas(){
     const campo = document.getElementById('modalBody');
 
-    for let i = 0; i < fichasCadastradas.length; i++) {
+    for (let i = 0; i < fichasCadastradas.length; i++) {
         const ficha = fichasCadastradas[i];
         campo.innerHTML += `
             <div class="row mb-3">
