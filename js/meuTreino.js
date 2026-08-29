@@ -364,12 +364,12 @@ function exibeFichasTreinos() {
 
                         <div class="card-body collapse" id="cardBodyFicha${ficha.idFicha}">
                             <div class="row mb-2">
-                                <div class="col-3">
+                                <div class="col">
                                     <label class="labelText">Data Cadastro</label>
                                     <input type="date" class="form-control" id="dataCadastroFicha${ficha.idFicha}" disabled>
                                 </div>
 
-                                <div class="col-3">
+                                <div class="col">
                                     <label class="labelText">Data Início</label>
                                     <input type="date" class="form-control" id="dataInicioFicha${ficha.idFicha}" disabled>
                                 </div>
