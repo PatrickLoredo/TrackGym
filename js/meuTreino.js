@@ -332,7 +332,7 @@ function abreModal(escolha) {
 function mostraTodasFichas(){
     const campo = document.getElementById('modalBody');
 
-    for (let i = 0; i < fichasCadastradas.length; i++) {
+    for(let i = 0; i < fichasCadastradas.length; i++) {
         const ficha = fichasCadastradas[i];
         campo.innerHTML += `
             <div class="row mb-3">
@@ -406,7 +406,13 @@ function mostraExerciciosTreino(idFicha, letra) {
 
     for (const exercicio of treino.exercicios) {
         area.innerHTML += `
-            <div class="row mb-1">teste</div>
+            <div class="row mb-1">
+                <div class="col">
+                    <span class="badge rounded-pill bg-success py-2 w-100 uppercase">
+                        <i class="fa-solid fa-dumbbell"></i>&nbsp;&nbsp;
+                        <span>${exercicio.nome}</span>
+                    </span>
+            </div>
         `;
     }
 }
