@@ -330,50 +330,296 @@ function abreModal(escolha) {
 }
 
 function exibeFichasTreinos() {
+
+    const campo = document.getElementById('modalBody');
+
+    if (!campo) return;
+
+    campo.innerHTML = '';
+
     for (let i = 0; i < fichasCadastradas.length; i++) {
-        const campo = document.getElementById('modalBody');
+
         const ficha = fichasCadastradas[i];
 
+        // ==========================================
+        // CRIA A FICHA
+        // ==========================================
+
         campo.innerHTML += `
+
             <div class="row mb-3">
+
                 <div class="col">
+
                     <div class="card">
-                        <div class="card-header bg-primary text-light">
+
+                        <!-- HEADER DA FICHA -->
+
+                        <div
+                            class="card-header bg-primary text-light"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#bodyFicha${ficha.idFicha}"
+                        >
+
                             <div class="row">
+
                                 <div class="col">
-                                    <span class="uppercase">Ficha: ${ficha.idFicha}</span>
-                                </div>
-                                <div class="col-auto">
-                                    <span class="rounded-pill bg-success px-2 py-1">
-                                        ${ficha.statusFicha}
+
+                                    <span class="uppercase">
+                                        Ficha: ${ficha.idFicha}
                                     </span>
+
                                 </div>
+
+                                <div class="col-auto">
+
+                                    <span class="rounded-pill bg-success px-2 py-1">
+
+                                        ${ficha.statusFicha}
+
+                                    </span>
+
+                                </div>
+
                             </div>
+
                         </div>
-                        <div class="card-body" id="bodyFicha${ficha.idFicha}"></div>
+
+
+                        <!-- BODY DA FICHA -->
+
+                        <div
+                            class="card-body collapse"
+                            id="bodyFicha${ficha.idFicha}"
+                        >
+
+                        </div>
+
                     </div>
+
                 </div>
+
             </div>
+
         `;
 
-        const bodyFicha = document.getElementById(`bodyFicha${ficha.idFicha}`);
-        if (bodyFicha) {
-            for(let j = 0; j < treinos.length; j++) {
-                const treino = treinos[j];
-                if (ficha.treinos[treino]) {
-                    bodyFicha.innerHTML += `
-                        <div class="row mb-2">
+        // ==========================================
+        // LOCALIZA BODY DA FICHA
+        // ==========================================
+
+        const bodyFicha =
+            document.getElementById(`bodyFicha${ficha.idFicha}`);
+
+        if (!bodyFicha) continue;
+
+
+        // ==========================================
+        // PERCORRE OS TREINOS DA FICHA
+        // ==========================================
+
+        for (const [letraTreino, treino] of Object.entries(ficha.treinos)) {
+
+            bodyFicha.innerHTML += `
+
+                <div class="card mb-3">
+
+                    <!-- HEADER DO TREINO -->
+
+                    <div
+                        class="card-header bg-dark text-light"
+                        type="button"
+
+                        data-bs-toggle="collapse"
+
+                        data-bs-target="#bodyTreino${ficha.idFicha}_${letraTreino}"
+                    >
+
+                        <div class="row">
+
                             <div class="col">
-                                <span class="badge rounded-pill bg-success py-2 w-100 uppercase">
-                                    Treino ${treino} - Exercícios: ${ficha.treinos[treino].exercicios.length}
+
+                                <span class="uppercase">
+                                    Treino ${letraTreino}
                                 </span>
+
                             </div>
+
+                            <div class="col-auto">
+
+                                <span class="rounded-pill bg-success px-2 py-1">
+
+                                    Exercícios:
+                                    ${treino.exercicios.length}
+
+                                </span>
+
+                            </div>
+
                         </div>
-                    `;
-                }
+
+                    </div>
+
+
+                    <!-- BODY DO TREINO -->
+
+                    <div
+                        class="card-body collapse"
+                        id="bodyTreino${ficha.idFicha}_${letraTreino}"
+                    >
+
+                    </div>
+
+                </div>
+
+            `;
+
+
+            // ==========================================
+            // LOCALIZA BODY DO TREINO
+            // ==========================================
+
+            const bodyTreino =
+                document.getElementById(
+                    `bodyTreino${ficha.idFicha}_${letraTreino}`
+                );
+
+            if (!bodyTreino) continue;
+
+
+            // ==========================================
+            // PERCORRE OS EXERCÍCIOS
+            // ==========================================
+
+            for (let k = 0; k < treino.exercicios.length; k++) {
+
+                const exercicio = treino.exercicios[k];
+
+                bodyTreino.innerHTML += `
+
+                    <div class="card mb-2">
+
+                        <!-- HEADER DO EXERCÍCIO -->
+
+                        <div
+                            class="card-header bg-secondary text-light"
+                            type="button"
+
+                            data-bs-toggle="collapse"
+
+                            data-bs-target="#bodyExercicio${ficha.idFicha}_${letraTreino}_${k}"
+                        >
+
+                            <span class="uppercase">
+
+                                ${exercicio.nomeExercicio}
+
+                            </span>
+
+                        </div>
+
+
+                        <!-- BODY DO EXERCÍCIO -->
+
+                        <div
+                            class="card-body collapse"
+                            id="bodyExercicio${ficha.idFicha}_${letraTreino}_${k}"
+                        >
+
+                            <div class="row">
+
+                                <div class="col-12 mb-2">
+
+                                    <label class="labelText">
+                                        Exercício
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        value="${exercicio.nomeExercicio || ''}"
+                                        disabled
+                                    >
+
+                                </div>
+
+
+                                <div class="col mb-2">
+
+                                    <label class="labelText">
+                                        Séries
+                                    </label>
+
+                                    <input
+                                        type="number"
+                                        class="form-control"
+                                        value="${exercicio.series || ''}"
+                                        disabled
+                                    >
+
+                                </div>
+
+
+                                <div class="col mb-2">
+
+                                    <label class="labelText">
+                                        Repetições
+                                    </label>
+
+                                    <input
+                                        type="number"
+                                        class="form-control"
+                                        value="${exercicio.repeticoes || ''}"
+                                        disabled
+                                    >
+
+                                </div>
+
+
+                                <div class="col mb-2">
+
+                                    <label class="labelText">
+                                        Peso Atual
+                                    </label>
+
+                                    <input
+                                        type="number"
+                                        class="form-control"
+                                        value="${exercicio.pesoAtual || ''}"
+                                        disabled
+                                    >
+
+                                </div>
+
+
+                                <div class="col mb-2">
+
+                                    <label class="labelText">
+                                        Peso Máximo
+                                    </label>
+
+                                    <input
+                                        type="number"
+                                        class="form-control"
+                                        value="${exercicio.maiorPeso || ''}"
+                                        disabled
+                                    >
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                `;
+
             }
-                
+
         }
+
+    }
 
 }
 
