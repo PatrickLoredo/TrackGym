@@ -335,16 +335,15 @@ function exibeFichasTreinos() {
 
     // Limpa o conteúdo anterior
     campoModalBody.innerHTML = '';
-
+   
     for (let i = 0; i < fichasCadastradas.length; i++) {
-
         const ficha = fichasCadastradas[i];
+        
 
         campoModalBody.innerHTML += `
             <div class="row mb-2">
                 <div class="col">
                     <div class="card">
-
                         <div class="card-header bg-primary text-light"
                             type="button"
                             id="headerFicha${ficha.idFicha}"
@@ -369,19 +368,6 @@ function exibeFichasTreinos() {
                             </div>
                         </div>
 
-                        <div class="card-body collapse" id="cardBodyFicha${ficha.idFicha}">
-                            <div class="row mb-2">
-                                <div class="col">
-                                    <label class="labelText">Data Cadastro</label>
-                                    <input type="date" class="form-control" id="dataCadastroFicha${ficha.idFicha}" disabled>
-                                </div>
-
-                                <div class="col">
-                                    <label class="labelText">Data Início</label>
-                                    <input type="date" class="form-control" id="dataInicioFicha${ficha.idFicha}" disabled>
-                                </div>
-                            </div>
-                        </div>
 
                         <div class="card-footer">
                             <button class="btn btn-sm btn-danger" onclick="if(confirm('Deseja realmente excluir a ficha ${ficha.idFicha}?')) { fichasCadastradas.splice(${i}, 1); salvarFichasStorage(); exibeFichasTreinos(); }">
@@ -759,7 +745,6 @@ function renderizarExerciciosTreino(tipoTreino) {
 
     const exercicios = ficha.treinos[tipoTreino].exercicios;
     area.innerHTML = '';
-
 
     exercicios.forEach(
         exercicio => {
