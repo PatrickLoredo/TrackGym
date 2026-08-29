@@ -305,7 +305,6 @@ function abreModal(escolha) {
 }
 
 function exibeFichasTreinos(){
-    abreModal('Minhas Fichas de Treinamento');
     const campoModalBody = document.getElementById('modalBody');
     if (!campoModalBody) return;
 
