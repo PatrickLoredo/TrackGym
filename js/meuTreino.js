@@ -338,9 +338,6 @@ function exibeFichasTreinos() {
 
         const ficha = fichasCadastradas[i];
 
-        mostrarDataCorrigida(ficha.dataCadastro, `dataCadastroFicha${ficha.idFicha}`);
-        mostrarDataCorrigida(ficha.dataInicio, `dataInicioFicha${ficha.idFicha}`);
-
         campoModalBody.innerHTML += `
             <div class="row mb-2">
                 <div class="col">
@@ -387,6 +384,9 @@ function exibeFichasTreinos() {
                 </div>
             </div>
         `;
+
+        mostrarDataCorrigida(ficha.dataCadastro, `dataCadastroFicha${ficha.idFicha}`);
+        mostrarDataCorrigida(ficha.dataInicio, `dataInicioFicha${ficha.idFicha}`);
     }
 }
 
