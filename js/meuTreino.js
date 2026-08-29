@@ -117,13 +117,19 @@ function mostraDataAtual(idCampo) {
     campo.value = `${ano}-${mes}-${dia}`;
 }
 
-function mostrarDataCorrigida(data) {
+function mostrarDataCorrigida(data ,idCampoExibicao) {
     const dataObj = new Date(data);
     const dia = String(dataObj.getDate()).padStart(2, '0');
     const mes = String(dataObj.getMonth() + 1).padStart(2, '0');
     const ano = dataObj.getFullYear();
 
-    return `${ano}-${mes}-${dia}`;
+    let dataCorrigida = `${ano}-${mes}-${dia}`;
+
+    const campo = document.getElementById(idCampoExibicao);
+
+    if (campo) {
+        campo.value = dataCorrigida;
+    }
 }
 
 /* =========================================================
@@ -314,9 +320,7 @@ function abreModal(escolha) {
 }
 
 function exibeFichasTreinos() {
-
     const campoModalBody = document.getElementById('modalBody');
-
     if (!campoModalBody) return;
 
     // Limpa o conteúdo anterior
@@ -326,8 +330,8 @@ function exibeFichasTreinos() {
 
         const ficha = fichasCadastradas[i];
 
-        const dataCadastro = mostrarDataCorrigida(ficha.dataCadastro);
-        const dataInicio = mostrarDataCorrigida(ficha.dataInicio);
+        const dataCadastro = mostrarDataCorrigida(ficha.dataCadastro, `dataCadastroFicha${ficha.idFicha}`);
+        const dataInicio = mostrarDataCorrigida(ficha.dataInicio, `dataInicioFicha${ficha.idFicha}`);
 
         campoModalBody.innerHTML += `
             <div class="row mb-2">
@@ -341,11 +345,9 @@ function exibeFichasTreinos() {
                             data-bs-target="#cardBodyFicha${ficha.idFicha}"
                             onclick="mudaChevronExerciciosCadastrados(
                                 'chevronFicha${ficha.idFicha}',
-                                'headerFicha${ficha.idFicha}'
-                            )">
+                                'headerFicha${ficha.idFicha}')">
 
                             <div class="row">
-
                                 <div class="col">
                                     <span class="uppercase">
                                         Ficha ${ficha.idFicha}
@@ -357,41 +359,22 @@ function exibeFichasTreinos() {
                                         ${ficha.statusFicha}
                                     </span>
                                 </div>
-
                             </div>
-
                         </div>
 
-                        <div class="card-body collapse"
-                            id="cardBodyFicha${ficha.idFicha}">
+                        <div class="card-body collapse" id="cardBodyFicha${ficha.idFicha}">
+                            <div class="row mb-2">
+                                <div class="col-3">
+                                    <label class="labelText">Data Cadastro</label>
+                                    <input type="date" class="form-control" id="dataCadastroFicha${ficha.idFicha}" disabled>
+                                </div>
 
-                            <p>
-                                <strong>Data Cadastro:</strong>
-                                ${dataCadastro}
-                            </p>
-
-                            <p>
-                                <strong>Data Início:</strong>
-                                ${dataInicio}
-                            </p>
-
-                            <p>
-                                <strong>Qtd Treinos:</strong>
-                                ${ficha.qtdSubfichas}
-                            </p>
-
-                            <p>
-                                <strong>Última Letra Exercitada:</strong>
-                                ${ficha.ultimaLetraExercitada}
-                            </p>
-
-                            <p>
-                                <strong>Treinos:</strong>
-                                ${Object.keys(ficha.treinos).join(', ')}
-                            </p>
-
+                                <div class="col-3">
+                                    <label class="labelText">Data Início</label>
+                                    <input type="date" class="form-control" id="dataInicioFicha${ficha.idFicha}" disabled>
+                                </div>
+                            </div>
                         </div>
-
                     </div>
                 </div>
             </div>
