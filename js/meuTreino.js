@@ -964,7 +964,9 @@ function confirmaExercicioFicha(
     }
 
 
-    treino.exercicios.push({id: exercicio.id, nome: exercicio.nomeExercicio});
+    treino.exercicios.push({
+        id: exercicio.id
+    });
     salvarFichasStorage();
     renderizarExerciciosTreino(tipoTreino);
 }
