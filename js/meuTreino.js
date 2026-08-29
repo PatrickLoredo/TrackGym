@@ -743,8 +743,6 @@ function confirmaExercicioFicha(
     treino.exercicios.push({id: exercicio.id, nome: exercicio.nomeExercicio});
     salvarFichasStorage();
     renderizarExerciciosTreino(tipoTreino);
-
-    document.getElementById(`campoInsereSelect_Treino${tipoTreino}`).innerHTML = '';
 }
 
 
@@ -757,39 +755,22 @@ function renderizarExerciciosTreino(tipoTreino) {
     if (!ficha) return;
 
     const area = document.getElementById(`mostruarioExerciciosInseridos_${tipoTreino}`);
-
     if (!area) return;
 
-    const exercicios =
-        ficha.treinos[tipoTreino]
-            .exercicios;
-
-
+    const exercicios = ficha.treinos[tipoTreino].exercicios;
     area.innerHTML = '';
 
 
     exercicios.forEach(
         exercicio => {
-
             area.innerHTML += `
-
                 <div class="col-12 mb-2">
-
-                    <span
-                        class="badge rounded-pill bg-success py-2 w-100 uppercase">
-
-                        <i class="fa-solid fa-dumbbell"></i>
-
-                        &nbsp;&nbsp;
-
+                    <span class="badge rounded-pill bg-success py-2 w-100 uppercase">
+                        <i class="fa-solid fa-dumbbell"></i>&nbsp;&nbsp;
                         ${exercicio.nome}
-
                     </span>
-
                 </div>
-
             `;
-
         }
     );
 }
