@@ -117,16 +117,12 @@ function mostraDataAtual(idCampo) {
     campo.value = `${ano}-${mes}-${dia}`;
 }
 
-function mostrarDataCorrigida(data, idData) {
+function mostrarDataCorrigida(data) {
     const dataObj = new Date(data);
     const dia = String(dataObj.getDate()).padStart(2, '0');
     const mes = String(dataObj.getMonth() + 1).padStart(2, '0');
     const ano = dataObj.getFullYear();
-    const campo = document.getElementById(idData);
 
-    if (campo) {
-        campo.value = `${ano}-${mes}-${dia}`;
-    }
     return `${ano}-${mes}-${dia}`;
 }
 
@@ -317,42 +313,85 @@ function abreModal(escolha) {
     }
 }
 
-function exibeFichasTreinos(){
+function exibeFichasTreinos() {
+
     const campoModalBody = document.getElementById('modalBody');
+
     if (!campoModalBody) return;
 
-    for(let i=0;i<fichasCadastradas.length;i++){
+    // Limpa o conteúdo anterior
+    campoModalBody.innerHTML = '';
+
+    for (let i = 0; i < fichasCadastradas.length; i++) {
+
         const ficha = fichasCadastradas[i];
 
-        mostrarDataCorrigida(ficha.dataCadastro,`dataCadastroFicha${ficha.idFicha}`);
-        mostrarDataCorrigida(ficha.dataInicio,`dataInicioFicha${ficha.idFicha}`);
+        const dataCadastro = mostrarDataCorrigida(ficha.dataCadastro);
+        const dataInicio = mostrarDataCorrigida(ficha.dataInicio);
 
         campoModalBody.innerHTML += `
             <div class="row mb-2">
                 <div class="col">
                     <div class="card">
+
                         <div class="card-header bg-primary text-light"
                             type="button"
                             id="headerFicha${ficha.idFicha}"
                             data-bs-toggle="collapse"
                             data-bs-target="#cardBodyFicha${ficha.idFicha}"
-                            onclick="mudaChevronExerciciosCadastrados('chevronFicha${ficha.idFicha}','headerFicha${ficha.idFicha}')">
+                            onclick="mudaChevronExerciciosCadastrados(
+                                'chevronFicha${ficha.idFicha}',
+                                'headerFicha${ficha.idFicha}'
+                            )">
+
                             <div class="row">
+
                                 <div class="col">
-                                    <span class="uppercase">Ficha ${ficha.idFicha}</span>
+                                    <span class="uppercase">
+                                        Ficha ${ficha.idFicha}
+                                    </span>
                                 </div>
+
                                 <div class="col-auto">
-                                    <span class="badge bg-success">${ficha.statusFicha}</span>
+                                    <span class="badge bg-success">
+                                        ${ficha.statusFicha}
+                                    </span>
                                 </div>
+
                             </div>
+
                         </div>
-                        <div class="card-body collapse" id="cardBodyFicha${ficha.idFicha}">
-                            <p id="dataCadastroFicha${ficha.idFicha}"><strong>Data Cadastro:</strong> ${ficha.dataCadastro}</p>
-                            <p id="dataInicioFicha${ficha.idFicha}"><strong>Data Início:</strong> ${ficha.dataInicio}</p>
-                            <p><strong>Qtd Treinos:</strong> ${ficha.qtdSubfichas}</p>
-                            <p><strong>Última Letra Exercitada:</strong> ${ficha.ultimaLetraExercitada}</p>
-                            <p><strong>Treinos:</strong> ${Object.keys(ficha.treinos).join(', ')}</p>
+
+                        <div class="card-body collapse"
+                            id="cardBodyFicha${ficha.idFicha}">
+
+                            <p>
+                                <strong>Data Cadastro:</strong>
+                                ${dataCadastro}
+                            </p>
+
+                            <p>
+                                <strong>Data Início:</strong>
+                                ${dataInicio}
+                            </p>
+
+                            <p>
+                                <strong>Qtd Treinos:</strong>
+                                ${ficha.qtdSubfichas}
+                            </p>
+
+                            <p>
+                                <strong>Última Letra Exercitada:</strong>
+                                ${ficha.ultimaLetraExercitada}
+                            </p>
+
+                            <p>
+                                <strong>Treinos:</strong>
+                                ${Object.keys(ficha.treinos).join(', ')}
+                            </p>
+
                         </div>
+
                     </div>
                 </div>
             </div>
