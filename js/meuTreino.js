@@ -366,7 +366,7 @@ function exibeFichasTreinos() {
                                 </div>
 
                                 <div class="col-auto">
-                                    <span class="badge rounded-pill bg-info">${exercicio.series} séries</span>
+                                    <span class="badge rounded-pill bg-info">${exercicio.series} x ${exercicio.repeticoes}</span>
                                 </div>
                             </div>
                         </div>
@@ -381,19 +381,6 @@ function exibeFichasTreinos() {
                                     <input type="text" class="form-control" value="${exercicio.nomeExercicio || ''}" disabled >
                                 </div>
 
-                                <!-- SÉRIES -->
-                                <div class="col mb-3">
-                                    <label class="labelText">Séries</label>
-                                    <input type="number" class="form-control" value="${exercicio.series || ''}"disabled>
-                                </div>
-
-                                <!-- REPETIÇÕES -->
-                                <div class="col mb-3">
-                                    <label class="labelText">Repetições</label>
-
-                                    <input type="number" class="form-control" value="${exercicio.repeticoes || ''}" disabled >
-                                </div>
-
                                 <!-- PESO ATUAL -->
                                 <div class="col mb-3">
                                     <label class="labelText">Peso Atual</label>
@@ -406,6 +393,13 @@ function exibeFichasTreinos() {
                                     <label class="labelText">Peso Máximo</label>
 
                                     <input type="number" class="form-control" value="${exercicio.maiorPeso || ''}" disabled=>
+                                </div>
+
+                                <!-- DIFICULDADE -->
+                                <div class="col mb-3">
+                                    <label class="labelText">Dificuldade</label>
+
+                                    <input type="number" class="form-control" value="${exercicio.dificuldade || ''}" disabled=>
                                 </div>
                             </div>
                         </div>
@@ -431,7 +425,7 @@ function exibeFichasTreinos() {
                             </div>
 
                             <div class="col-auto">
-                                <span class="badge rounded-pill bg-secondary">${treino.exercicios.length}exercícios</span>
+                                <span class="badge rounded-pill bg-dark">${treino.exercicios.length} exercícios</span>
                             </div>
                         </div>
                     </div>
