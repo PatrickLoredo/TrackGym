@@ -336,10 +336,11 @@ function exibeFichasTreinos() {
 
     for (let i = 0; i < fichasCadastradas.length; i++) {
         const ficha = fichasCadastradas[i];
+
         let htmlTreinos = '';
 
-        for (let j = 0; j < ficha.treinos.length; j++) {
-            const treino = ficha.treinos[j];
+        for (let j = 0; j < fichasCadastradas[i].treinos.length; j++) {
+            const treino = fichasCadastradas[i].treinos[j];
 
             htmlTreinos += `
                 <div class="row mb-2">
