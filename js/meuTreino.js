@@ -326,9 +326,18 @@ campoExercicioInsere.insertAdjacentHTML('beforeend', `
                                     </div>
                                     <div class="col-12 mb-3">
                                         <label class="labelText">Carga</label>
-
-                                        <input type="number" class="form-control"
-                                            min="1" max="900" value="5">
+                                        <div class="input-group">
+                                            <input type="number" class="form-control" min="1" max="900" value="5"
+                                            id="Ficha${fichaId}_Treino${letraDoTreino}_Exericio${contadorID}_Carga">
+                                            <button class="btn btn-primary input-group-text"
+                                            onclick="document.getElementById('Ficha${fichaId}_Treino${letraDoTreino}_Exericio${contadorID}_Carga').value + 5">
+                                                +5
+                                            </button>
+                                            <button class="btn btn-primary input-group-text"
+                                            onclick="document.getElementById('Ficha${fichaId}_Treino${letraDoTreino}_Exericio${contadorID}_Carga').value + 7">
+                                                +7
+                                            </button>
+                                        </div>
                                     </div>
 
                                     <div class="col-12 mb-3">
