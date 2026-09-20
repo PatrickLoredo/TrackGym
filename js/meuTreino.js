@@ -312,27 +312,27 @@ campoExercicioInsere.insertAdjacentHTML('beforeend', `
                         <div class="card" style="border: 2.5px solid rgba(11, 94, 215,0.5)">
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-2 mb-3">
+                                    <div class="col-12 mb-3">
                                         <label class="labelText"> séries</label>
 
                                         <input  type="number" class="form-control"
                                             min="1" max="10" value="3">
                                     </div>
 
-                                    <div class="col-3 mb-3">
+                                    <div class="col-12 mb-3">
                                         <label class="labelText">Repet</label>
 
                                         <input type="number" class="form-control"
                                             min="1" max="10" value="12">
                                     </div>
-                                    <div class="col-3 mb-3">
+                                    <div class="col-12 mb-3">
                                         <label class="labelText">Carga</label>
 
                                         <input type="number" class="form-control"
                                             min="1" max="900" value="5">
                                     </div>
 
-                                    <div class="col mb-3">
+                                    <div class="col-12 mb-3">
                                         <label class="labelText">Dificuldade</label>
 
                                         <select class="form-select uppercase text-center">
