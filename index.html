@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,8 +11,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
-    </script>
-
+        </script>
 
     <!--BOOTSTRAP ICONS-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -19,88 +19,396 @@
     <!--SCROLLREVEAL-->
     <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
 
-
     <!-- CSS do projeto -->
-    <link rel="stylesheet" href="meuTreino.css">
+    <link rel="stylesheet" href="/TrackGym/meuTreino.css">
 
 </head>
 
 
 <body>
     <div class="row">
-        <div class="col">
-            <div class="row my-5">
+        <div class="col container">
+            <div class="row mt-5">
                 <div class="col flexCenter">
                     <div class="alert alert-warning w-75 textoCenter uppercase">
-                        <h4 class="display-4">Track Gym</h4>
+                        <a href="/TrackGym/index.html" style="text-decoration: none; color: gray;">
+                            <h4 class="display-4">Track Gym</h4>
+                        </a>
                     </div>
                 </div>
             </div>
-            <div class="row m-3 textoCenter">
-                <div class="col-6 mb-2">
-                    <button class="btn btn-sm btn-danger w-100 buttonHeight4"
-                    id="btnCadastrarExercicio"
-                    data-bs-toggle="modal"
-                    data-bs-target="#modalTreino"
-                    onclick="abreModal('Cadastrar Exercício')">
-                        <i class="fa fa-circle-plus"></i>&nbsp;&nbsp;
-                        <span class="font-button">Cadastrar exercicio</span>
-                    </button>
-                </div>
-                <div class="col-6 mb-2">
-                    <button class="btn btn-sm btn-success w-100 buttonHeight4"
-                    data-bs-toggle="modal"
-                    data-bs-target="#modalTreino"
-                    onclick="abreModal('Cadastrar Ficha'),
-                    atualizaQtdTreinos(3),
-                    mostraDataAtual('dataCadastroNovaFicha'),
-                    mostraDataAtual('dataInicioNovaFicha')">
-                        <i class="fa fa-circle-plus"></i>&nbsp;&nbsp;
-                        <span class="font-button">Cadastrar ficha</span>
-                    </button>
-                </div>
-                <div class="col-12 mb-2">
-                    <button class="btn btn-sm btn-warning w-100 buttonHeight4">
-                        <i class="fa-solid fa-chart-simple"></i>&nbsp;&nbsp;
-                        <span class="font-button">Evolução de Condicionamento</span>
-                    </button>
-                </div>
-                <div class="col-12 mb-2">
-                    <button class="btn btn-sm btn-primary w-100 buttonHeight4"
-                    data-bs-toggle="modal"
-                    data-bs-target="#modalTreino"
-                    onclick="abreModal('Meus Exercícios Cadastrados')">
-                        <i class="fa-solid fa-dumbbell"></i>&nbsp;&nbsp;
-                        <span class="font-button">exercícios cadastrados</span>
-                    </button>
-                </div>
-                <div class="col-12 mb-2">
-                    <button class="btn btn-sm btn-dark w-100 buttonHeight4"
-                    onclick="abreModal('Minhas Fichas de Treinamento')"
-                    data-bs-toggle="modal"
-                    data-bs-target="#modalTreino">
-                        <i class="fa-regular fa-clipboard"></i>&nbsp;&nbsp;
-                        <span class="font-button">minha ficha de treinamento</span>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <div class="row">
-        <div class="col">
-            <div class="modal" tabindex="-1" id="modalTreino">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header" id="tituloModal"></div>
-                        <div class="modal-body" id="modalBody"></div>
-                        <div class="modal-footer" id="modalFooter"></div>
+            <div class="row container m-auto mt-3" id="alertProximoTreino"></div>
+
+            
+
+            <div class="row mx-3 mt-3 textoCenter">
+                <div class="col">
+                    <div class="row">
+                        <!--SESSAO EXIBICAO MINHAS FICHAS DE TREINAMENTO-->
+                        <div class="col-12 mb-3">
+                            <button class="btn btn-sm btn-dark w-100 buttonHeight4" 
+                                data-bs-toggle="collapse"
+                                data-bs-target="#exibicaoFichastreinamento"
+                                id="minhaFichaTreinamento"
+                                data-aos="fade-up"
+                                data-aos-duration="1500">
+                                <i class="fa-regular fa-clipboard"></i>&nbsp;&nbsp;
+                                <span class="font-button">minha ficha de treinamento</span>
+                            </button>
+                        </div>
+
+                        <div class="card collapse mb-5" id="exibicaoFichastreinamento">
+                            <div class="card-body" >
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="card">
+                                            <div class="card-header bg-danger text-light">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <h6 class="uppercase tamanho13 m-auto">
+                                                            fichas abertas
+                                                        </h6>
+                                                    </div>
+                                                    <div class="col-2">
+                                                        <button class="btn btn-sm btn-warning"
+                                                        data-bs-toggle="collapse"
+                                                        data-bs-target="#bodyExibicaoFichasAbertas"
+                                                        onclick="mudaChevron('chevronFichasAbertas'),
+                                                        populaFichasAbertas('bodyExibicaoFichasAbertas')"
+                                                        id="btnFichasAbertas">
+                                                            <i class="fa fa-chevron-down" id="chevronFichasAbertas"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="card-body collapse" id="bodyExibicaoFichasAbertas"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mt-3">
+                                    <div class="col">
+                                        <div class="card">
+                                            <div class="card-header bg-success text-light">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <h6 class="uppercase tamanho13 m-auto">
+                                                            fichas Concluídas
+                                                        </h6>
+                                                    </div>
+                                                    <div class="col-2">
+                                                        <button class="btn btn-sm btn-warning"
+                                                        data-bs-toggle="collapse"
+                                                        data-bs-target="#bodyExibicaoFichasConcluidas"
+                                                        onclick="mudaChevron('chevronFichasConcluidas'),
+                                                        populaFichasConcluidas('bodyExibicaoFichasConcluidas')">
+                                                            <i class="fa fa-chevron-down" id="chevronFichasConcluidas"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="card-body collapse" id="bodyExibicaoFichasConcluidas">
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--BUTTON DE COLLAPSE - CADASTROS-->
+                        <div class="col-12 col-lg-6">
+                            <button class="btn btn-info w-100 buttonHeight4 fw-bold uppercase text-light"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#sessaoCadastros"
+                            data-aos="fade-up"
+                            data-aos-duration="2000">
+                                <i class="fa fa-circle-plus"></i>&nbsp;&nbsp;
+                                <span>área de cadastros</span>
+                            </button>
+                        </div>
+
+                        <!--CONJUNTO DE BUTTONS CADASTRO-->
+                        <div class="row m-auto collapse mb-5" id="sessaoCadastros">
+                            <!--SESSAO CADASTROS-->
+                            <div class="col-12 col-lg-6 mt-3">
+                                <!--CADASTRAR EXERCICIOS-->
+                                <div class="col-12 col-lg mb-2">
+                                    <!--BUTTON CADASTRO EXERCICIO-->
+                                    <button class="btn btn-sm btn-danger w-100 buttonHeight4" 
+                                        id="btnCadastrarExercicio"
+                                        data-bs-toggle="collapse" 
+                                        data-bs-target="#cardCadastroExercicios"
+                                        onclick="gerarNovoId(0,'exe','campoIDCadastroExercicio')">
+                                        <i class="fa fa-dumbbell"></i>&nbsp;&nbsp;
+                                        <span class="font-button">Cadastrar exercício</span>
+                                    </button>
+
+                                    <!--CARD CADASTRO EXERCICIO-->
+                                    <div class="row mt-2 collapse" id="cardCadastroExercicios">
+                                        <div class="col">
+                                            <div class="card mb-5">
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-3">
+                                                            <label for="" class="labelText">id</label>
+                                                            <input type="text" class="form-control" 
+                                                            disabled
+                                                                id="campoIDCadastroExercicio">
+                                                        </div>
+                                                        <div class="col">
+                                                            <label for="" class="labelText">
+                                                                nome do exercicio
+                                                            </label>
+                                                            <input type="text" class="form-control"
+                                                                id="campoNOMECadastroExercicio">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-footer">
+                                                    <div class="row">
+                                                        <div class="col gap-2">
+                                                            <button class="btn btn-sm btn-success"
+                                                            onclick="salvarCadastro('campoIDCadastroExercicio', 'campoNOMECadastroExercicio', 'exercicio','0',arrayExercicios)">
+                                                                <i class="fa fa-save">&nbsp;&nbsp;</i>
+                                                                <span class="uppercase tamanho08">salvar</span>
+                                                            </button>
+                                                            <button class="btn btn-sm btn-primary">
+                                                                <i class="fa fa-broom">&nbsp;&nbsp;</i>
+                                                                <span class="uppercase tamanho08">limpar</span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--CADASTRAR CATEGORIAS-->
+                                <div class="col-12 col-lg mb-2">
+                                    <!--BUTTON CADASTRO CATEGORIAS-->
+                                    <button class="btn btn-sm btn-warning w-100 buttonHeight4" 
+                                    id="btnCadastrarCategoria"
+                                        data-bs-toggle="collapse" data-bs-target="#cardCadastroCategorias"
+                                        onclick="gerarNovoId(1,'ctg','campoIDCadastroCategoria')">
+                                        <i class="fa fa-list"></i>&nbsp;&nbsp;
+                                        <span class="font-button">Cadastrar Categorias</span>
+                                    </button>
+
+                                    <!--CARD CADASTRO CATEGORIAS-->
+                                    <div class="row mt-2 collapse" id="cardCadastroCategorias">
+                                        <div class="col">
+                                            <div class="card mb-5">
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-3">
+                                                            <label for="" class="labelText">id</label>
+                                                            <input type="text" class="form-control" disabled
+                                                                id="campoIDCadastroCategoria">
+                                                        </div>
+                                                        <div class="col">
+                                                            <label for="" class="labelText">nome dA Categoria</label>
+                                                            <input type="text" class="form-control"
+                                                                id="campoNOMECadastroCategoria">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-footer">
+                                                    <div class="row">
+                                                        <div class="col gap-2">
+                                                            <button class="btn btn-sm btn-success"
+                                                            onclick="salvarCadastro('campoIDCadastroCategoria', 'campoNOMECadastroCategoria', 'categoria','1',arrayCategorias)">
+                                                                <i class="fa fa-save">&nbsp;&nbsp;</i>
+                                                                <span class="uppercase tamanho08">salvar</span>
+                                                            </button>
+                                                            <button class="btn btn-sm btn-primary">
+                                                                <i class="fa fa-broom">&nbsp;&nbsp;</i>
+                                                                <span class="uppercase tamanho08">limpar</span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--CADASTRAR FICHA-->
+                                <div class="col-12 col-lg mb-4 mb-md-2">
+                                    <!--BUTTON CADASTRO FICHA-->
+                                    <button class="btn btn-sm btn-success w-100 buttonHeight4" 
+                                        data-bs-toggle="collapse"
+                                        data-bs-target="#cardCadastroFichas"
+                                        onclick="gerarNovoId(2,'fch','campoIDCadastroFicha'),
+                                        dataAtualFormatada('campoDataInicioFicha'),
+                                        geraCardsFichaTreino()"
+                                        id="btnCadastrarFicha"
+    >
+                                        <i class="fa fa-file"></i>&nbsp;&nbsp;
+                                        <span class="font-button">Cadastrar ficha</span>
+                                    </button>
+
+                                    <!--CARD CADASTRO FICHA-->
+                                    <div class="row mt-2 collapse" id="cardCadastroFichas">
+                                        <div class="col">
+                                            <div class="card mb-5">
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <!--ID FICHA-->
+                                                        <div class="col-3 mb-3">
+                                                            <label for="" class="labelText">id</label>
+                                                            <input type="text" class="form-control" disabled
+                                                                id="campoIDCadastroFicha">
+                                                        </div>
+
+                                                        <!--DATA INICIO FICHA-->
+                                                        <div class="col-6 mb-3">
+                                                            <label for="" class="labelText">data inicio</label>
+                                                            <input type="date" class="form-control"
+                                                                id="campoDataInicioFicha">
+                                                        </div>
+
+                                                        <!--QUANTIDADE DE TREINOS-->
+                                                        <div class="col-3 mb-3">
+                                                            <label for="" class="labelText">qtd treinos</label>
+                                                            <input type="number" class="form-control"
+                                                                id="campoQtdTreinosFicha"
+                                                                onchange="geraCardsFichaTreino()"
+                                                                min="1"
+                                                                max="5"
+                                                                value="1">
+                                                        </div>
+                                                    </div>
+
+                                                    <hr>
+
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="row my-3" id="campoCadastroTreinos">
+                                                                
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-footer">
+                                                    <div class="row">
+                                                        <div class="col gap-2">
+                                                            <button class="btn btn-sm btn-success" 
+                                                            onclick="salvarFicha()">
+                                                                <i class="fa fa-save">&nbsp;&nbsp;</i>
+                                                                <span class="uppercase tamanho08">salvar ficha</span>
+                                                            </button>
+                                                            <button class="btn btn-sm btn-primary">
+                                                                <i class="fa fa-broom">&nbsp;&nbsp;</i>
+                                                                <span class="uppercase tamanho08">recomeçar ficha</span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!--BUTTON DE COLLAPSE - EXIBIÇÃO-->
+                        <div class="col-12 col-lg-6 mb-3 mt-2">
+                            <button class="btn btn-secondary w-100 buttonHeight4 fw-bold uppercase text-light"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#sessaoExibicao"
+                            data-aos="fade-up"
+                            data-aos-duration="2500">
+                                <i class="fa fa-eye"></i>&nbsp;&nbsp;
+                                <span>área de Exibição</span>
+                            </button>
+                        </div>
+                        
+                        <!--CONJUNTO DE BUTTONS EXIBICAO-->
+                        <div class="row m-auto collapse" id="sessaoExibicao">
+                            <!--SESSÃO EXIBICAO-->
+                            <div class="col-12 col-lg-6">
+                                <!--SESSAO EXIBICAO EXERCICIOS/ CATEGORIAS-->
+                                <div class="col-12 mb-2">
+                                    <button class="btn btn-sm btn-primary w-100 buttonHeight4" id="btnExibirExercicios"
+                                        data-bs-toggle="collapse" data-bs-target="#cardExibicaoExerciciosGruposMusculares">
+                                        <i class="fa-solid fa-dumbbell"></i>&nbsp;&nbsp;
+                                        <span class="font-button">exercícios / categorias cadastradas</span>
+                                    </button>
+
+                                    <!--CARD EXIBICAO DE EXERCICIOS E CATEGORIAS DE GRUPOS MUSCULARES-->
+                                    <div class="row mt-2 collapse" 
+                                    id="cardExibicaoExerciciosGruposMusculares">
+                                        <div class="col">
+                                            <div class="card mb-5">
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <button class="btn btn-dark w-100"
+                                                            data-bs-toggle="collapse"
+                                                            data-bs-target="#listaExibicaoExerciciosCadastrados"
+                                                            onclick="populaInputCadastrosArray('bodyExibicaoExerciciosCadastrados','exercicio', arrayExercicios)">
+                                                                <i class="fa fa-dumbbell">&nbsp;</i>
+                                                                <span class="uppercase tamanho08">exercícios</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="col">
+                                                            <button class="btn btn-secondary w-100"
+                                                            data-bs-toggle="collapse"
+                                                            data-bs-target="#listaExibicaoCategoriasCadastrados"
+                                                            onclick="populaInputCadastrosArray('bodyExibicaoCategoriasCadastrados','categoria', arrayCategorias)">
+                                                                <i class="fa fa-male">&nbsp;</i>
+                                                                <span class="uppercase tamanho08">grupos musculares</span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+
+                                                    <!--CARD EXIBICAO EXEERCICIOS-->
+                                                    <div class="row mt-4 collapse" id="listaExibicaoExerciciosCadastrados">
+                                                        <div class="col">
+                                                            <div class="card">
+                                                                <div class="card-body" id="bodyExibicaoExerciciosCadastrados">
+                                                                    
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <!--CARD EXIBICAO GRUPOS MUSCULARES-->
+                                                    <div class="row mt-4 collapse" id="listaExibicaoCategoriasCadastrados">
+                                                        <div class="col">
+                                                            <div class="card">
+                                                                <div class="card-body" id="bodyExibicaoCategoriasCadastrados">
+                                                                    
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--SESSAO EXIBICAO  EVOLUCAO DE CONDICIONAMENTO-->
+                                <div class="col-12  mt-2 mt-md-0 mb-2">
+                                    <button class="btn btn-sm btn-warning w-100 buttonHeight4">
+                                        <i class="fa-solid fa-chart-simple"></i>&nbsp;&nbsp;
+                                        <span class="font-button">Evolução de Condicionamento</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+                <hr class="d-block d-md-none">
             </div>
         </div>
     </div>
-
 
 
     <!--BOOTSTRAP-->
@@ -111,13 +419,10 @@
     <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 
     <script>
-        AOS.init({
-            duration: 1200,
-            once: true
-        });
+        AOS.init({duration: 1200,once: true});
     </script>
 
-    <script src="/js/meuTreino.js" defer></script>
+    <script src="js/meuTreino.js" defer></script>
 
 
 </body>

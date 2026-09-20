@@ -22,23 +22,48 @@ input,
 .labelText{
     font-size: .7rem;
 }
-
-.tamanho08,
-.font-button,
-#modalBody input,
-#modalBody select{
-    font-size: .8rem;
+#cardCadastroExercicios input,
+#cardCadastroCategorias input,
+#cardCadastroFichas input,
+#campoCadastroTreinos input,
+#campoCadastroTreinos select,
+#bodyExibicaoDadosCadastrados input,
+#listaExibicaoExerciciosCadastrados input,
+#listaExibicaoCategoriasCadastrados input{
+    font-size: 0.75rem;
 }
 
-.tamanho09{font-size: .9rem;}
-.tamanho10{font-size: 1rem;}
-.tamanho11{font-size: 1.1rem;}
-.tamanho12{font-size: 1.2rem;}
-.tamanho13{font-size: 1.3rem;}
-.tamanho14{font-size: 1.4rem;}
-.tamanho15{font-size: 1.5rem;}
-.tamanho16{font-size: 1.6rem;}
-.tamanho17{font-size: 1.7rem;}
+.tamanho08{
+    font-size: .8rem;
+}
+.tamanho09{
+    font-size: .9rem;
+}
+.tamanho10{
+    font-size: 1rem;
+}
+.tamanho11,
+.font-button{
+    font-size: 1.1rem;
+}
+.tamanho12{
+    font-size: 1.2rem;
+}
+.tamanho13{
+    font-size: 1.3rem;
+}
+.tamanho14{
+    font-size: 1.4rem;
+}
+.tamanho15{
+    font-size: 1.5rem;
+}
+.tamanho16{
+    font-size: 1.6rem;
+}
+.tamanho17{
+    font-size: 1.7rem;
+}
 .tamanho18{font-size: 1.8rem;}
 .tamanho19{font-size: 1.9rem;}
 .tamanho20{font-size: 2rem;}
@@ -51,11 +76,28 @@ input,
 }
 
 .textoCenter,
-input,
-#modalBody select{
+input{
     text-align: center;
 }
 
 .buttonHeight4{
     height: 4rem;
+}
+
+.bgBlue{
+    background-color: #0b5ed7;
+}
+.colorBlue{
+    color: #0b5ed7;
+}
+.mostradorIdFicha{
+    position: absolute;
+    top: -15px;
+    right: 0;
+    background-color: lightskyblue;
+    width: 5rem;
+    border-radius: 10px;
+    padding: 3px 0;
+    font-weight: bold;
+    color: blue;
 }
