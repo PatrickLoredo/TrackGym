@@ -497,7 +497,7 @@ function populaCheckboxArray(array, idCampo) {
     for (let i = 0; i < array.length; i++) {
 
         campoCheckbox.insertAdjacentHTML('beforeend', `
-            <div class="col-4 d-flex justify-content-start">
+            <div class="col-6 d-flex justify-content-start">
 
                 <input
                     type="checkbox"
