@@ -250,6 +250,14 @@ function geraCardsFichaTreino() {
     }
 }
 
+function aumentarCarga(id, valor) {
+    const campo = document.getElementById(id);
+
+    if (!campo) return;
+
+    campo.value = Number(campo.value || 0) + valor;
+}
+
 function addExercicioFicha(idCampoExericio, idCampoContador, idFicha, letraTreino) {
     let fichaId = idFicha;
     let campoExercicioInsere = document.getElementById(idCampoExericio);
@@ -330,11 +338,11 @@ campoExercicioInsere.insertAdjacentHTML('beforeend', `
                                             <input type="number" class="form-control" min="1" max="900" value="5"
                                             id="Ficha${fichaId}_Treino${letraDoTreino}_Exericio${contadorID}_Carga">
                                             <button class="btn btn-primary input-group-text"
-                                            onclick="document.getElementById('Ficha${fichaId}_Treino${letraDoTreino}_Exericio${contadorID}_Carga').value + 5">
+                                            onclick="aumentarCarga('Ficha${fichaId}_Treino${letraDoTreino}_Exericio${contadorID}_Carga', 5)">
                                                 +5
                                             </button>
                                             <button class="btn btn-primary input-group-text"
-                                            onclick="document.getElementById('Ficha${fichaId}_Treino${letraDoTreino}_Exericio${contadorID}_Carga').value + 7">
+                                            onclick="aumentarCarga('Ficha${fichaId}_Treino${letraDoTreino}_Exericio${contadorID}_Carga', 7)">
                                                 +7
                                             </button>
                                         </div>
