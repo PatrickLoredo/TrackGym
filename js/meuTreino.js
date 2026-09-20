@@ -271,10 +271,10 @@ function addExercicioFicha(idCampoExericio, idCampoContador, idFicha, letraTrein
 
 campoExercicioInsere.insertAdjacentHTML('beforeend', `
     <div class="row exercicio-ficha" data-ficha="${fichaId}" data-treino="${letraDoTreino}" data-exercicio="${contadorID}">
-            <div class="col-3 mb-3">
+            <div class="col-12 mb-3">
                 <input type="text" class="form-control" disabled id="${idInput}">
             </div>
-            <div class="col mb-3">
+            <div class="col-12 mb-3">
                 <div class="input-group">
                     <span class="input-group-text bg-dark text-light">
                         <i class="fa fa-star"></i>
@@ -497,7 +497,7 @@ function populaCheckboxArray(array, idCampo) {
     for (let i = 0; i < array.length; i++) {
 
         campoCheckbox.insertAdjacentHTML('beforeend', `
-            <div class="col-6 d-flex justify-content-start">
+            <div class="col-4 d-flex justify-content-start">
 
                 <input
                     type="checkbox"
@@ -550,7 +550,7 @@ function salvarCadastro(campoId, campoNome, tipo, indiceArray, array) {
                 limpaInputUnico(campoNome);
                 document.getElementById(campoNome).focus();
                 populaInputCadastrosArray('bodyExibicaoListaExerciciosCadastrados', arrayExercicios)
-                campoNomeCadastro.focus();
+                campoNomeCadastro.focus()
             }
 
             else if (tipo === 'categoria') {
