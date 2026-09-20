@@ -225,7 +225,7 @@ function geraCardsFichaTreino() {
                         <div class="card-footer mt-4">
                             <div class="row mt-2">
                                 <div class="col gap-2">
-                                    <button class="btn btn-sm btn-danger w-75"
+                                    <button class="btn btn-sm btn-danger w-100"
                                         onclick=" addExercicioFicha(
                                                 'campoInsereExerciciosFicha_${i}',
                                                 'contadorFicha_${letrasTreinos[i]}',
