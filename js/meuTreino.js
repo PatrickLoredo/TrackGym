@@ -550,6 +550,7 @@ function salvarCadastro(campoId, campoNome, tipo, indiceArray, array) {
                 limpaInputUnico(campoNome);
                 document.getElementById(campoNome).focus();
                 populaInputCadastrosArray('bodyExibicaoListaExerciciosCadastrados', arrayExercicios)
+                campoNomeCadastro.focus();
             }
 
             else if (tipo === 'categoria') {
