@@ -225,22 +225,21 @@ function geraCardsFichaTreino() {
                         <div class="card-footer mt-4">
                             <div class="row mt-2">
                                 <div class="col gap-2">
-                                    <div class="input-group">
-                                        <button class="btn btn-sm btn-danger input-group-text w-75"
-                                            onclick=" addExercicioFicha(
-                                                    'campoInsereExerciciosFicha_${i}',
-                                                    'contadorFicha_${letrasTreinos[i]}',
-                                                    '${IDSTRING}',
-                                                    '${letrasTreinos[i]}')">
-                                            <i class="fa fa-circle-plus"></i>&nbsp;
-                                            <span class="uppercase tamanho08">
-                                                adicionar novo exercício
-                                            </span>
-                                        </button>
-                                        
-                                        <input type="number" class="form-control mt-2" value="0"
-                                        id="contadorFicha_${letrasTreinos[i]}" disabled>
-                                    </div>
+                                    <button class="btn btn-sm btn-danger w-75"
+                                        onclick=" addExercicioFicha(
+                                                'campoInsereExerciciosFicha_${i}',
+                                                'contadorFicha_${letrasTreinos[i]}',
+                                                '${IDSTRING}',
+                                                '${letrasTreinos[i]}')">
+                                        <i class="fa fa-circle-plus"></i>&nbsp;
+                                        <span class="uppercase tamanho08">
+                                            adicionar novo exercício
+                                        </span>
+                                    </button>
+                                </div>
+                                
+                                <div class="coL">
+                                    <input type="number" class="form-control mt-2" value="0" id="contadorFicha_${letrasTreinos[i]}" disabled>
                                 </div>
                             </div>
                         </div>
