@@ -283,8 +283,14 @@
                                                                     max="5"
                                                                     value="1">
                                                                 <button class="btn btn-primary input-group-text"
-                                                                onclick="document.getElementById('campoQtdTreinosFicha').value++">
+                                                                onclick="document.getElementById('campoQtdTreinosFicha').value++,
+                                                                geraCardsFichaTreino()">
                                                                     <i class="bi bi-plus"></i>
+                                                                </button>
+                                                                <button class="btn btn-danger input-group-text"
+                                                                onclick="document.getElementById('campoQtdTreinosFicha').value--,
+                                                                geraCardsFichaTreino()">
+                                                                    <i class="bi bi-minus"></i>
                                                                 </button>
                                                             </div>
                                                             
