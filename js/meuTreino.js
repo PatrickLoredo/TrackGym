@@ -170,7 +170,7 @@ function geraCardsFichaTreino() {
 
     for (let i = 0; i < qtdTreinos; i++) {
         campoCadastroTreinos.insertAdjacentHTML('beforeend', `
-            <div class="col-12 mb-3">
+            <div class="col-12 my-3">
                 <div class="card">
                     <div class="card-header bg-warning">
                         <div class="row">
@@ -237,7 +237,7 @@ function geraCardsFichaTreino() {
                                         </span>
                                     </button>
                                 </div>
-                                
+
                                 <div class="coL">
                                     <input type="number" class="form-control mt-2" value="0" id="contadorFicha_${letrasTreinos[i]}" disabled>
                                 </div>
