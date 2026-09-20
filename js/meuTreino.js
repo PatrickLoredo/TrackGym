@@ -809,6 +809,13 @@ function populaFichasAbertas(idCampo) {
             data-aos-duration="2000">
                 <div class="col">
                     <div class="card">
+                        <span type="button" 
+                        class="mostradorTrashFichaPrincipal uppercase tamanho09"
+                        onclick="excluirFichaPrincipalManualmente('${ficha.id}')">
+                            Excluir Ficha Principal&nbsp;&nbsp;&nbsp;
+                            <i class="fa fa-fade fa-trash"></i>
+                        </span>
+
                         <span class="mostradorIdFicha uppercase tamanho09">
                             ${ficha.id}
                         </span>
@@ -849,7 +856,7 @@ function populaFichasAbertas(idCampo) {
                                     <button
                                         class="btn btn-sm btn-dark"
                                         data-bs-toggle="collapse"
-                                        data-bs-target="#bodyExibicaoExercicioFichaAbertas_${ficha.id}"
+                                        data-bs-target="#campoPrincipalExibeFichasAbertas_${ficha.id}"
                                         id="${ficha.id}_eye"
                                         onclick=" exibeTreinosExercicios(
                                                 'bodyExibicaoExercicioFichaAbertas_${ficha.id}',
@@ -865,10 +872,23 @@ function populaFichasAbertas(idCampo) {
                             </div>
                         </div>
 
-                        <div class="row my-3">
-                            <div
-                                class="col collapse"
-                                id="bodyExibicaoExercicioFichaAbertas_${ficha.id}">
+                        <div class="row my-3 collapse" id="campoPrincipalExibeFichasAbertas_${ficha.id}">
+                            <div class="col">
+                                <div class="row">
+                                    <div class="col my-2 mb-4">
+                                        <button class="btn btn-primary w-75"
+                                        onclick="adicionaFichaTreinoManual(
+                                        'bodyExibicaoExercicioFichaAbertas_${ficha.id}',
+                                        '${ficha.id}')">
+                                            <i class="fa fa-circle-plus"></i>&nbsp;&nbsp;
+                                            <span class="uppercase tamanho09">
+                                                Adicionar Ficha de Treino
+                                            </span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="row" id="bodyExibicaoExercicioFichaAbertas_${ficha.id}">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -877,6 +897,163 @@ function populaFichasAbertas(idCampo) {
         `;
         console.log(`${ficha.id}`)
     });
+}
+
+function excluirFichaPrincipalManualmente(fichaPrincipalID) {
+    const indice = arrayFichas.findIndex(
+        ficha => String(ficha.id) === String(fichaPrincipalID)
+    );
+
+    if (indice === -1) {
+        alert('Ficha não encontrada!');
+        return;
+    }
+
+    const confirmar = confirm(
+        `Deseja realmente excluir a ficha ${fichaPrincipalID}?`
+    );
+
+    if (!confirmar) {
+        return;
+    }
+
+    arrayFichas.splice(indice, 1);
+
+    localStorage.setItem(
+        'cadastroFicha',
+        JSON.stringify(arrayFichas)
+    );
+
+    populaFichasAbertas('bodyExibicaoFichasAbertas');
+    populaFichasConcluidas('bodyExibicaoFichasConcluidas');
+
+    alert(`Ficha ${fichaPrincipalID} excluída com sucesso!`);
+}
+
+function adicionaFichaTreinoManual(idCampo, idFichaPrincipal) {
+
+    const campoAdicionarFicha = document.getElementById(idCampo);
+
+    if (!campoAdicionarFicha) {
+        console.error(
+            'Campo para adicionar treino não encontrado:',
+            idCampo
+        );
+        return;
+    }
+
+    // Procura a ficha
+    const indiceFicha = arrayFichas.findIndex(
+        ficha => String(ficha.id) === String(idFichaPrincipal)
+    );
+
+    if (indiceFicha === -1) {
+        console.error(
+            'Ficha não encontrada:',
+            idFichaPrincipal
+        );
+        return;
+    }
+
+    const ficha = arrayFichas[indiceFicha];
+
+    // Descobre quais letras já existem
+    const letrasUtilizadas = ficha.treinos.map(
+        treino => treino.letra
+    );
+
+    // Pega a primeira letra disponível
+    const proximaLetra = letrasTreinos.find(
+        letra => !letrasUtilizadas.includes(letra)
+    );
+
+    if (!proximaLetra) {
+        alert('Não é possível adicionar mais treinos.');
+        return;
+    }
+
+    // Cria o novo treino
+    const novoTreinoManual = new Treino(
+        `${idFichaPrincipal}_Treino_${proximaLetra}`,
+        proximaLetra
+    );
+
+    // Adiciona o treino na ficha
+    ficha.treinos.push(novoTreinoManual);
+
+    // Salva a ficha atualizada
+    localStorage.setItem(
+        'cadastroFicha',
+        JSON.stringify(arrayFichas)
+    );
+
+    console.log('Novo treino criado:', novoTreinoManual);
+    console.log('Ficha atualizada:', ficha);
+
+    // Recarrega os treinos da ficha
+    exibeTreinosExercicios(
+        idCampo,
+        indiceFicha
+    );
+
+    alert(
+        `Treino ${proximaLetra} adicionado à ficha ${idFichaPrincipal}!`
+    );
+}
+
+function excluirTreinoManualmente(idFicha, letraTreino) {
+
+    // Procura a ficha
+    const indiceFicha = arrayFichas.findIndex(
+        ficha => String(ficha.id) === String(idFicha)
+    );
+
+    if (indiceFicha === -1) {
+        alert('Ficha não encontrada!');
+        return;
+    }
+
+    const ficha = arrayFichas[indiceFicha];
+
+    // Procura o treino
+    const indiceTreino = ficha.treinos.findIndex(
+        treino => String(treino.letra) === String(letraTreino)
+    );
+
+    if (indiceTreino === -1) {
+        alert(`Treino ${letraTreino} não encontrado!`);
+        return;
+    }
+
+    // Confirmação
+    const confirmar = confirm(
+        `Deseja realmente excluir o treino ${letraTreino} da ficha ${idFicha}?`
+    );
+
+    if (!confirmar) {
+        return;
+    }
+
+    // Remove o treino
+    ficha.treinos.splice(indiceTreino, 1);
+
+    // Salva novamente
+    localStorage.setItem(
+        'cadastroFicha',
+        JSON.stringify(arrayFichas)
+    );
+
+    console.log(
+        `Treino ${letraTreino} excluído da ficha ${idFicha}`
+    );
+
+    alert(
+        `Treino ${letraTreino} excluído com sucesso!`
+    );
+
+    // Atualiza a tela
+    populaFichasAbertas('bodyExibicaoFichasAbertas');
+    document.getElementById(`${idFicha}_eye`).click();
 }
 
 function populaFichasConcluidas(idCampo) {
@@ -986,6 +1163,7 @@ function populaFichasConcluidas(idCampo) {
             </div>
         `;
     });
+
 }
 
 function exibeTreinosExercicios(idCampo, indice) {
@@ -1013,7 +1191,7 @@ function exibeTreinosExercicios(idCampo, indice) {
         campoExibicao.insertAdjacentHTML('beforeend', `
             <div class="card mb-3 m-auto" style="max-width: 95%"
             id="cardHeaderFicha_${ficha.id}_Treino_${treino.letra}">
-                <div class="card-header bg-success"
+                <div class="card-header bg-secondary"
                 data-aos="fade-up"
                 data-aos-duration="500">
                     <div class="row">
@@ -1027,6 +1205,7 @@ function exibeTreinosExercicios(idCampo, indice) {
                             <button type="button" class="btn btn-sm btn-dark"
                                 data-bs-toggle="collapse"
                                 data-bs-target="#${idCollapse}"
+                                title="Ver Exercícios"
                                 id="chevronAberto_${ficha.id}_Treino_${treino.letra}"
                                 onclick="exibeExerciciosFichaAberta(
                                     '${idExercicios}',
@@ -1037,11 +1216,35 @@ function exibeTreinosExercicios(idCampo, indice) {
 
                             <button
                                 type="button"
+                                data-bs-tooltip"
+                                title="Adicionar Exercicio na Ficha"
+                                class="btn btn-sm btn-info"
+                                onclick="adicionaExercicioManualmenteAoTreino('${ficha.id}','${treino.letra}')">
+                                <i class="fa fa-plus"></i>
+                                <i class="fa-solid fa-dumbbell"></i>
+                            </button>
+
+                            <button
+                                type="button"
+                                data-bs-tooltip"
+                                title="Excluir ficha de Treino"
                                 class="btn btn-sm btn-danger"
+                                onclick="excluirTreinoManualmente(
+                                    '${ficha.id}',
+                                    '${treino.letra}')">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+
+
+                            <button
+                                type="button"
+                                class="btn btn-sm btn-success text-light"
+                                data-bs-toggle="tooltip"
+                                title="Checar execução de Treino da Ficha"
                                 onclick=" confirmaConclusaoTreino(
                                         '${ficha.id}',
                                         '${treino.letra}')">
-                                <i class="fa-solid fa-thumbs-up"></i>
+                                <i class="fa-solid fa-check-double"></i>
                             </button>
                         </div>
                     </div>
@@ -1053,6 +1256,248 @@ function exibeTreinosExercicios(idCampo, indice) {
         `);
     });
 }
+
+function adicionaExercicioManualmenteAoTreino(idFicha, letraFicha) {
+
+    const nomeDigitado = prompt('Digite o nome do exercício:');
+
+    if (nomeDigitado === null) {
+        return;
+    }
+
+    const nomeExercicio = nomeDigitado.trim();
+
+    if (nomeExercicio === '') {
+        alert('Digite um nome válido para o exercício.');
+        return;
+    }
+
+    const exercicioExistente = arrayExercicios.find(
+        exercicio =>
+            exercicio.nome.trim().toLowerCase() ===
+            nomeExercicio.toLowerCase()
+    );
+
+    if (exercicioExistente) {
+        alert(
+            `O exercício "${exercicioExistente.nome}" já existe cadastrado!\n\n` +
+            `Atualize a página para utilizá-lo.`
+        );
+        return;
+    }
+
+    const novoId = `exe_${arrayIdsUtilizados[0].length + 1}`;
+
+    const novoCadastroExercicio = new Exercicio(
+        novoId,
+        nomeExercicio
+    );
+
+    arrayExercicios.push(novoCadastroExercicio);
+    arrayIdsUtilizados[0].push(novoId);
+
+    localStorage.setItem(
+        'cadastroExercicio',
+        JSON.stringify(arrayExercicios)
+    );
+
+    localStorage.setItem(
+        'idsUtilizados',
+        JSON.stringify(arrayIdsUtilizados)
+    );
+
+    const indiceFichaPrincipal = arrayFichas.findIndex(
+        ficha =>
+            String(ficha.id) === String(idFicha)
+    );
+
+    if (indiceFichaPrincipal === -1) {
+        console.error('Ficha não encontrada:', idFicha);
+        return;
+    }
+
+    const ficha = arrayFichas[indiceFichaPrincipal];
+
+    const indiceFichaTreino = ficha.treinos.findIndex(
+        treino =>
+            String(treino.letra) === String(letraFicha)
+    );
+
+    if (indiceFichaTreino === -1) {
+        console.error('Treino não encontrado:', letraFicha);
+        return;
+    }
+
+    const treino = ficha.treinos[indiceFichaTreino];
+
+    const novoExercicio = new ExercicioFicha(
+        novoId,
+        nomeExercicio,
+        3,
+        12,
+        0,
+        'Normal'
+    );
+
+    treino.exercicios.push(novoExercicio);
+
+    localStorage.setItem(
+        'cadastroFicha',
+        JSON.stringify(arrayFichas)
+    );
+
+    const indiceExercicio = treino.exercicios.length - 1;
+
+    const idExercicios =
+        `cardBody_Ficha_${ficha.id}_Treino_${treino.letra}`;
+
+    const campoExibicao =
+        document.getElementById(idExercicios);
+
+    if (!campoExibicao) {
+        console.error(
+            'Campo de exercícios não encontrado:',
+            idExercicios
+        );
+        return;
+    }
+
+    const idEdit =
+        `BTNEDITAR_ficha_${ficha.id}_Treino_${treino.letra}_Exercicio_${indiceExercicio}`;
+
+    const idSave =
+        `BTNSALVAR_ficha_${ficha.id}_Treino_${treino.letra}_Exercicio_${indiceExercicio}`;
+
+    const idIDNome =
+        `INPUTIDEXERCICIO_ficha_${ficha.id}_Treino_${treino.letra}_Exercicio_${indiceExercicio}`;
+
+    const idNome =
+        `INPUTEXERCICIO_ficha_${ficha.id}_Treino_${treino.letra}_Exercicio_${indiceExercicio}`;
+
+    const idSeries =
+        `INPUTSERIES_ficha_${ficha.id}_Treino_${treino.letra}_Exercicio_${indiceExercicio}`;
+
+    const idRepeticoes =
+        `INPUTREPETICOES_ficha_${ficha.id}_Treino_${treino.letra}_Exercicio_${indiceExercicio}`;
+
+    const idCarga =
+        `INPUTCARGA_ficha_${ficha.id}_Treino_${treino.letra}_Exercicio_${indiceExercicio}`;
+
+    campoExibicao.insertAdjacentHTML('beforeend', `
+        <div class="row mb-4"
+            data-aos="fade-up"
+            data-aos-duration="1500">
+
+            <div class="col d-none">
+                <input
+                    class="form-control"
+                    data-bs-toggle="tooltip"
+                    title="Exercício: ${novoExercicio.idExercicio}"
+                    value="${novoExercicio.idExercicio}"
+                    id="${idIDNome}"
+                    disabled>
+            </div>
+
+            <div class="col-12 mb-2">
+                <input
+                    class="form-control"
+                    data-bs-toggle="tooltip"
+                    title="Exercício: ${novoExercicio.nomeExercicio}"
+                    value="${novoExercicio.nomeExercicio}"
+                    id="${idNome}"
+                    disabled>
+            </div>
+
+            <div class="col">
+                <input
+                    type="number"
+                    class="form-control"
+                    data-bs-toggle="tooltip"
+                    title="Séries: ${novoExercicio.series}"
+                    value="${novoExercicio.series}"
+                    id="${idSeries}"
+                    disabled>
+            </div>
+
+            <div class="col">
+                <input
+                    type="number"
+                    class="form-control"
+                    data-bs-toggle="tooltip"
+                    title="Repetições: ${novoExercicio.repeticoes}"
+                    value="${novoExercicio.repeticoes}"
+                    id="${idRepeticoes}"
+                    disabled>
+            </div>
+
+            <div class="col">
+                <input
+                    type="number"
+                    class="form-control"
+                    data-bs-toggle="tooltip"
+                    title="Carga: ${novoExercicio.carga} Kg"
+                    value="${novoExercicio.carga}"
+                    id="${idCarga}"
+                    disabled>
+            </div>
+
+            <div class="col-auto">
+
+                <button
+                    class="btn btn-sm btn-primary"
+                    id="${idEdit}"
+                    onclick="alternaBtnSaveEditVarios(
+                        'editar',
+                        '${idEdit}',
+                        '${idSave}',
+                        '${idNome}',
+                        '${idSeries}',
+                        '${idRepeticoes}',
+                        '${idCarga}'
+                    )">
+                    <i class="fa fa-edit"></i>
+                </button>
+
+                <button
+                    class="btn btn-sm btn-success d-none"
+                    id="${idSave}"
+                    onclick="atualizarDadosExerciciosArray(
+                        ${indiceFichaPrincipal},
+                        ${indiceFichaTreino},
+                        ${indiceExercicio},
+                        '${idEdit}',
+                        '${idSave}',
+                        '${idNome}',
+                        '${idSeries}',
+                        '${idRepeticoes}',
+                        '${idCarga}'
+                    )">
+                    <i class="fa fa-save"></i>
+                </button>
+
+                <button
+                    class="btn btn-sm btn-danger"
+                    id="BTNEXCLUIR_ficha_${ficha.id}_Treino_${treino.letra}_Exercicio_${indiceExercicio}"
+                    onclick="excluirExercicioManualmente(
+                        '${ficha.id}',
+                        '${treino.letra}',
+                        ${indiceExercicio}
+                    )">
+                    <i class="fa fa-trash"></i>
+                </button>
+
+            </div>
+
+        </div>
+
+        <hr>
+    `);
+
+    alert(
+        `Exercício "${nomeExercicio}" cadastrado com sucesso!`
+    );
+}
+
 
 function confirmaConclusaoTreino(idFicha, letraTreino) {
 
@@ -1420,15 +1865,11 @@ function confirmaReabrirFicha(idFicha) {
 }
 
 function exibeProximoTreino() {
-
     const campoExibicao = document.getElementById('alertProximoTreino');
-
     if (!campoExibicao) {
         return;
     }
-
     campoExibicao.innerHTML = '';
-
     if (
         !Array.isArray(arrayUltimoTreinoConcluido) ||
         arrayUltimoTreinoConcluido.length === 0
@@ -1546,11 +1987,9 @@ function exibeProximoTreino() {
 
         return;
     }
-
     const indiceProximoTreino = indiceUltimoTreino + 1;
 
     if (indiceProximoTreino >= ficha.treinos.length) {
-
         campoExibicao.innerHTML = `
             <div class="col">
                 <div class="alert alert-info text-center">
@@ -1568,9 +2007,7 @@ function exibeProximoTreino() {
                                 Você concluiu todos os treinos da ficha ${fichaId}.
                             </span>
                         </div>
-
                     </div>
-
                 </div>
             </div>
         `;

@@ -90,14 +90,25 @@ input{
 .colorBlue{
     color: #0b5ed7;
 }
-.mostradorIdFicha{
+.mostradorIdFicha,
+.mostradorTrashFichaPrincipal{
     position: absolute;
     top: -15px;
-    right: 0;
-    background-color: lightskyblue;
-    width: 5rem;
     border-radius: 10px;
     padding: 3px 0;
     font-weight: bold;
+}
+
+.mostradorIdFicha{
+    right: -7px;
+    width: 7rem;
+    background-color: lightskyblue;
     color: blue;
+}
+
+.mostradorTrashFichaPrincipal{
+    left: -7px;
+    width: 18rem;
+    background-color: lightcoral;
+    color: lightgoldenrodyellow;
 }
