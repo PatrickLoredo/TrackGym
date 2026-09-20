@@ -286,23 +286,27 @@ campoExercicioInsere.insertAdjacentHTML('beforeend', `
                             verificaIdcomSelect('${idSelect}','${idInput}',arrayExercicios);
                             atualizaSelectsExercicios('${fichaId}', '${letraDoTreino}');">
                     </select>
-
-                    <button type="button" class="btn btn-sm btn-danger input-group-text"
-                        onclick="removeExercicioFicha('${idSelect}', '${fichaId}', '${letraDoTreino}')">
-                        <i class="fa fa-trash"></i>
-                    </button>
-
-                    <button  class="btn btn-sm btn-primary input-group-text"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#InfoExercicio_Ficha${fichaId}_Treino${letraDoTreino}_Exericio${contadorID}"
-                        onclick="mudaChevron('chevronInfoExercicio_Ficha${fichaId}_Treino${letraDoTreino}_Exericio${contadorID}')">
-                            <i class="fa fa-chevron-down" 
-                            id="chevronInfoExercicio_Ficha${fichaId}_Treino${letraDoTreino}_Exericio${contadorID}"></i>
-                    </button>
                 </div>
             </div>
+
+            <div class="col-6">
+                <button type="button" class="btn btn-sm btn-danger w-100"
+                    onclick="removeExercicioFicha('${idSelect}', '${fichaId}', '${letraDoTreino}')">
+                    <i class="fa fa-trash"></i>
+                </button>
+            </div>
+            <div class="col-6">
+                <button  class="btn btn-sm btn-primary w-100"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#InfoExercicio_Ficha${fichaId}_Treino${letraDoTreino}_Exericio${contadorID}"
+                    onclick="mudaChevron('chevronInfoExercicio_Ficha${fichaId}_Treino${letraDoTreino}_Exericio${contadorID}')">
+                        <i class="fa fa-chevron-down" 
+                        id="chevronInfoExercicio_Ficha${fichaId}_Treino${letraDoTreino}_Exericio${contadorID}"></i>
+                </button>
+            </div>
+
             <div class="col-12">
-                <div class="row collapse mb-3" 
+                <div class="row collapse mb-3 mt-2" 
                 id="InfoExercicio_Ficha${fichaId}_Treino${letraDoTreino}_Exericio${contadorID}">
                     <div class="col">
                         <div class="card" style="border: 2.5px solid rgba(11, 94, 215,0.5)">
