@@ -1691,8 +1691,7 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
                                     '${idCarga}')">
                                 <i class="fa fa-edit"></i>
                             </button>
-                        </div>
-                        <div class="col">
+
                             <!-- SALVAR -->
                             <button  class="btn btn-sm btn-success d-none w-100" id="${idSave}"
                                 onclick="atualizarDadosExerciciosArray(
