@@ -1640,7 +1640,8 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
                 </div>
 
                 <!-- INPUT NOME EXERCÍCIO -->
-                <div class="col-12 mb-2">
+                <div class="col-12 mb-3">
+                    <label class="labelText tamanho08">Exercício</label>
                     <input  class="form-control" data-bs-toggle="tooltip"
                         title="Exercício: ${exercicio.nomeExercicio}"
                         value="${exercicio.nomeExercicio}"
@@ -1657,7 +1658,8 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
                 </div>
 
                 <!-- INPUT REPETIÇÕES -->
-                <div class="col-12">
+                <div class="col-12 mb-3">
+                    <label class="labelText tamanho08">Repetições</label>
                     <input  class="form-control" data-bs-toggle="tooltip"
                         title="Repetições: ${exercicio.repeticoes}"
                         value="${exercicio.repeticoes}"
@@ -1665,7 +1667,8 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
                 </div>
 
                 <!-- INPUT CARGA -->
-                <div class="col-12">
+                <div class="col-12 mb-3">
+                    <label class="labelText tamanho08">Carga</label>
                     <input  class="form-control" data-bs-toggle="tooltip"
                         title="Carga: ${exercicio.carga} Kg"
                         value="${exercicio.carga}"
