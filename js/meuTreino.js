@@ -1200,8 +1200,10 @@ function exibeTreinosExercicios(idCampo, indice) {
                                 Treino - Ficha ${treino.letra}
                             </span>
                         </div>
-                        <div class="col-auto mt-3 m-auto">
-                            <button type="button" class="btn w-25 btn-sm btn-dark"
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col m-auto">
+                            <button type="button" class="btn btn-sm btn-dark"
                                 data-bs-toggle="collapse"
                                 data-bs-target="#${idCollapse}"
                                 title="Ver Exercícios"
@@ -1212,32 +1214,31 @@ function exibeTreinosExercicios(idCampo, indice) {
                                     ${i}); mudaChevron('${idChevron}');">
                                 <i class="fa fa-chevron-down" id="${idChevron}"> </i>
                             </button>
-
-                            <button
-                                type="button"
+                        </div>
+                        <div class="col">
+                            <button type="button"
                                 data-bs-tooltip"
                                 title="Adicionar Exercicio na Ficha"
-                                class="btn w-25 btn-sm btn-info"
+                                class="btn btn-sm btn-info"
                                 onclick="adicionaExercicioManualmenteAoTreino('${ficha.id}','${treino.letra}')">
                                 <i class="fa fa-plus"></i>
                                 <i class="fa-solid fa-dumbbell"></i>
                             </button>
-
-                            <button
-                                type="button"
+                        <div>
+                        <div class="col">
+                            <button type="button"
                                 data-bs-tooltip"
                                 title="Excluir ficha de Treino"
-                                class="btn w-25 btn-sm btn-danger"
+                                class="btn btn-sm btn-danger"
                                 onclick="excluirTreinoManualmente(
                                     '${ficha.id}',
                                     '${treino.letra}')">
                                 <i class="fa-solid fa-trash"></i>
                             </button>
-
-
-                            <button
-                                type="button"
-                                class="btn w-25 btn-sm btn-success text-light"
+                        </div>
+                        <div class="col">
+                            <button type="button"
+                                class="btn btn-sm btn-success text-light"
                                 data-bs-toggle="tooltip"
                                 title="Checar execução de Treino da Ficha"
                                 onclick=" confirmaConclusaoTreino(
