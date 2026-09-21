@@ -812,7 +812,6 @@ function populaFichasAbertas(idCampo) {
                         <span type="button" 
                         class="mostradorTrashFichaPrincipal uppercase tamanho09"
                         onclick="excluirFichaPrincipalManualmente('${ficha.id}')">
-                            Excluir Ficha Principal&nbsp;&nbsp;&nbsp;
                             <i class="fa fa-fade fa-trash"></i>
                         </span>
 
