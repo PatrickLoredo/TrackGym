@@ -1200,9 +1200,8 @@ function exibeTreinosExercicios(idCampo, indice) {
                                 Treino - Ficha ${treino.letra}
                             </span>
                         </div>
-                    </div>
-                    <div class="row mt-3">
-                        <div class="col m-auto">
+                        
+                        <div class="col-auto mt-3 m-auto">
                             <button type="button" class="btn btn-sm btn-dark"
                                 data-bs-toggle="collapse"
                                 data-bs-target="#${idCollapse}"
@@ -1214,9 +1213,9 @@ function exibeTreinosExercicios(idCampo, indice) {
                                     ${i}); mudaChevron('${idChevron}');">
                                 <i class="fa fa-chevron-down" id="${idChevron}"> </i>
                             </button>
-                        </div>
-                        <div class="col-auto">
-                            <button type="button"
+
+                            <button
+                                type="button"
                                 data-bs-tooltip"
                                 title="Adicionar Exercicio na Ficha"
                                 class="btn btn-sm btn-info"
@@ -1224,9 +1223,9 @@ function exibeTreinosExercicios(idCampo, indice) {
                                 <i class="fa fa-plus"></i>
                                 <i class="fa-solid fa-dumbbell"></i>
                             </button>
-                        <div>
-                        <div class="col">
-                            <button type="button"
+
+                            <button
+                                type="button"
                                 data-bs-tooltip"
                                 title="Excluir ficha de Treino"
                                 class="btn btn-sm btn-danger"
@@ -1235,9 +1234,10 @@ function exibeTreinosExercicios(idCampo, indice) {
                                     '${treino.letra}')">
                                 <i class="fa-solid fa-trash"></i>
                             </button>
-                        </div>
-                        <div class="col">
-                            <button type="button"
+
+
+                            <button
+                                type="button"
                                 class="btn btn-sm btn-success text-light"
                                 data-bs-toggle="tooltip"
                                 title="Checar execução de Treino da Ficha"
