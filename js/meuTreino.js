@@ -1676,10 +1676,9 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
                 </div>
 
                 <!-- BOTÕES -->
-                <div class="col-auto">
-
+                <div class="col-auto m-auto">
                     <!-- EDITAR -->
-                    <button  class="btn btn-sm btn-primary" id="${idEdit}"
+                    <button  class="btn btn-sm btn-primary w-50" id="${idEdit}"
                         onclick="alternaBtnSaveEditVarios(
                             'editar',
                             '${idEdit}',
@@ -1692,7 +1691,7 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
                     </button>
 
                     <!-- SALVAR -->
-                    <button  class="btn btn-sm btn-success d-none" id="${idSave}"
+                    <button  class="btn btn-sm btn-success d-none w-50" id="${idSave}"
                         onclick="atualizarDadosExerciciosArray(
                             ${indiceFicha},
                             ${indiceTreino},
@@ -1707,8 +1706,7 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
                     </button>
 
                     <!-- EXCLUIR -->
-                    <button 
-                        class="btn btn-sm btn-danger"
+                    <button class="btn btn-sm btn-danger w-50"
                         id="BTNEXCLUIR_ficha_${ficha.id}_Treino_${treino.letra}_Exercicio_${i}">
                             <i class="fa fa-trash"></i>
                     </button>
