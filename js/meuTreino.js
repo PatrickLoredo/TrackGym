@@ -1215,7 +1215,7 @@ function exibeTreinosExercicios(idCampo, indice) {
                                 <i class="fa fa-chevron-down" id="${idChevron}"> </i>
                             </button>
                         </div>
-                        <div class="col">
+                        <div class="col-auto">
                             <button type="button"
                                 data-bs-tooltip"
                                 title="Adicionar Exercicio na Ficha"
