@@ -1677,39 +1677,45 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
 
                 <!-- BOTÕES -->
                 <div class="col m-auto">
-                    <!-- EDITAR -->
-                    <button  class="btn btn-sm btn-primary w-50" id="${idEdit}"
-                        onclick="alternaBtnSaveEditVarios(
-                            'editar',
-                            '${idEdit}',
-                            '${idSave}',
-                            '${idNome}',
-                            '${idSeries}',
-                            '${idRepeticoes}',
-                            '${idCarga}')">
-                        <i class="fa fa-edit"></i>
-                    </button>
-
-                    <!-- SALVAR -->
-                    <button  class="btn btn-sm btn-success d-none w-50" id="${idSave}"
-                        onclick="atualizarDadosExerciciosArray(
-                            ${indiceFicha},
-                            ${indiceTreino},
-                            ${i},
-                            '${idEdit}',
-                            '${idSave}',
-                            '${idNome}',
-                            '${idSeries}',
-                            '${idRepeticoes}',
-                            '${idCarga}')">
-                        <i class="fa fa-save"></i>
-                    </button>
-
-                    <!-- EXCLUIR -->
-                    <button class="btn btn-sm btn-danger w-50"
-                        id="BTNEXCLUIR_ficha_${ficha.id}_Treino_${treino.letra}_Exercicio_${i}">
-                            <i class="fa fa-trash"></i>
-                    </button>
+                    <div class="row">
+                        <div class="col">
+                            <!-- EDITAR -->
+                            <button  class="btn btn-sm btn-primary w-100" id="${idEdit}"
+                                onclick="alternaBtnSaveEditVarios(
+                                    'editar',
+                                    '${idEdit}',
+                                    '${idSave}',
+                                    '${idNome}',
+                                    '${idSeries}',
+                                    '${idRepeticoes}',
+                                    '${idCarga}')">
+                                <i class="fa fa-edit"></i>
+                            </button>
+                        </div>
+                        <div class="col">
+                            <!-- SALVAR -->
+                            <button  class="btn btn-sm btn-success d-none w-100" id="${idSave}"
+                                onclick="atualizarDadosExerciciosArray(
+                                    ${indiceFicha},
+                                    ${indiceTreino},
+                                    ${i},
+                                    '${idEdit}',
+                                    '${idSave}',
+                                    '${idNome}',
+                                    '${idSeries}',
+                                    '${idRepeticoes}',
+                                    '${idCarga}')">
+                                <i class="fa fa-save"></i>
+                            </button>
+                        </div>
+                        <div class="col">
+                            <!-- EXCLUIR -->
+                            <button class="btn btn-sm btn-danger w-100"
+                                id="BTNEXCLUIR_ficha_${ficha.id}_Treino_${treino.letra}_Exercicio_${i}">
+                                    <i class="fa fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
