@@ -1250,7 +1250,7 @@ function exibeTreinosExercicios(idCampo, indice) {
                     </div>
                 </div>
                 <div class="card-body collapse" id="${idCollapse}">
-                    <div class="row" id="${idExercicios}"> </div>
+                    <div class="row linhaExerciciosFichasAbertas" id="${idExercicios}"> </div>
                 </div>
             </div>
         `);

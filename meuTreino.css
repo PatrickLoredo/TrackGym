@@ -19,7 +19,8 @@ input,
 .tamanho06{font-size: .6rem;}
 
 .tamanho07,
-.labelText{
+.labelText
+.linhaExerciciosFichasAbertas input{
     font-size: .7rem;
 }
 #cardCadastroExercicios input,
