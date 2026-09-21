@@ -1676,7 +1676,7 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
                 </div>
 
                 <!-- BOTÕES -->
-                <div class="col-auto m-auto">
+                <div class="col m-auto">
                     <!-- EDITAR -->
                     <button  class="btn btn-sm btn-primary w-50" id="${idEdit}"
                         onclick="alternaBtnSaveEditVarios(
