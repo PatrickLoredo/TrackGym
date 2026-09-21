@@ -1200,7 +1200,7 @@ function exibeTreinosExercicios(idCampo, indice) {
                                 Treino - Ficha ${treino.letra}
                             </span>
                         </div>
-                        
+
                         <div class="col-auto mt-3 m-auto">
                             <button type="button" class="btn btn-sm btn-dark"
                                 data-bs-toggle="collapse"
@@ -1498,7 +1498,6 @@ function adicionaExercicioManualmenteAoTreino(idFicha, letraFicha) {
     );
 }
 
-
 function confirmaConclusaoTreino(idFicha, letraTreino) {
 
     const ficha = arrayFichas.find(ficha => ficha.id === String(idFicha));
@@ -1649,7 +1648,8 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
                 </div>
 
                 <!-- INPUT SÉRIES -->
-                <div class="col">
+                <div class="col-12 mb-3">
+                    <label class="labelText tamanho08">Séries</label>
                     <input  class="form-control" data-bs-toggle="tooltip"
                         title="Séries: ${exercicio.series}"
                         value="${exercicio.series}"
@@ -1657,7 +1657,7 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
                 </div>
 
                 <!-- INPUT REPETIÇÕES -->
-                <div class="col">
+                <div class="col-12">
                     <input  class="form-control" data-bs-toggle="tooltip"
                         title="Repetições: ${exercicio.repeticoes}"
                         value="${exercicio.repeticoes}"
@@ -1665,7 +1665,7 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
                 </div>
 
                 <!-- INPUT CARGA -->
-                <div class="col">
+                <div class="col-12">
                     <input  class="form-control" data-bs-toggle="tooltip"
                         title="Carga: ${exercicio.carga} Kg"
                         value="${exercicio.carga}"
