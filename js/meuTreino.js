@@ -1713,9 +1713,19 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
                                 <label class="labelText tamanho08">
                                     Séries
                                 </label>
-                                <input class="form-control" value="${exercicio.series}"
-                                    id="${idSeries}"
-                                    disabled>
+                                <div class="input-group">
+                                    <button class="btn btn-dark input-group-text"
+                                    onclick="aumentarCarga('${idSeries}', -1)">
+                                        -
+                                    </button>
+                                    <input class="form-control" value="${exercicio.series}"
+                                        id="${idSeries}"
+                                        disabled>
+                                    <button class="btn btn-dark input-group-text"
+                                    onclick="aumentarCarga('${idSeries}', 1)">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                </div>
                             </div>
 
                             <!-- REPETIÇÕES -->
@@ -1723,9 +1733,21 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
                                 <label class="labelText tamanho08">
                                     Repetições
                                 </label>
+                                <div class="input-group">
+                                    <button class="btn btn-dark input-group-text"
+                                    onclick="aumentarCarga('${idRepeticoes}', -1)">
+                                        -
+                                    </button>
 
-                                <input class="form-control" value="${exercicio.repeticoes}"
+                                    <input class="form-control" value="${exercicio.repeticoes}"
                                     id="${idRepeticoes}" disabled>
+
+                                    <button class="btn btn-dark input-group-text"
+                                    onclick="aumentarCarga('${idRepeticoes}', 1)">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                </div>
+
                             </div>
 
 
@@ -1735,8 +1757,30 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
                                     Carga
                                 </label>
 
+                                <div class="input-group">
+                                    <button class="btn btn-info input-group-text"
+                                    onclick="aumentarCarga('${idCarga}', -7)">
+                                        - 7
+                                    </button>
+                                    <button class="btn btn-primary input-group-text"
+                                    onclick="aumentarCarga('${idCarga}', -5)">
+                                        - 5
+                                    </button>
+
                                 <input class="form-control" value="${exercicio.carga}"
                                     id="${idCarga}" disabled>
+
+                                    <button class="btn btn-primary input-group-text"
+                                    onclick="aumentarCarga('${idCarga}', 5)">
+                                        + 5
+                                    </button>
+                                    <button class="btn btn-info input-group-text"
+                                    onclick="aumentarCarga('${idCarga}', 7)">
+                                        +7
+                                    </button>
+                                </div>
+
+
                             </div>
 
 
@@ -2001,7 +2045,6 @@ function atualizarDadosExerciciosArray(
     );
 }
 
-
 function checaExercicio(idSelect , idThumbs, idThumbsX){
     let selectColor = document.getElementById(idSelect);
     let thumbs = document.getElementById(idThumbs);
@@ -2051,9 +2094,6 @@ function alternaBtnSaveEditVarios(
         inputCarga.disabled = false;
     }
 }
-
-
-
 
 function confirmaConclusaoFicha(idFicha) {
     let indice = -1;
