@@ -1739,9 +1739,8 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
                             <div class="col m-auto">
                                 <div class="row">
                                     <!-- EDITAR -->
-                                    <div class="col-6">
+                                    <div class="col-6" id="${idEdit}">
                                         <button type="button" class="btn btn-sm btn-primary w-100"
-                                            id="${idEdit}" 
                                             onclick="alternaBtnSaveEditVarios(
                                                 'editar',
                                                 '${idEdit}',
@@ -1756,10 +1755,10 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
                                     </div>
 
                                     <!-- SALVAR -->
-                                    <div class="col-6">
+                                    <div class="col-6 d-none" id="${idSave}">
                                         <button type="button"
-                                            class="btn btn-sm btn-success d-none w-100"
-                                            id="${idSave}"
+                                            class="btn btn-sm btn-success  w-100"
+                                            
 
                                             onclick="atualizarDadosExerciciosArray(
                                                 ${indiceFicha},
