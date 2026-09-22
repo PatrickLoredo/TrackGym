@@ -1701,7 +1701,7 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
 
                 <div class="row collapse" id="${idCollapse}" 
                     <div class="col">
-                        <div class="row d-flex justify-content-center">
+                        <div class="row m-auto">
                             <!-- SÉRIES -->
                             <div class="col-12 mb-3">
                                 <label class="labelText tamanho08">
@@ -1738,7 +1738,7 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
                             <div class="col m-auto">
                                 <div class="row">
                                     <!-- EDITAR -->
-                                    <div class="col">
+                                    <div class="col-6">
                                         <button type="button" class="btn btn-sm btn-primary w-100"
                                             id="${idEdit}" 
                                             onclick="alternaBtnSaveEditVarios(
@@ -1755,7 +1755,7 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
                                     </div>
 
                                     <!-- SALVAR -->
-                                    <div class="col">
+                                    <div class="col-6">
                                         <button type="button"
                                             class="btn btn-sm btn-success d-none w-100"
                                             id="${idSave}"
@@ -1776,7 +1776,7 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
                                     </div>
 
                                     <!-- EXCLUIR -->
-                                    <div class="col">
+                                    <div class="col-6">
                                         <button type="button" class="btn btn-sm btn-danger w-100"
                                             onclick="excluirExercicioManualmente(
                                                 '${ficha.id}',
