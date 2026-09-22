@@ -1763,15 +1763,15 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
                                     <div class="col gap-1">
                                         <button class="uppercase tamanho07 btn btn-sm btn-info input-group-text"
                                         onclick="aumentarCarga('${idCarga}', -7)">
-                                            - 7
+                                            -7
                                         </button>
                                         <button class="uppercase tamanho07 btn btn-sm btn-primary input-group-text"
                                         onclick="aumentarCarga('${idCarga}', -5)">
-                                            - 5
+                                            -5
                                         </button>
                                         <button class="uppercase tamanho07 btn btn-sm btn-primary input-group-text"
                                         onclick="aumentarCarga('${idCarga}', 5)">
-                                            + 5
+                                            +5
                                         </button>
                                         <button class="uppercase tamanho07 btn btn-sm btn-info input-group-text"
                                         onclick="aumentarCarga('${idCarga}', 7)">
