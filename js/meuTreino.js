@@ -1705,7 +1705,7 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
                     </div>
                 </div>
 
-                <div class="row collapse" id="${idCollapse}" 
+                <div class="row collapse" id="${idCollapse}">
                     <div class="col">
                         <div class="row m-auto">
                             <!-- SÉRIES -->
@@ -1744,7 +1744,7 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
                             <div class="col m-auto">
                                 <div class="row">
                                     <!-- EDITAR -->
-                                    <div class="col-6" id="coluna_${idEdit}">
+                                    <div class="col-6 d-block" id="coluna_${idEdit}">
                                         <button type="button" class="btn btn-sm btn-primary w-100"
                                             id="${idEdit}" 
                                             onclick="alternaBtnSaveEditVarios(
@@ -1754,16 +1754,18 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
                                                 '${idNome}',
                                                 '${idSeries}',
                                                 '${idRepeticoes}',
-                                                '${idCarga}')">
+                                                '${idCarga}',
+                                                'coluna_${idEdit}',
+                                                'coluna_${idSave}')">
 
                                             <i class="fa fa-edit"></i>
                                         </button>
                                     </div>
 
                                     <!-- SALVAR -->
-                                    <div class="col-6" id="coluna_${idSave}">
+                                    <div class="col-6 d-none" id="coluna_${idSave}">
                                         <button type="button"
-                                            class="btn btn-sm btn-success d-none w-100"
+                                            class="btn btn-sm btn-success w-100"
                                             id="${idSave}"
 
                                             onclick="atualizarDadosExerciciosArray(
@@ -1775,7 +1777,9 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
                                                 '${idNome}',
                                                 '${idSeries}',
                                                 '${idRepeticoes}',
-                                                '${idCarga}')">
+                                                '${idCarga}',
+                                                'coluna_${idEdit}',
+                                                'coluna_${idSave}')">
 
                                             <i class="fa fa-save"></i>
                                         </button>
@@ -1802,6 +1806,201 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
         `);
     });
 }
+
+function atualizarDadosExerciciosArray(
+    indiceFicha,
+    indiceTreino,
+    indiceExercicio,
+    idEdit,
+    idSave,
+    idNomeExercicio,
+    idSerie,
+    idRepeticao,
+    idCarga,
+    colunaEdit,
+    colunaSave
+) {
+    // BOTÕES
+    const btnEdit = document.getElementById(idEdit);
+    const btnSave = document.getElementById(idSave);
+
+    // COLUNAS DOS BOTÕES
+    const colunaEDIT = document.getElementById(colunaEdit);
+    const colunaSAVE = document.getElementById(colunaSave);
+
+    // INPUTS
+    const inputNomeExercicio =
+        document.getElementById(idNomeExercicio);
+
+    const inputSeries =
+        document.getElementById(idSerie);
+
+    const inputRepeticoes =
+        document.getElementById(idRepeticao);
+
+    const inputCarga =
+        document.getElementById(idCarga);
+
+
+    // VERIFICA SE OS ELEMENTOS EXISTEM
+    if (
+        !btnEdit ||
+        !btnSave ||
+        !colunaEDIT ||
+        !colunaSAVE ||
+        !inputNomeExercicio ||
+        !inputSeries ||
+        !inputRepeticoes ||
+        !inputCarga
+    ) {
+        console.error('Elemento não encontrado:', {
+            btnEdit,
+            btnSave,
+            colunaEDIT,
+            colunaSAVE,
+            inputNomeExercicio,
+            inputSeries,
+            inputRepeticoes,
+            inputCarga
+        });
+
+        return;
+    }
+
+
+    // PEGA OS VALORES
+    const nomeExercicio =
+        inputNomeExercicio.value.trim();
+
+    const series =
+        inputSeries.value;
+
+    const repeticoes =
+        inputRepeticoes.value;
+
+    const carga =
+        inputCarga.value;
+
+
+    // VALIDAÇÃO
+    if (
+        nomeExercicio === '' ||
+        series === '' ||
+        repeticoes === '' ||
+        carga === ''
+    ) {
+        alert(
+            'Insira valores em todos os campos antes de salvar!'
+        );
+
+        return;
+    }
+
+
+    // FICHA
+    const ficha =
+        arrayFichas[indiceFicha];
+
+    if (!ficha) {
+        console.error(
+            'Ficha não encontrada:',
+            indiceFicha
+        );
+
+        return;
+    }
+
+
+    // TREINO
+    const treino =
+        ficha.treinos[indiceTreino];
+
+    if (!treino) {
+        console.error(
+            'Treino não encontrado:',
+            indiceTreino
+        );
+
+        return;
+    }
+
+
+    // EXERCÍCIO
+    const exercicio =
+        treino.exercicios[indiceExercicio];
+
+    if (!exercicio) {
+        console.error(
+            'Exercício não encontrado:',
+            indiceExercicio
+        );
+
+        return;
+    }
+
+
+    // ATUALIZA O OBJETO
+    exercicio.nomeExercicio =
+        nomeExercicio;
+
+    exercicio.series =
+        Number(series);
+
+    exercicio.repeticoes =
+        Number(repeticoes);
+
+    exercicio.carga =
+        Number(carga);
+
+
+    // SALVA NO LOCALSTORAGE
+    localStorage.setItem(
+        'cadastroFicha',
+        JSON.stringify(arrayFichas)
+    );
+
+
+    // DESABILITA OS INPUTS
+    inputNomeExercicio.disabled = true;
+    inputSeries.disabled = true;
+    inputRepeticoes.disabled = true;
+    inputCarga.disabled = true;
+
+
+    // =====================================
+    // ESCONDE A COLUNA SALVAR
+    // =====================================
+
+    colunaSAVE.classList.remove('d-block');
+    colunaSAVE.classList.add('d-none');
+
+
+    // =====================================
+    // MOSTRA A COLUNA EDITAR
+    // =====================================
+
+    colunaEDIT.classList.remove('d-none');
+    colunaEDIT.classList.add('d-block');
+
+
+    // GARANTE QUE O BOTÃO EDITAR ESTEJA VISÍVEL
+    btnEdit.classList.remove('d-none');
+
+
+    // GARANTE QUE O BOTÃO SALVAR ESTEJA ESCONDIDO
+    btnSave.classList.add('d-none');
+
+
+    // MENSAGEM
+    alert(
+        `EXERCÍCIO: ${nomeExercicio}\n` +
+        `SÉRIES: ${series}\n` +
+        `REPETIÇÕES: ${repeticoes}\n` +
+        `CARGA: ${carga}\n\n` +
+        `Atualizado com sucesso!`
+    );
+}
+
 
 function checaExercicio(idSelect , idThumbs, idThumbsX){
     let selectColor = document.getElementById(idSelect);
@@ -1830,18 +2029,21 @@ function alternaBtnSaveEditVarios(
     idNomeExercicio,
     idSeries,
     idRepeticoes,
-    idCarga
+    idCarga,
+    colunaEdit,
+    colunaSave
 ) {
-    const btnEdit = document.getElementById(idEdit);
-    const btnSave = document.getElementById(idSave);
+    const colunaEDIT = document.getElementById(colunaEdit)
+    const colunaSAVE = document.getElementById(colunaSave)
+
     const inputNome = document.getElementById(idNomeExercicio);
     const inputSeries = document.getElementById(idSeries);
     const inputRepeticoes = document.getElementById(idRepeticoes);
     const inputCarga = document.getElementById(idCarga);
 
     if (escolha === 'editar') {
-        btnEdit.classList.add('d-none');
-        btnSave.classList.remove('d-none');
+        colunaEDIT.classList.replace('d-block','d-none');
+        colunaSAVE.classList.replace('d-none','d-block');
 
         inputNome.disabled = false;
         inputSeries.disabled = false;
@@ -1850,72 +2052,8 @@ function alternaBtnSaveEditVarios(
     }
 }
 
-function atualizarDadosExerciciosArray(
-    indiceFicha,
-    indiceTreino,
-    indiceExercicio,
-    idEdit,
-    idSave,
-    idNomeExercicio,
-    idSerie,
-    idRepeticao,
-    idCarga
-) {
 
-    const btnEdit = document.getElementById(idEdit);
-    const btnSave = document.getElementById(idSave);
-    const inputNomeExercicio = document.getElementById(idNomeExercicio);
-    const inputSeries = document.getElementById(idSerie);
-    const inputRepeticoes = document.getElementById(idRepeticao);
-    const inputCarga = document.getElementById(idCarga);
 
-    const nomeExercicio = inputNomeExercicio.value.trim();
-    const series = inputSeries.value;
-    const repeticoes = inputRepeticoes.value;
-    const carga = inputCarga.value;
-
-    if (
-        nomeExercicio === '' || series === '' || repeticoes === '' || carga === '') {
-        alert('Insira valores em todos os campos antes de salvar!');
-        return;
-    }
-
-    if (!arrayFichas[indiceFicha]) {
-        console.error('Ficha não encontrada:',indiceFicha);
-        return;
-    }
-
-    if (!arrayFichas[indiceFicha].treinos[indiceTreino]) {
-        console.error('Treino não encontrado:',indiceTreino);
-        return;
-    }
-
-    const exercicio =
-        arrayFichas[indiceFicha]
-            .treinos[indiceTreino]
-            .exercicios[indiceExercicio];
-
-    if (!exercicio) {console.error('Exercício não encontrado:',indiceExercicio);
-        return;
-    }
-
-    exercicio.nomeExercicio = nomeExercicio;
-    exercicio.series = Number(series);
-    exercicio.repeticoes = Number(repeticoes);
-    exercicio.carga = Number(carga);
-
-    localStorage.setItem('cadastroFicha',JSON.stringify(arrayFichas));
-
-    inputNomeExercicio.disabled = true;
-    inputSeries.disabled = true;
-    inputRepeticoes.disabled = true;
-    inputCarga.disabled = true;
-
-    btnSave.classList.add('d-none');
-    btnEdit.classList.remove('d-none');
-
-    alert(`EXERCÍCIO: ${nomeExercicio}\nSÉRIES: ${series}\nREPETIÇÕES: ${repeticoes}\nCARGA: ${carga}\n\nAtualizado com sucesso !`);
-}
 
 function confirmaConclusaoFicha(idFicha) {
     let indice = -1;
