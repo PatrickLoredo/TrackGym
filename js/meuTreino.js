@@ -1756,31 +1756,29 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
                                 <label class="labelText tamanho08">
                                     Carga
                                 </label>
-
-                                <div class="input-group">
+                                <input class="form-control" value="${exercicio.carga}"
+                                    id="${idCarga}" disabled>
+                                </div>
+                                <div class="row mt-2 mb-3">
+                                    <div class="col">
                                     <button class="btn btn-info input-group-text"
                                     onclick="aumentarCarga('${idCarga}', -7)">
-                                        - 7
+                                        - 7 kg
                                     </button>
                                     <button class="btn btn-primary input-group-text"
                                     onclick="aumentarCarga('${idCarga}', -5)">
-                                        - 5
+                                        - 5 kg
                                     </button>
-
-                                <input class="form-control" value="${exercicio.carga}"
-                                    id="${idCarga}" disabled>
-
                                     <button class="btn btn-primary input-group-text"
                                     onclick="aumentarCarga('${idCarga}', 5)">
-                                        + 5
+                                        + 5 kg
                                     </button>
                                     <button class="btn btn-info input-group-text"
                                     onclick="aumentarCarga('${idCarga}', 7)">
-                                        +7
+                                        +7 kg
                                     </button>
+                                    </div>
                                 </div>
-
-
                             </div>
 
 
