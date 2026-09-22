@@ -1660,37 +1660,40 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
                                 <label class="labelText tamanho08">
                                     Exercício
                                 </label>
-                                <div class="input-group">
-                                    <input class="form-control bg-inicial text-dark" 
-                                    value="${exercicio.nomeExercicio}"
-                                        id="${idNome}" disabled>
+                                <span class="bg-inicial uppercase tamanho11 text-center text-danger fw-bold"
+                                id="${idNome}"> 
+                                    ${exercicio.nomeExercicio}
+                                </span>
+                            </div>
+                            <div class="col-6 mb-3">
+                                <!-- BOTÃO DO COLLAPSE -->
+                                <button type="button" class="btn btn-dark w-100"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#${idCollapse}"
+                                    aria-expanded="false"
+                                    aria-controls="${idCollapse}"
+                                    onclick="mudaChevron('${idChevron}')">
 
-                                    <!-- BOTÃO DO COLLAPSE -->
-                                    <button type="button" class="btn btn-dark input-group-text"
-                                        data-bs-toggle="collapse"
-                                        data-bs-target="#${idCollapse}"
-                                        aria-expanded="false"
-                                        aria-controls="${idCollapse}"
-                                        onclick="mudaChevron('${idChevron}')">
+                                    <i class="fa fa-chevron-down" id="${idChevron}"></i>
+                                </button>
+                            </div>
+                            <div class="col-6 mb-3">
+                                <!-- BOTÃO DO CHECK EXERCICIO -->
+                                <button type="button" 
+                                class="btn btn-success d-block w-100"
+                                 id="Thumbs_${idChevron}">
+                                    <i class="fa fa-thumbs-up"
+                                    onclick="checaExercicio('${idNome}','Thumbs_${idChevron}','ThumbsX_${idChevron}')"></i>
+                                </button>
 
-                                        <i class="fa fa-chevron-down" id="${idChevron}"></i>
-                                    </button>
-
-                                    <!-- BOTÃO DO CHECK EXERCICIO -->
-                                    <button type="button" class="btn btn-success input-group-text d-block" id="Thumbs_${idChevron}">
-                                        <i class="fa fa-thumbs-up"
-                                        onclick="checaExercicio('${idNome}','Thumbs_${idChevron}','ThumbsX_${idChevron}')"></i>
-                                    </button>
-
-                                    <!-- BOTÃO DO CHECK EXERCICIO -->
-                                    <button type="button" 
-                                    class="btn btn-danger input-group-text d-none" id="ThumbsX_${idChevron}">
-                                        <i class="fa fa-x"
-                                        onclick="checaExercicio('${idNome}',
-                                        'Thumbs_${idChevron}',
-                                        'ThumbsX_${idChevron}')"></i>
-                                    </button>
-                                </div>
+                                <!-- BOTÃO DO CHECK EXERCICIO -->
+                                <button type="button" 
+                                class="btn btn-danger input-group-text d-none" id="ThumbsX_${idChevron}">
+                                    <i class="fa fa-x"
+                                    onclick="checaExercicio('${idNome}',
+                                    'Thumbs_${idChevron}',
+                                    'ThumbsX_${idChevron}')"></i>
+                                </button>
                             </div>
                         </div>
                     </div>
