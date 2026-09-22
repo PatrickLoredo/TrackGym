@@ -1760,23 +1760,25 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
                                     id="${idCarga}" disabled>
                                 </div>
                                 <div class="row mt-2 mb-3">
-                                    <div class="col gap-1">
-                                        <button class="uppercase tamanho07 btn btn-sm btn-info input-group-text"
-                                        onclick="aumentarCarga('${idCarga}', -7)">
-                                            -7
-                                        </button>
-                                        <button class="uppercase tamanho07 btn btn-sm btn-primary input-group-text"
-                                        onclick="aumentarCarga('${idCarga}', -5)">
-                                            -5
-                                        </button>
-                                        <button class="uppercase tamanho07 btn btn-sm btn-primary input-group-text"
-                                        onclick="aumentarCarga('${idCarga}', 5)">
-                                            +5
-                                        </button>
-                                        <button class="uppercase tamanho07 btn btn-sm btn-info input-group-text"
-                                        onclick="aumentarCarga('${idCarga}', 7)">
-                                            +7
-                                        </button>
+                                    <div class="col">
+                                        <div class="input-group">
+                                            <button class="input-group-text uppercase tamanho07 btn btn-sm btn-info input-group-text"
+                                            onclick="aumentarCarga('${idCarga}', -7)">
+                                                -7
+                                            </button>
+                                            <button class="input-group-text uppercase tamanho07 btn btn-sm btn-primary input-group-text"
+                                            onclick="aumentarCarga('${idCarga}', -5)">
+                                                -5
+                                            </button>
+                                            <button class="input-group-text uppercase tamanho07 btn btn-sm btn-primary input-group-text"
+                                            onclick="aumentarCarga('${idCarga}', 5)">
+                                                +5
+                                            </button>
+                                            <button class="input-group-text uppercase tamanho07 btn btn-sm btn-info input-group-text"
+                                            onclick="aumentarCarga('${idCarga}', 7)">
+                                                +7
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
