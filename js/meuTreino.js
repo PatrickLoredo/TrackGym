@@ -1803,7 +1803,7 @@ function checaExercicio(idSelect , idThumbs, idThumbsX){
     let thumbsX = document.getElementById(idThumbsX);
     
     if(selectColor.classList.contains('text-dark')){
-        selectColor.classList.replace('text-danger', 'text-success');
+        selectColor.classList.replace('text-dark', 'text-success');
 
         thumbs.classList.replace('d-block','d-none');
         thumbsX.classList.replace('d-none','d-block');
