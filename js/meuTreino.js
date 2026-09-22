@@ -1634,6 +1634,8 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
     treino.exercicios.forEach((exercicio, i) => {
         const idEdit = `BTNEDITAR_ficha_${ficha.id}_Treino_${treino.letra}_Exercicio_${i}`;
         const idSave = `BTNSALVAR_ficha_${ficha.id}_Treino_${treino.letra}_Exercicio_${i}`;
+        const colunaSALVAR = `coluna_${idSave}`;
+        const colunaEDITAR = `coluna_${idEdit}`;
         const idIDNome = `INPUTIDEXERCICIO_ficha_${ficha.id}_Treino_${treino.letra}_Exercicio_${i}`;
         const idNome = `INPUTEXERCICIO_ficha_${ficha.id}_Treino_${treino.letra}_Exercicio_${i}`;
         const idSeries = `INPUTSERIES_ficha_${ficha.id}_Treino_${treino.letra}_Exercicio_${i}`;
@@ -1660,10 +1662,14 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
                                 <label class="labelText tamanho08">
                                     Exercício
                                 </label>
-                                <span class="bg-inicial uppercase tamanho09 text-center text-dark fw-bold"
-                                id="${idNome}"> 
-                                    ${exercicio.nomeExercicio}
-                                </span>
+                                <div class="col-12 mb-2">
+                                    <input
+                                        type="text"
+                                        class="form-control input-nome-exercicio"
+                                        value="${exercicio.nomeExercicio}"
+                                        id="${idNome}"
+                                        disabled>
+                                </div>
                             </div>
                             <div class="col-6 mb-3">
                                 <!-- BOTÃO DO COLLAPSE -->
@@ -1688,8 +1694,7 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
 
                                 <!-- BOTÃO DO CHECK EXERCICIO -->
                                 <button type="button" 
-                                class="btn btn-danger d-block w-100 p-2 d-none"
-                                 id="ThumbsX_${idChevron}">
+                                class="btn btn-danger input-group-text d-none" id="ThumbsX_${idChevron}">
                                     <i class="fa fa-x"
                                     onclick="checaExercicio('${idNome}',
                                     'Thumbs_${idChevron}',
@@ -1739,8 +1744,9 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
                             <div class="col m-auto">
                                 <div class="row">
                                     <!-- EDITAR -->
-                                    <div class="col-6" id="${idEdit}">
+                                    <div class="col-6" id="coluna_${idEdit}">
                                         <button type="button" class="btn btn-sm btn-primary w-100"
+                                            id="${idEdit}" 
                                             onclick="alternaBtnSaveEditVarios(
                                                 'editar',
                                                 '${idEdit}',
@@ -1755,10 +1761,10 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
                                     </div>
 
                                     <!-- SALVAR -->
-                                    <div class="col-6 d-none" id="${idSave}">
+                                    <div class="col-6" id="coluna_${idSave}">
                                         <button type="button"
-                                            class="btn btn-sm btn-success  w-100"
-                                            
+                                            class="btn btn-sm btn-success d-none w-100"
+                                            id="${idSave}"
 
                                             onclick="atualizarDadosExerciciosArray(
                                                 ${indiceFicha},
@@ -1803,7 +1809,7 @@ function checaExercicio(idSelect , idThumbs, idThumbsX){
     let thumbsX = document.getElementById(idThumbsX);
     
     if(selectColor.classList.contains('text-dark')){
-        selectColor.classList.replace('text-dark', 'text-success');
+        selectColor.classList.replace('text-danger', 'text-success');
 
         thumbs.classList.replace('d-block','d-none');
         thumbsX.classList.replace('d-none','d-block');

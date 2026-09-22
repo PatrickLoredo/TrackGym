@@ -128,3 +128,12 @@ input{
     border-radius: 60px;
     z-index: 9999;
 }
+
+.input-nome-exercicio {
+    width: 100%;
+    min-width: 0;
+    font-size: 16px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
