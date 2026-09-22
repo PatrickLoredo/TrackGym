@@ -1688,7 +1688,7 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
 
                                 <!-- BOTÃO DO CHECK EXERCICIO -->
                                 <button type="button" 
-                                class="btn btn-danger d-block w-100 p-2"
+                                class="btn btn-danger d-block w-100 p-2 d-none"
                                  id="ThumbsX_${idChevron}">
                                     <i class="fa fa-x"
                                     onclick="checaExercicio('${idNome}',
