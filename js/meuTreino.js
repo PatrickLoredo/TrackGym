@@ -1660,7 +1660,7 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
                                 <label class="labelText tamanho08">
                                     Exercício
                                 </label>
-                                <span class="bg-inicial uppercase tamanho11 text-center text-danger fw-bold"
+                                <span class="bg-inicial uppercase tamanho09 text-center text-danger fw-bold"
                                 id="${idNome}"> 
                                     ${exercicio.nomeExercicio}
                                 </span>
