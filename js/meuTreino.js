@@ -1610,117 +1610,210 @@ function confirmaConclusaoTreino(idFicha, letraTreino) {
 function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
     const campoExibicao = document.getElementById(idCampo);
 
+    if (!campoExibicao) {
+        console.error('Campo de exibição não encontrado:', idCampo);
+        return;
+    }
+
     campoExibicao.innerHTML = '';
 
     const ficha = arrayFichas[indiceFicha];
+
+    if (!ficha) {
+        console.error('Ficha não encontrada:', indiceFicha);
+        return;
+    }
+
     const treino = ficha.treinos[indiceTreino];
 
-    treino.exercicios.forEach((exercicio, i) => {
+    if (!treino) {
+        console.error('Treino não encontrado:', indiceTreino);
+        return;
+    }
 
+    treino.exercicios.forEach((exercicio, i) => {
         const idEdit = `BTNEDITAR_ficha_${ficha.id}_Treino_${treino.letra}_Exercicio_${i}`;
         const idSave = `BTNSALVAR_ficha_${ficha.id}_Treino_${treino.letra}_Exercicio_${i}`;
-
         const idIDNome = `INPUTIDEXERCICIO_ficha_${ficha.id}_Treino_${treino.letra}_Exercicio_${i}`;
         const idNome = `INPUTEXERCICIO_ficha_${ficha.id}_Treino_${treino.letra}_Exercicio_${i}`;
         const idSeries = `INPUTSERIES_ficha_${ficha.id}_Treino_${treino.letra}_Exercicio_${i}`;
         const idRepeticoes = `INPUTREPETICOES_ficha_${ficha.id}_Treino_${treino.letra}_Exercicio_${i}`;
         const idCarga = `INPUTCARGA_ficha_${ficha.id}_Treino_${treino.letra}_Exercicio_${i}`;
+        const idCollapse = `collapseDadosExercicio_${ficha.id}_${treino.letra}_${i}`;
+        const idChevron = `chevronDownInfoExercicios_${ficha.id}_${treino.letra}_${i}`;
 
-        campoExibicao.innerHTML += `
-            <div class="row mb-4" 
-            data-aos="fade-up"
-            data-aos-duration="1500">
+        campoExibicao.insertAdjacentHTML('beforeend', `
 
-                <!-- INPUT ID EXERCÍCIO -->
-                <div class="col d-none">
-                    <input  class="form-control" data-bs-toggle="tooltip"
-                        title="Exercício: ${exercicio.idExercicio}"
-                        value="${exercicio.idExercicio}"
-                        id="${idIDNome}" disabled>
-                </div>
+            <div class="row mb-4">
+                <!-- CABEÇALHO DO EXERCÍCIO -->
+                <div class="row">
+                    <div class="col">
+                        <div class="row">
+                            <!-- ID DO EXERCÍCIO -->
+                            <div class="col-12 mb-3 d-none">
+                                <input class="form-control" value="${exercicio.idExercicio}"
+                                    id="${idIDNome}" disabled>
+                            </div>
 
-                <!-- INPUT NOME EXERCÍCIO -->
-                <div class="col-12 mb-3">
-                    <label class="labelText tamanho08">Exercício</label>
-                    <input  class="form-control" data-bs-toggle="tooltip"
-                        title="Exercício: ${exercicio.nomeExercicio}"
-                        value="${exercicio.nomeExercicio}"
-                        id="${idNome}" disabled>
-                </div>
+                            <!-- NOME DO EXERCÍCIO -->
+                            <div class="col-12 mb-3">
+                                <label class="labelText tamanho08">
+                                    Exercício
+                                </label>
+                                <div class="input-group">
+                                    <input class="form-control bg-inicial text-dark" 
+                                    value="${exercicio.nomeExercicio}"
+                                        id="${idNome}" disabled>
 
-                <!-- INPUT SÉRIES -->
-                <div class="col-12 mb-3">
-                    <label class="labelText tamanho08">Séries</label>
-                    <input  class="form-control" data-bs-toggle="tooltip"
-                        title="Séries: ${exercicio.series}"
-                        value="${exercicio.series}"
-                        id="${idSeries}" disabled>
-                </div>
+                                    <!-- BOTÃO DO COLLAPSE -->
+                                    <button type="button" class="btn btn-dark input-group-text"
+                                        data-bs-toggle="collapse"
+                                        data-bs-target="#${idCollapse}"
+                                        aria-expanded="false"
+                                        aria-controls="${idCollapse}"
+                                        onclick="mudaChevron('${idChevron}')">
 
-                <!-- INPUT REPETIÇÕES -->
-                <div class="col-12 mb-3">
-                    <label class="labelText tamanho08">Repetições</label>
-                    <input  class="form-control" data-bs-toggle="tooltip"
-                        title="Repetições: ${exercicio.repeticoes}"
-                        value="${exercicio.repeticoes}"
-                        id="${idRepeticoes}" disabled>
-                </div>
+                                        <i class="fa fa-chevron-down" id="${idChevron}"></i>
+                                    </button>
 
-                <!-- INPUT CARGA -->
-                <div class="col-12 mb-3">
-                    <label class="labelText tamanho08">Carga</label>
-                    <input  class="form-control" data-bs-toggle="tooltip"
-                        title="Carga: ${exercicio.carga} Kg"
-                        value="${exercicio.carga}"
-                        id="${idCarga}" disabled>
-                </div>
+                                    <!-- BOTÃO DO CHECK EXERCICIO -->
+                                    <button type="button" class="btn btn-success input-group-text d-block" id="Thumbs_${idChevron}">
+                                        <i class="fa fa-thumbs-up"
+                                        onclick="checaExercicio('${idNome}','Thumbs_${idChevron}','ThumbsX_${idChevron}')"></i>
+                                    </button>
 
-                <!-- BOTÕES -->
-                <div class="col m-auto">
-                    <div class="row">
-                        <div class="col">
-                            <!-- EDITAR -->
-                            <button  class="btn btn-sm btn-primary w-100" id="${idEdit}"
-                                onclick="alternaBtnSaveEditVarios(
-                                    'editar',
-                                    '${idEdit}',
-                                    '${idSave}',
-                                    '${idNome}',
-                                    '${idSeries}',
-                                    '${idRepeticoes}',
-                                    '${idCarga}')">
-                                <i class="fa fa-edit"></i>
-                            </button>
-
-                            <!-- SALVAR -->
-                            <button  class="btn btn-sm btn-success d-none w-100" id="${idSave}"
-                                onclick="atualizarDadosExerciciosArray(
-                                    ${indiceFicha},
-                                    ${indiceTreino},
-                                    ${i},
-                                    '${idEdit}',
-                                    '${idSave}',
-                                    '${idNome}',
-                                    '${idSeries}',
-                                    '${idRepeticoes}',
-                                    '${idCarga}')">
-                                <i class="fa fa-save"></i>
-                            </button>
+                                    <!-- BOTÃO DO CHECK EXERCICIO -->
+                                    <button type="button" 
+                                    class="btn btn-danger input-group-text d-none" id="ThumbsX_${idChevron}">
+                                        <i class="fa fa-x"
+                                        onclick="checaExercicio('${idNome}',
+                                        'Thumbs_${idChevron}',
+                                        'ThumbsX_${idChevron}')"></i>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col">
-                            <!-- EXCLUIR -->
-                            <button class="btn btn-sm btn-danger w-100"
-                                id="BTNEXCLUIR_ficha_${ficha.id}_Treino_${treino.letra}_Exercicio_${i}">
-                                    <i class="fa fa-trash"></i>
-                            </button>
+                    </div>
+                </div>
+
+                <div class="row collapse" id="${idCollapse}" 
+                    <div class="col">
+                        <div class="row">
+                            <!-- SÉRIES -->
+                            <div class="col-12 mb-3">
+                                <label class="labelText tamanho08">
+                                    Séries
+                                </label>
+                                <input class="form-control" value="${exercicio.series}"
+                                    id="${idSeries}"
+                                    disabled>
+                            </div>
+
+                            <!-- REPETIÇÕES -->
+                            <div class="col-12 mb-3">
+                                <label class="labelText tamanho08">
+                                    Repetições
+                                </label>
+
+                                <input class="form-control" value="${exercicio.repeticoes}"
+                                    id="${idRepeticoes}" disabled>
+                            </div>
+
+
+                            <!-- CARGA -->
+                            <div class="col-12 mb-3">
+                                <label class="labelText tamanho08">
+                                    Carga
+                                </label>
+
+                                <input class="form-control" value="${exercicio.carga}"
+                                    id="${idCarga}" disabled>
+                            </div>
+
+
+                            <!-- BOTÕES -->
+                            <div class="col m-auto">
+                                <div class="row">
+                                    <!-- EDITAR -->
+                                    <div class="col">
+                                        <button type="button" class="btn btn-sm btn-primary w-100"
+                                            id="${idEdit}" 
+                                            onclick="alternaBtnSaveEditVarios(
+                                                'editar',
+                                                '${idEdit}',
+                                                '${idSave}',
+                                                '${idNome}',
+                                                '${idSeries}',
+                                                '${idRepeticoes}',
+                                                '${idCarga}')">
+
+                                            <i class="fa fa-edit"></i>
+                                        </button>
+                                    </div>
+
+                                    <!-- SALVAR -->
+                                    <div class="col">
+                                        <button type="button"
+                                            class="btn btn-sm btn-success d-none w-100"
+                                            id="${idSave}"
+
+                                            onclick="atualizarDadosExerciciosArray(
+                                                ${indiceFicha},
+                                                ${indiceTreino},
+                                                ${i},
+                                                '${idEdit}',
+                                                '${idSave}',
+                                                '${idNome}',
+                                                '${idSeries}',
+                                                '${idRepeticoes}',
+                                                '${idCarga}')">
+
+                                            <i class="fa fa-save"></i>
+                                        </button>
+                                    </div>
+
+                                    <!-- EXCLUIR -->
+                                    <div class="col">
+                                        <button type="button" class="btn btn-sm btn-danger w-100"
+                                            onclick="excluirExercicioManualmente(
+                                                '${ficha.id}',
+                                                '${treino.letra}',
+                                                ${i})">
+
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-
             <hr>
-        `;
+        `);
     });
+}
+
+function checaExercicio(idSelect , idThumbs, idThumbsX){
+    let selectColor = document.getElementById(idSelect);
+    let thumbs = document.getElementById(idThumbs);
+    let thumbsX = document.getElementById(idThumbsX);
+    
+    if(selectColor.classList.contains('bg-inicial')){
+        selectColor.classList.replace('bg-inicial','bg-success');
+        selectColor.classList.replace('text-dark', 'text-light');
+
+        thumbs.classList.replace('d-block','d-none');
+        thumbsX.classList.replace('d-none','d-block');
+    }
+    else if(selectColor.classList.contains('bg-success')){
+        selectColor.classList.replace('bg-success','bg-inicial');
+        selectColor.classList.add('text-dark');
+
+        thumbs.classList.replace('d-none','d-block');
+        thumbsX.classList.replace('d-block','d-none');  
+    }
+
 }
 
 function alternaBtnSaveEditVarios(
