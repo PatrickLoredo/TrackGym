@@ -1803,7 +1803,8 @@ function checaExercicio(idSelect , idThumbs, idThumbsX){
     let thumbsX = document.getElementById(idThumbsX);
     
     if(selectColor.classList.contains('bg-inicial')){
-        selectColor.classList.replace('text-dark', 'text-light');
+        selectColor.classList.replace('text-danger', 'text-light');
+        selectColor.classList.replace('bg-inicial','bg-sucess');
 
         thumbs.classList.replace('d-block','d-none');
         thumbsX.classList.replace('d-none','d-block');
