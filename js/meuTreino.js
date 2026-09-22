@@ -1680,7 +1680,7 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
                             <div class="col-6 mb-3">
                                 <!-- BOTÃO DO CHECK EXERCICIO -->
                                 <button type="button" 
-                                class="btn btn-success d-block w-100"
+                                class="btn btn-success d-block w-100 p-2"
                                  id="Thumbs_${idChevron}">
                                     <i class="fa fa-thumbs-up"
                                     onclick="checaExercicio('${idNome}','Thumbs_${idChevron}','ThumbsX_${idChevron}')"></i>
@@ -1803,7 +1803,6 @@ function checaExercicio(idSelect , idThumbs, idThumbsX){
     let thumbsX = document.getElementById(idThumbsX);
     
     if(selectColor.classList.contains('bg-inicial')){
-        selectColor.classList.replace('bg-inicial','bg-success');
         selectColor.classList.replace('text-dark', 'text-light');
 
         thumbs.classList.replace('d-block','d-none');
