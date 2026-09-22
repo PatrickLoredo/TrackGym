@@ -1762,13 +1762,6 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
                                 <div class="row mt-2 mb-3">
                                     <div class="col">
                                         <div class="input-group">
-                                            <button
-                                                class="input-group-text uppercase tamanho07 btn btn-sm btn-info"
-                                                onclick="aumentarCarga('${idCarga}', Number(document.getElementById('${idCarga}').value) * -1)">
-                                                <i class="fa fa-broom"></i>
-                                            </button>
-
-
                                             <button class="input-group-text uppercase tamanho07 btn btn-primary input-group-text"
                                             onclick="aumentarCarga('${idCarga}', 5)">+5</button>
 
