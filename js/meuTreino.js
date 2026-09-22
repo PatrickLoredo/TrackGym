@@ -1660,7 +1660,7 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
                                 <label class="labelText tamanho08">
                                     Exercício
                                 </label>
-                                <span class="bg-inicial uppercase tamanho09 text-center text-danger fw-bold"
+                                <span class="bg-inicial uppercase tamanho09 text-center text-dark fw-bold"
                                 id="${idNome}"> 
                                     ${exercicio.nomeExercicio}
                                 </span>
@@ -1802,14 +1802,14 @@ function checaExercicio(idSelect , idThumbs, idThumbsX){
     let thumbs = document.getElementById(idThumbs);
     let thumbsX = document.getElementById(idThumbsX);
     
-    if(selectColor.classList.contains('text-danger')){
+    if(selectColor.classList.contains('text-dark')){
         selectColor.classList.replace('text-danger', 'text-success');
 
         thumbs.classList.replace('d-block','d-none');
         thumbsX.classList.replace('d-none','d-block');
     }
     else if(selectColor.classList.contains('text-success')){
-        selectColor.classList.replace('text-success', 'text-danger');
+        selectColor.classList.replace('text-success', 'text-dark');
 
         thumbs.classList.replace('d-none','d-block');
         thumbsX.classList.replace('d-block','d-none');  
