@@ -258,8 +258,9 @@ function aumentarCarga(id, valor) {
     if(campo.disabled){
         alert('Desbloqueie primeiro o campo para edição e depois altere a carga !')
     }
-
-    campo.value = Number(campo.value || 0) + valor;
+    else{
+        campo.value = Number(campo.value || 0) + valor;
+    }
 }
 
 function addExercicioFicha(idCampoExericio, idCampoContador, idFicha, letraTreino) {
