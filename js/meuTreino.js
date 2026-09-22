@@ -1699,7 +1699,7 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
                     </div>
                 </div>
 
-                <div class="row collapse m-auto" id="${idCollapse}" 
+                <div class="row collapse d-flex justify-content-center" id="${idCollapse}" 
                     <div class="col">
                         <div class="row">
                             <!-- SÉRIES -->
