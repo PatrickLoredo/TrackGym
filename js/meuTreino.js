@@ -1803,15 +1803,14 @@ function checaExercicio(idSelect , idThumbs, idThumbsX){
     let thumbsX = document.getElementById(idThumbsX);
     
     if(selectColor.classList.contains('bg-inicial')){
-        selectColor.classList.replace('text-danger', 'text-light');
-        selectColor.classList.replace('bg-inicial','bg-success');
+        selectColor.classList.replace('text-danger', 'text-success');
 
         thumbs.classList.replace('d-block','d-none');
         thumbsX.classList.replace('d-none','d-block');
     }
     else if(selectColor.classList.contains('bg-success')){
         selectColor.classList.replace('bg-success','bg-inicial');
-        selectColor.classList.add('text-dark');
+        selectColor.classList.replace('text-success', 'text-danger');
 
         thumbs.classList.replace('d-none','d-block');
         thumbsX.classList.replace('d-block','d-none');  
