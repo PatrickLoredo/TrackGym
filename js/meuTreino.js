@@ -1699,9 +1699,9 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
                     </div>
                 </div>
 
-                <div class="row collapse d-flex justify-content-center" id="${idCollapse}" 
+                <div class="row collapse" id="${idCollapse}" 
                     <div class="col">
-                        <div class="row">
+                        <div class="row d-flex justify-content-center">
                             <!-- SÉRIES -->
                             <div class="col-12 mb-3">
                                 <label class="labelText tamanho08">
