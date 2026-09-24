@@ -1672,16 +1672,6 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
                                         value="${exercicio.nomeExercicio}" id="${idNome}" disabled>
                                 </div>
                             </div>
-                            
-                            <!-- NOME DO EXERCÍCIO -->
-                            <div class="col-12 mb-3 m-auto">
-                                <label class="labelText tamanho08">
-                                    Exercício
-                                </label>
-                                <div class="col-12 mb-2">
-                                    <span id="${idNomeSemInput}">${exercicio.nomeExercicio}</span>
-                                </div>
-                            </div>
 
                             <div class="col-6 mb-3">
                                 <!-- BOTÃO DO COLLAPSE -->
