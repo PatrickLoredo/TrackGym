@@ -1221,7 +1221,7 @@ function exibeTreinosExercicios(idCampo, indice) {
 
                             <button
                                 type="button"
-                                data-bs-tooltip"
+                                data-bs-toggle="tooltip"
                                 title="Adicionar Exercicio na Ficha"
                                 class="btn btn-sm btn-info"
                                 onclick="adicionaExercicioManualmenteAoTreino('${ficha.id}','${treino.letra}')">
@@ -1231,7 +1231,7 @@ function exibeTreinosExercicios(idCampo, indice) {
 
                             <button
                                 type="button"
-                                data-bs-tooltip"
+                                data-bs-toggle="tooltip"
                                 title="Excluir ficha de Treino"
                                 class="btn btn-sm btn-danger"
                                 onclick="excluirTreinoManualmente(
@@ -1668,12 +1668,8 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
                                     Exercício
                                 </label>
                                 <div class="col-12 mb-2">
-                                    <input
-                                        type="text"
-                                        class="form-control input-nome-exercicio"
-                                        value="${exercicio.nomeExercicio}"
-                                        id="${idNome}"
-                                        disabled>
+                                    <input type="text" class="form-control input-nome-exercicio"
+                                        value="${exercicio.nomeExercicio}" id="${idNome}" disabled>
                                 </div>
                             </div>
                             
