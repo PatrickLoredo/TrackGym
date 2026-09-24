@@ -1643,6 +1643,7 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
         const colunaEDITAR = `coluna_${idEdit}`;
         const idIDNome = `INPUTIDEXERCICIO_ficha_${ficha.id}_Treino_${treino.letra}_Exercicio_${i}`;
         const idNome = `INPUTEXERCICIO_ficha_${ficha.id}_Treino_${treino.letra}_Exercicio_${i}`;
+        const idNomeSPAN = `INPUTEXERCICIOSPAN_ficha_${ficha.id}_Treino_${treino.letra}_Exercicio_${i}`;
         const idSeries = `INPUTSERIES_ficha_${ficha.id}_Treino_${treino.letra}_Exercicio_${i}`;
         const idRepeticoes = `INPUTREPETICOES_ficha_${ficha.id}_Treino_${treino.letra}_Exercicio_${i}`;
         const idCarga = `INPUTCARGA_ficha_${ficha.id}_Treino_${treino.letra}_Exercicio_${i}`;
@@ -1664,12 +1665,16 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
 
                             <!-- NOME DO EXERCÍCIO INPUT -->
                             <div class="col-12 mb-3 m-auto">
-                                <label class="labelText tamanho08">
-                                    Exercício
-                                </label>
                                 <div class="col-12 mb-2">
-                                    <input type="text" class="form-control input-nome-exercicio bg-light text-dark"
+                                    <input type="text" class="form-control input-nome-exercicio bg-light text-dark d-none"
                                         value="${exercicio.nomeExercicio}" id="${idNome}" disabled>
+                                </div>
+                            </div>
+
+                            <!-- NOME DO EXERCÍCIO INPUT -->
+                            <div class="col-12 mb-3 m-auto">
+                                <div class="col-12 mb-2">
+                                    <span class="uppercase fw-bold text-danger" id="${idNomeSPAN}">${exercicio.nomeExercicio}</span>
                                 </div>
                             </div>
                         
@@ -1691,14 +1696,14 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
                                 <button type="button" 
                                 class="btn btn-success d-block w-100 p-2"
                                 id="Thumbs_${idChevron}"
-                                onclick="checaExercicio('${idNome}', 'Thumbs_${idChevron}', 'ThumbsX_${idChevron}')">
+                                onclick="checaExercicio('${idNomeSPAN}', 'Thumbs_${idChevron}', 'ThumbsX_${idChevron}')">
                                     <i class="fa fa-thumbs-up"></i>
                                 </button>
 
                                 <!-- BOTÃO DO CHECK EXERCICIO -->
                                 <button type="button" 
                                 class="btn btn-danger input-group-text d-none w-100" id="ThumbsX_${idChevron}"
-                                onclick="checaExercicio('${idNome}', 'Thumbs_${idChevron}', 'ThumbsX_${idChevron}')">
+                                onclick="checaExercicio('${idNomeSPAN}', 'Thumbs_${idChevron}', 'ThumbsX_${idChevron}')">
                                     <i class="fa fa-x"></i>
                                 </button>
                             </div>
@@ -1995,6 +2000,8 @@ function atualizarDadosExerciciosArray(
 
 
     // DESABILITA OS INPUTS
+
+    inputNomeExercicio.classList.replace('d-block','d-none')
     inputNomeExercicio.disabled = true;
     inputSeries.disabled = true;
     inputRepeticoes.disabled = true;
@@ -2040,16 +2047,16 @@ function checaExercicio(idSelect , idThumbs, idThumbsX){
     let thumbs = document.getElementById(idThumbs);
     let thumbsX = document.getElementById(idThumbsX);
     
-    if(selectColor.classList.contains('bg-light')){
-        selectColor.classList.replace('bg-light', 'bg-success');
-        selectColor.classList.replace('text-dark', 'text-light');
+    if(selectColor.classList.contains('text-danger')){
+        selectColor.classList.replace('text-danger', 'text-light');
+        selectColor.classList.add('bg-success', 'p-2','px-3');
 
         thumbs.classList.replace('d-block','d-none');
         thumbsX.classList.replace('d-none','d-block');
     }
     else if(selectColor.classList.contains('bg-success')){
-        selectColor.classList.replace('bg-success', 'bg-light');
-        selectColor.classList.replace('text-light', 'text-dark');
+        selectColor.classList.replace('text-light', 'text-danger');
+        selectColor.classList.remove('bg-success', 'p-2');
 
 
         thumbs.classList.replace('d-none','d-block');
@@ -2081,6 +2088,7 @@ function alternaBtnSaveEditVarios(
         colunaEDIT.classList.replace('d-block','d-none');
         colunaSAVE.classList.replace('d-none','d-block');
 
+        inputNome.classList.replace('d-none','d-block')
         inputNome.disabled = false;
         inputSeries.disabled = false;
         inputRepeticoes.disabled = false;
