@@ -2032,15 +2032,9 @@ function atualizarDadosExerciciosArray(
     btnSave.classList.add('d-none');
 
 
-    // MENSAGEM
-    alert(
-        `EXERCÍCIO: ${nomeExercicio}\n` +
-        `SÉRIES: ${series}\n` +
-        `REPETIÇÕES: ${repeticoes}\n` +
-        `CARGA: ${carga}\n\n` +
-        `Atualizado com sucesso!`
-    );
-}
+    document.getElementById('btnTreinoDia').click();
+
+
 
 function checaExercicio(idSelect , idThumbs, idThumbsX){
     let selectColor = document.getElementById(idSelect);
@@ -2198,6 +2192,7 @@ function exibeProximoTreino() {
 
                                 <button
                                     class="btn btn-primary w-100 py-2"
+                                    id="btnTreinoDia"
                                     onclick="exibeTreinoDoDia('${fichaAberta.id}', '${primeiroTreino.letra}')"
 
 
