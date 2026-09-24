@@ -1960,9 +1960,8 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
                                 <label class="labelText tamanho08">
                                     Carga
                                 </label>
-                                <input class="form-control" value="${exercicio.carga}"
-                                    id="${idCarga}" disabled>
-                                </div>
+                                <input class="form-control" value="${exercicio.carga}" id="${idCarga}" disabled>
+                                
                                 <div class="row mt-2 mb-3">
                                     <div class="col">
                                         <div class="input-group flexCenter">
