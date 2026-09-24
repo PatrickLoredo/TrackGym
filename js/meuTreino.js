@@ -89,8 +89,8 @@ class Ficha {
     }
 }
 
-class TreinoConcluido {
-    constructor(idFicha, letraFichaTreino, dataConclusao, statusFicha) {
+class TreinoConcluido{
+    constructor(idFicha, letraFichaTreino, dataConclusao, statusFicha){
         this.idFicha = idFicha;
         this.letraFichaTreino = letraFichaTreino;
         this.dataConclusao = dataConclusao;
@@ -255,10 +255,10 @@ function aumentarCarga(id, valor) {
 
     if (!campo) return;
 
-    if (campo.disabled) {
+    if(campo.disabled){
         alert('Desbloqueie primeiro o campo para edição e depois altere a carga !')
     }
-    else {
+    else{
         campo.value = Number(campo.value || 0) + valor;
     }
 }
@@ -270,7 +270,7 @@ function addExercicioFicha(idCampoExericio, idCampoContador, idFicha, letraTrein
     let contadorExercicios = document.getElementById(idCampoContador);
     let totalContadorExercicios = Number(contadorExercicios.value);
 
-    contadorID++;
+    contadorID ++;
     totalContadorExercicios++;
 
     contadorExercicios.value = totalContadorExercicios;
@@ -281,7 +281,7 @@ function addExercicioFicha(idCampoExericio, idCampoContador, idFicha, letraTrein
     console.log(idInput)
     console.log(idSelect)
 
-    campoExercicioInsere.insertAdjacentHTML('beforeend', `
+campoExercicioInsere.insertAdjacentHTML('beforeend', `
     <div class="row mb-3 exercicio-ficha" data-ficha="${fichaId}" data-treino="${letraDoTreino}" data-exercicio="${contadorID}">
             <div class="col-12 mb-3">
                 <input type="text" class="form-control" disabled id="${idInput}">
@@ -372,11 +372,11 @@ function addExercicioFicha(idCampoExericio, idCampoContador, idFicha, letraTrein
     `);
 
 
-    populaSelect('exercicio', arrayExercicios, idSelect);
-    verificaIdcomSelect(idSelect, idInput, arrayExercicios);
+    populaSelect('exercicio',arrayExercicios,idSelect);
+    verificaIdcomSelect(idSelect,idInput,arrayExercicios);
     atualizaContadorExercicios(fichaId, letraDoTreino);
 
-
+    
 }
 
 // IDENTIFICA O ID DO CADASTRO NO ARRAY DE EXERCICIOS DE ACORDO COM OPTION DO SELECT DE EXERCICIOS [OK]
@@ -752,11 +752,11 @@ function recuperarFicha() {
     const dataConclusao = document.getElementById('campoDataConclusaoFicha');
     const qtdTreinos = Number(document.getElementById('campoQtdTreinosFicha').value);
 
-    const ficha = new Ficha(campoId.value, dataInicio.value, dataConclusao?.value || null);
+    const ficha = new Ficha( campoId.value, dataInicio.value, dataConclusao?.value || null );
 
     for (let i = 0; i < qtdTreinos; i++) {
         const letraTreino = letrasTreinos[i];
-        const treino = recuperarTreino(ficha.id, letraTreino, i);
+        const treino = recuperarTreino( ficha.id, letraTreino, i );
         ficha.adicionarTreino(treino);
     }
     return ficha;
@@ -1070,7 +1070,7 @@ function populaFichasConcluidas(idCampo) {
 
     campoExibicaoFichasConcluidas.innerHTML = '';
 
-    const fichasConcluidas = arrayFichas.filter(ficha => ficha.dataConclusao !== null);
+    const fichasConcluidas = arrayFichas.filter( ficha => ficha.dataConclusao !== null);
 
     if (fichasConcluidas.length === 0) {
         campoExibicaoFichasConcluidas.innerHTML = `
@@ -1611,6 +1611,235 @@ function confirmaConclusaoTreino(idFicha, letraTreino) {
 
     exibeProximoTreino();
 }
+ 
+function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
+    const campoExibicao = document.getElementById(idCampo);
+
+    if (!campoExibicao) {
+        console.error('Campo de exibição não encontrado:', idCampo);
+        return;
+    }
+
+    campoExibicao.innerHTML = '';
+
+    const ficha = arrayFichas[indiceFicha];
+
+    if (!ficha) {
+        console.error('Ficha não encontrada:', indiceFicha);
+        return;
+    }
+
+    const treino = ficha.treinos[indiceTreino];
+
+    if (!treino) {
+        console.error('Treino não encontrado:', indiceTreino);
+        return;
+    }
+
+    treino.exercicios.forEach((exercicio, i) => {
+        const idEdit = `BTNEDITAR_ficha_${ficha.id}_Treino_${treino.letra}_Exercicio_${i}`;
+        const idSave = `BTNSALVAR_ficha_${ficha.id}_Treino_${treino.letra}_Exercicio_${i}`;
+        const colunaSALVAR = `coluna_${idSave}`;
+        const colunaEDITAR = `coluna_${idEdit}`;
+        const idIDNome = `INPUTIDEXERCICIO_ficha_${ficha.id}_Treino_${treino.letra}_Exercicio_${i}`;
+        const idNome = `INPUTEXERCICIO_ficha_${ficha.id}_Treino_${treino.letra}_Exercicio_${i}`;
+        const idSeries = `INPUTSERIES_ficha_${ficha.id}_Treino_${treino.letra}_Exercicio_${i}`;
+        const idRepeticoes = `INPUTREPETICOES_ficha_${ficha.id}_Treino_${treino.letra}_Exercicio_${i}`;
+        const idCarga = `INPUTCARGA_ficha_${ficha.id}_Treino_${treino.letra}_Exercicio_${i}`;
+        const idCollapse = `collapseDadosExercicio_${ficha.id}_${treino.letra}_${i}`;
+        const idChevron = `chevronDownInfoExercicios_${ficha.id}_${treino.letra}_${i}`;
+
+        campoExibicao.insertAdjacentHTML('beforeend', `
+
+            <div class="row mb-4 flexCenter">
+                <!-- CABEÇALHO DO EXERCÍCIO -->
+                <div class="row">
+                    <div class="col">
+                        <div class="row">
+                            <!-- ID DO EXERCÍCIO -->
+                            <div class="col-12 mb-3 d-none">
+                                <input class="form-control" value="${exercicio.idExercicio}"
+                                    id="${idIDNome}" disabled>
+                            </div>
+
+                            <!-- NOME DO EXERCÍCIO INPUT -->
+                            <div class="col-12 mb-3 m-auto">
+                                <label class="labelText tamanho08">
+                                    Exercício
+                                </label>
+                                <div class="col-12 mb-2">
+                                    <input type="text" class="form-control input-nome-exercicio bg-light text-dark"
+                                        value="${exercicio.nomeExercicio}" id="${idNome}" disabled>
+                                </div>
+                            </div>
+                        
+
+                            <div class="col-6 mb-3">
+                                <!-- BOTÃO DO COLLAPSE -->
+                                <button type="button" class="btn btn-dark w-100"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#${idCollapse}"
+                                    aria-expanded="false"
+                                    aria-controls="${idCollapse}"
+                                    onclick="mudaChevron('${idChevron}')">
+
+                                    <i class="fa fa-chevron-down" id="${idChevron}"></i>
+                                </button>
+                            </div>
+                            <div class="col-6 mb-3">
+                                <!-- BOTÃO DO CHECK EXERCICIO -->
+                                <button type="button" 
+                                class="btn btn-success d-block w-100 p-2"
+                                id="Thumbs_${idChevron}"
+                                onclick="checaExercicio('${idNome}', 'Thumbs_${idChevron}', 'ThumbsX_${idChevron}')">
+                                    <i class="fa fa-thumbs-up"></i>
+                                </button>
+
+                                <!-- BOTÃO DO CHECK EXERCICIO -->
+                                <button type="button" 
+                                class="btn btn-danger input-group-text d-none w-100" id="ThumbsX_${idChevron}"
+                                onclick="checaExercicio('${idNome}', 'Thumbs_${idChevron}', 'ThumbsX_${idChevron}')">
+                                    <i class="fa fa-x"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row collapse" id="${idCollapse}">
+                    <div class="col">
+                        <div class="row m-auto">
+                            <!-- SÉRIES -->
+                            <div class="col-12 mb-3">
+                                <label class="labelText tamanho08">
+                                    Séries
+                                </label>
+                                <div class="input-group">
+                                    <button class="btn btn-dark input-group-text"
+                                    onclick="aumentarCarga('${idSeries}', -1)">
+                                        -
+                                    </button>
+                                    <input class="form-control" value="${exercicio.series}"
+                                        id="${idSeries}"
+                                        disabled>
+                                    <button class="btn btn-dark input-group-text"
+                                    onclick="aumentarCarga('${idSeries}', 1)">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- REPETIÇÕES -->
+                            <div class="col-12 mb-3">
+                                <label class="labelText tamanho08">
+                                    Repetições
+                                </label>
+                                <div class="input-group">
+                                    <button class="btn btn-dark input-group-text"
+                                    onclick="aumentarCarga('${idRepeticoes}', -1)">
+                                        -
+                                    </button>
+
+                                    <input class="form-control" value="${exercicio.repeticoes}"
+                                    id="${idRepeticoes}" disabled>
+
+                                    <button class="btn btn-dark input-group-text"
+                                    onclick="aumentarCarga('${idRepeticoes}', 1)">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                </div>
+
+                            </div>
+
+
+                            <!-- CARGA -->
+                            <div class="col-12 mb-3">
+                                <label class="labelText tamanho08">
+                                    Carga
+                                </label>
+                                <input class="form-control" value="${exercicio.carga}"
+                                    id="${idCarga}" disabled>
+                                </div>
+                                <div class="row mt-2 mb-3">
+                                    <div class="col">
+                                        <div class="input-group flexCenter">
+                                            <button class="input-group-text uppercase tamanho08 btn btn-primary input-group-text"
+                                            onclick="aumentarCarga('${idCarga}', 5)">+5</button>
+
+                                            <button class="input-group-text uppercase tamanho08 btn btn-info input-group-text"
+                                            onclick="aumentarCarga('${idCarga}', 7)">+7</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!-- BOTÕES -->
+                            <div class="col m-auto">
+                                <div class="row">
+                                    <!-- EDITAR -->
+                                    <div class="col-6 d-block" id="coluna_${idEdit}">
+                                        <button type="button" class="btn btn-sm btn-primary w-100"
+                                            id="${idEdit}" 
+                                            onclick="alternaBtnSaveEditVarios(
+                                                'editar',
+                                                '${idEdit}',
+                                                '${idSave}',
+                                                '${idNome}',
+                                                '${idSeries}',
+                                                '${idRepeticoes}',
+                                                '${idCarga}',
+                                                'coluna_${idEdit}',
+                                                'coluna_${idSave}')">
+
+                                            <i class="fa fa-edit"></i>
+                                        </button>
+                                    </div>
+
+                                    <!-- SALVAR -->
+                                    <div class="col-6 d-none" id="coluna_${idSave}">
+                                        <button type="button"
+                                            class="btn btn-sm btn-success w-100"
+                                            id="${idSave}"
+
+                                            onclick="atualizarDadosExerciciosArray(
+                                                ${indiceFicha},
+                                                ${indiceTreino},
+                                                ${i},
+                                                '${idEdit}',
+                                                '${idSave}',
+                                                '${idNome}',
+                                                '${idSeries}',
+                                                '${idRepeticoes}',
+                                                '${idCarga}',
+                                                'coluna_${idEdit}',
+                                                'coluna_${idSave}')">
+
+                                            <i class="fa fa-save"></i>
+                                        </button>
+                                    </div>
+
+                                    <!-- EXCLUIR -->
+                                    <div class="col-6">
+                                        <button type="button" class="btn btn-sm btn-danger w-100"
+                                            onclick="excluirExercicioManualmente(
+                                                '${ficha.id}',
+                                                '${treino.letra}',
+                                                ${i})">
+
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+        `);
+    });
+}
 
 function atualizarDadosExerciciosArray(
     indiceFicha,
@@ -1806,263 +2035,27 @@ function atualizarDadosExerciciosArray(
     );
 }
 
-function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
-    const campoExibicao = document.getElementById(idCampo);
-
-    if (!campoExibicao) {
-        console.error('Campo de exibição não encontrado:', idCampo);
-        return;
-    }
-
-    campoExibicao.innerHTML = '';
-
-    const ficha = arrayFichas[indiceFicha];
-
-    if (!ficha) {
-        console.error('Ficha não encontrada:', indiceFicha);
-        return;
-    }
-
-    const treino = ficha.treinos[indiceTreino];
-
-    if (!treino) {
-        console.error('Treino não encontrado:', indiceTreino);
-        return;
-    }
-
-    treino.exercicios.forEach((exercicio, i) => {
-        const idEdit = `BTNEDITAR_ficha_${ficha.id}_Treino_${treino.letra}_Exercicio_${i}`;
-        const idSave = `BTNSALVAR_ficha_${ficha.id}_Treino_${treino.letra}_Exercicio_${i}`;
-
-        const idIDNome = `INPUTIDEXERCICIO_ficha_${ficha.id}_Treino_${treino.letra}_Exercicio_${i}`;
-        const idNome = `INPUTEXERCICIO_ficha_${ficha.id}_Treino_${treino.letra}_Exercicio_${i}`;
-        const idNomeSpan = `INPUTEXERCICIOSPAN_ficha_${ficha.id}_Treino_${treino.letra}_Exercicio_${i}`;
-        const idSeries = `INPUTSERIES_ficha_${ficha.id}_Treino_${treino.letra}_Exercicio_${i}`;
-        const idRepeticoes = `INPUTREPETICOES_ficha_${ficha.id}_Treino_${treino.letra}_Exercicio_${i}`;
-        const idCarga = `INPUTCARGA_ficha_${ficha.id}_Treino_${treino.letra}_Exercicio_${i}`;
-        const idCollapse = `collapseDadosExercicio_${ficha.id}_${treino.letra}_${i}`;
-        const idChevron = `chevronDownInfoExercicios_${ficha.id}_${treino.letra}_${i}`;
-
-        campoExibicao.insertAdjacentHTML('beforeend', `
-
-            <div class="row mb-4 flexCenter">
-                <!-- CABEÇALHO DO EXERCÍCIO -->
-                <div class="row">
-                    <div class="col">
-                        <div class="row">
-                            <!-- ID DO EXERCÍCIO -->
-                            <div class="col-12 mb-3 d-none">
-                                <input class="form-control" value="${exercicio.idExercicio}"
-                                    id="${idIDNome}" disabled>
-                            </div>
-
-                            <!-- NOME DO EXERCÍCIO INPUT -->
-                            <div class="col-12 mb-3 m-auto d-none">
-                                <label class="labelText tamanho08">
-                                    Exercício
-                                </label>
-                                <div class="col-12 mb-2">
-                                    <input type="text" class="form-control input-nome-exercicio"
-                                        value="${exercicio.nomeExercicio}" id="${idNome}" disabled>
-                                </div>
-                            </div>
-
-                            <!-- NOME DO EXERCÍCIO INPUT -->
-                            <div class="col-12 mb-3 m-auto">
-                                <label class="labelText tamanho08">
-                                    Exercício
-                                </label>
-                                <div class="col-12 mb-2">
-                                <span class="uppercase text-danger fw-bold" 
-                                id="${idNomeSpan}">${exercicio.nomeExercicio}</span>
-                                </div>
-                            </div>
-
-                            <div class="col-6 mb-3">
-                                <!-- BOTÃO DO COLLAPSE -->
-                                <button type="button" class="btn btn-dark w-100"
-                                    data-bs-toggle="collapse"
-                                    data-bs-target="#${idCollapse}"
-                                    aria-expanded="false"
-                                    aria-controls="${idCollapse}"
-                                    onclick="mudaChevron('${idChevron}')">
-
-                                    <i class="fa fa-chevron-down" id="${idChevron}"></i>
-                                </button>
-                            </div>
-                            <div class="col-6 mb-3">
-                                <!-- BOTÃO DO CHECK EXERCICIO -->
-                                <button type="button" 
-                                class="btn btn-success d-block w-100 p-2"
-                                id="Thumbs_${idChevron}"
-                                onclick="checaExercicio('${idIDNomeSpan}','Thumbs_${idChevron}','ThumbsX_${idChevron}')">
-                                    <i class="fa fa-thumbs-up"></i>
-                                </button>
-
-                                <!-- BOTÃO DO CHECK EXERCICIO -->
-                                <button type="button" 
-                                class="btn btn-danger input-group-text d-none" id="ThumbsX_${idChevron}"
-                                onclick="checaExercicio('${idIDNomeSpan}','Thumbs_${idChevron}','ThumbsX_${idChevron}')">
-                                    <i class="fa fa-x"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row collapse" id="${idCollapse}">
-                    <div class="col">
-                        <div class="row m-auto">
-                            <!-- SÉRIES -->
-                            <div class="col-12 mb-3">
-                                <label class="labelText tamanho08">
-                                    Séries
-                                </label>
-                                <div class="input-group">
-                                    <button class="btn btn-dark input-group-text"
-                                    onclick="aumentarCarga('${idSeries}', -1)">
-                                        -
-                                    </button>
-                                    <input class="form-control" value="${exercicio.series}"
-                                        id="${idSeries}"
-                                        disabled>
-                                    <button class="btn btn-dark input-group-text"
-                                    onclick="aumentarCarga('${idSeries}', 1)">
-                                        <i class="fa fa-plus"></i>
-                                    </button>
-                                </div>
-                            </div>
-
-                            <!-- REPETIÇÕES -->
-                            <div class="col-12 mb-3">
-                                <label class="labelText tamanho08">
-                                    Repetições
-                                </label>
-                                <div class="input-group">
-                                    <button class="btn btn-dark input-group-text"
-                                    onclick="aumentarCarga('${idRepeticoes}', -1)">
-                                        -
-                                    </button>
-
-                                    <input class="form-control" value="${exercicio.repeticoes}"
-                                    id="${idRepeticoes}" disabled>
-
-                                    <button class="btn btn-dark input-group-text"
-                                    onclick="aumentarCarga('${idRepeticoes}', 1)">
-                                        <i class="fa fa-plus"></i>
-                                    </button>
-                                </div>
-                            </div>
-
-
-                            <!-- CARGA -->
-                            <div class="col-12 mb-3">
-                                <label class="labelText tamanho08">
-                                    Carga
-                                </label>
-                                <input class="form-control" value="${exercicio.carga}" id="${idCarga}" disabled>
-                                
-                                <div class="row mt-2 mb-3">
-                                    <div class="col">
-                                        <div class="input-group flexCenter">
-                                            <button class="input-group-text uppercase tamanho08 btn btn-primary input-group-text"
-                                            onclick="aumentarCarga('${idCarga}', 5)">+5</button>
-
-                                            <button class="input-group-text uppercase tamanho08 btn btn-info input-group-text"
-                                            onclick="aumentarCarga('${idCarga}', 7)">+7</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <!-- BOTÕES -->
-                            <div class="col m-auto">
-                                <div class="row">
-                                    <!-- EDITAR -->
-                                    <div class="col-6 d-block" id="coluna_${idEdit}">
-                                        <button type="button" class="btn btn-sm btn-primary w-100"
-                                            id="${idEdit}" 
-                                            onclick="alternaBtnSaveEditVarios(
-                                                'editar',
-                                                '${idEdit}',
-                                                '${idSave}',
-                                                '${idNome}',
-                                                '${idSeries}',
-                                                '${idRepeticoes}',
-                                                '${idCarga}',
-                                                'coluna_${idEdit}',
-                                                'coluna_${idSave}')">
-
-                                            <i class="fa fa-edit"></i>
-                                        </button>
-                                    </div>
-
-                                    <!-- SALVAR -->
-                                    <div class="col-6 d-none" id="coluna_${idSave}">
-                                        <button type="button"
-                                            class="btn btn-sm btn-success w-100"
-                                            id="${idSave}"
-
-                                            onclick="atualizarDadosExerciciosArray(
-                                                ${indiceFicha},
-                                                ${indiceTreino},
-                                                ${i},
-                                                '${idEdit}',
-                                                '${idSave}',
-                                                '${idNome}',
-                                                '${idSeries}',
-                                                '${idRepeticoes}',
-                                                '${idCarga}',
-                                                'coluna_${idEdit}',
-                                                'coluna_${idSave}')">
-
-                                            <i class="fa fa-save"></i>
-                                        </button>
-                                    </div>
-
-                                    <!-- EXCLUIR -->
-                                    <div class="col-6">
-                                        <button type="button" class="btn btn-sm btn-danger w-100"
-                                            onclick="excluirExercicioManualmente(
-                                                '${ficha.id}',
-                                                '${treino.letra}',
-                                                ${i})">
-
-                                            <i class="fa fa-trash"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <hr>
-        `);
-    });
-}
-
-function checaExercicio(idSpan, idThumbs, idThumbsX) {
-    let selectColor = document.getElementById(idSpan);
+function checaExercicio(idSelect , idThumbs, idThumbsX){
+    let selectColor = document.getElementById(idSelect);
     let thumbs = document.getElementById(idThumbs);
     let thumbsX = document.getElementById(idThumbsX);
+    
+    if(selectColor.classList.contains('bg-light')){
+        selectColor.classList.replace('bg-light', 'bg-success');
+        selectColor.classList.replace('text-dark', 'text-light');
 
-    console.log('checagem')
-
-    if (selectColor.classList.contains('text-danger')) {
-        selectColor.classList.replace('text-danger', 'text-success');
-
-        thumbs.classList.replace('d-block', 'd-none');
-        thumbsX.classList.replace('d-none', 'd-block');
+        thumbs.classList.replace('d-block','d-none');
+        thumbsX.classList.replace('d-none','d-block');
     }
-    else if (selectColor.classList.contains('text-success')) {
-        selectColor.classList.replace('text-success', 'text-danger');
+    else if(selectColor.classList.contains('bg-success')){
+        selectColor.classList.replace('bg-success', 'bg-light');
+        selectColor.classList.replace('text-light', 'text-dark');
 
-        thumbs.classList.replace('d-none', 'd-block');
-        thumbsX.classList.replace('d-block', 'd-none');
+
+        thumbs.classList.replace('d-none','d-block');
+        thumbsX.classList.replace('d-block','d-none');  
     }
-    console.log('passou')
+
 }
 
 function alternaBtnSaveEditVarios(
@@ -2085,8 +2078,8 @@ function alternaBtnSaveEditVarios(
     const inputCarga = document.getElementById(idCarga);
 
     if (escolha === 'editar') {
-        colunaEDIT.classList.replace('d-block', 'd-none');
-        colunaSAVE.classList.replace('d-none', 'd-block');
+        colunaEDIT.classList.replace('d-block','d-none');
+        colunaSAVE.classList.replace('d-none','d-block');
 
         inputNome.disabled = false;
         inputSeries.disabled = false;
@@ -2118,7 +2111,7 @@ function confirmaConclusaoFicha(idFicha) {
 
     arrayFichas[indice].dataConclusao = new Date().toISOString().split('T')[0];
 
-    localStorage.setItem('cadastroFicha', JSON.stringify(arrayFichas));
+    localStorage.setItem('cadastroFicha',JSON.stringify(arrayFichas));
     alert('Ficha concluída com sucesso!');
 
     populaFichasAbertas('bodyExibicaoFichasAbertas');
@@ -2140,7 +2133,7 @@ function confirmaReabrirFicha(idFicha) {
 
     arrayFichas[indice].dataConclusao = null;
 
-    localStorage.setItem('cadastroFicha', JSON.stringify(arrayFichas));
+    localStorage.setItem('cadastroFicha',JSON.stringify(arrayFichas));
 
     alert(`Ficha ${idFicha} reaberta com sucesso!`);
 
@@ -2237,7 +2230,7 @@ function exibeProximoTreino() {
 
     const fichaId = String(ultimoTreino.idFicha);
     const ultimaLetra = String(ultimoTreino.letraFichaTreino);
-
+    
     const ficha = arrayFichas.find(
         ficha => String(ficha.id) === fichaId
     );
@@ -2404,8 +2397,7 @@ function exibeTreinoDoDia(fichaId, letraTreino) {
 
             botaoTreino.click();
 
-            setTimeout(() => {
-                const elementoParaScroll = document.getElementById(
+            setTimeout(() => {const elementoParaScroll = document.getElementById(
                     `cardHeaderFicha_${fichaId}_Treino_${letraTreino}`
                 );
 
