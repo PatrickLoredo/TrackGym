@@ -1868,7 +1868,7 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
                             </div>
 
                             <!-- NOME DO EXERCÍCIO INPUT -->
-                            <div class="col-12 mb-3 m-auto d-block">
+                            <div class="col-12 mb-3 m-auto">
                                 <label class="labelText tamanho08">
                                     Exercício
                                 </label>
