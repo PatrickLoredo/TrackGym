@@ -2032,9 +2032,16 @@ function atualizarDadosExerciciosArray(
     btnSave.classList.add('d-none');
 
 
-    document.getElementById('btnTreinoDia').click();
-
-
+    
+    // MENSAGEM
+    alert(
+        `EXERCÍCIO: ${nomeExercicio}\n` +
+        `SÉRIES: ${series}\n` +
+        `REPETIÇÕES: ${repeticoes}\n` +
+        `CARGA: ${carga}\n\n` +
+        `Atualizado com sucesso!`
+    );
+}
 
 function checaExercicio(idSelect , idThumbs, idThumbsX){
     let selectColor = document.getElementById(idSelect);
