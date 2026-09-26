@@ -1685,7 +1685,7 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
                         </div>
 
                         <div class="row">
-                            <div class="col-auto gap-1 d-flex">
+                            <div class="col-12 gap-1 d-flex">
                                 <!-- BOTÃO DO COLLAPSE -->
                                 <button type="button" class="btn btn-sm btn-dark w-50"
                                     data-bs-toggle="collapse"
