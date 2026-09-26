@@ -1199,7 +1199,7 @@ function exibeTreinosExercicios(idCampo, indice) {
                 data-aos="fade-up"
                 data-aos-duration="500">
                     <div class="row">
-                        <div class="col">
+                        <div class="col-12">
                             <i class="fa fa-star text-warning"></i> &nbsp;&nbsp;&nbsp;&nbsp;
                             <span class="uppercase tamanho09 fw-bold text-light">
                                 Treino - Ficha ${treino.letra}
@@ -1677,11 +1677,14 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
                                     <span class="uppercase fw-bold text-danger" id="${idNomeSPAN}">${exercicio.nomeExercicio}</span>
                                 </div>
                             </div>
-                        
+                        </div>
 
-                            <div class="col-6 mb-3">
+                        <div class="row">
+                            <div class="col"></div>
+
+                            <div class="col-auto gap-1 d-flex">
                                 <!-- BOTÃO DO COLLAPSE -->
-                                <button type="button" class="btn btn-dark w-100"
+                                <button type="button" class="btn btn-sm btn-dark"
                                     data-bs-toggle="collapse"
                                     data-bs-target="#${idCollapse}"
                                     aria-expanded="false"
@@ -1690,11 +1693,10 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
 
                                     <i class="fa fa-chevron-down" id="${idChevron}"></i>
                                 </button>
-                            </div>
-                            <div class="col-6 mb-3">
+           
                                 <!-- BOTÃO DO CHECK EXERCICIO -->
                                 <button type="button" 
-                                class="btn btn-success d-block w-100 p-2"
+                                class="btn btn-sm btn-success d-block"
                                 id="Thumbs_${idChevron}"
                                 onclick="checaExercicio('${idNomeSPAN}', 'Thumbs_${idChevron}', 'ThumbsX_${idChevron}')">
                                     <i class="fa fa-thumbs-up"></i>
@@ -1702,7 +1704,7 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
 
                                 <!-- BOTÃO DO CHECK EXERCICIO -->
                                 <button type="button" 
-                                class="btn btn-danger input-group-text d-none w-100" id="ThumbsX_${idChevron}"
+                                class="btn btn-sm btn-danger input-group-text d-none w-100" id="ThumbsX_${idChevron}"
                                 onclick="checaExercicio('${idNomeSPAN}', 'Thumbs_${idChevron}', 'ThumbsX_${idChevron}')">
                                     <i class="fa fa-x"></i>
                                 </button>
@@ -2050,15 +2052,12 @@ function checaExercicio(idSelect , idThumbs, idThumbsX){
     
     if(selectColor.classList.contains('text-danger')){
         selectColor.classList.replace('text-danger', 'text-light');
-        selectColor.classList.add('bg-success', 'p-2','px-3');
 
         thumbs.classList.replace('d-block','d-none');
         thumbsX.classList.replace('d-none','d-block');
     }
     else if(selectColor.classList.contains('bg-success')){
         selectColor.classList.replace('text-light', 'text-danger');
-        selectColor.classList.remove('bg-success', 'p-2');
-
 
         thumbs.classList.replace('d-none','d-block');
         thumbsX.classList.replace('d-block','d-none');  
