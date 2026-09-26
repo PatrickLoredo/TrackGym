@@ -1427,22 +1427,22 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
                                     id="${idCarga}" disabled>
                                 </div>
                                 <div class="row mt-2 mb-3">
-                                    <div class="col flexCenter m-auto">
+                                    <div class="col flexCenter">
                                         <div class="input-group">
                                             <button 
-                                            class="input-group-text uppercase btn btn-sm btn-danger input-group-text"
+                                            class="input-group-text uppercase btn btn-danger input-group-text"
                                             style="font-size:0.72rem"
                                             onclick="aumentarCarga('${idCarga}', -7)">-7</button>
 
-                                            <button class="input-group-text uppercase btn btn-sm btn-danger input-group-text"
+                                            <button class="input-group-text uppercase btn btn-danger input-group-text"
                                             style="font-size:0.72rem"
                                             onclick="aumentarCarga('${idCarga}', -5)">-5</button>
 
-                                            <button class="input-group-text uppercase btn btn-sm btn-primary input-group-text"
+                                            <button class="input-group-text uppercase btn btn-primary input-group-text"
                                             style="font-size:0.72rem"
                                             onclick="aumentarCarga('${idCarga}', 5)">+5</button>
 
-                                            <button class="input-group-text uppercase btn btn-sm btn-primary input-group-text"
+                                            <button class="input-group-text uppercase btn btn-primary input-group-text"
                                             style="font-size:0.72rem"
                                             onclick="aumentarCarga('${idCarga}', 7)">+7</button>
                                         </div>
