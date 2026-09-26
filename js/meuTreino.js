@@ -1716,7 +1716,8 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
                     </div>
                 </div>
 
-                <div class="row collapse" id="${idCollapse}">
+                <div class="row collapse mt-3" id="${idCollapse}">
+                <hr>
                     <div class="col">
                         <div class="row m-auto">
                             <!-- SÉRIES -->
