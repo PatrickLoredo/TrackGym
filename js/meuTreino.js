@@ -1427,8 +1427,8 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
                                     id="${idCarga}" disabled>
                                 </div>
                                 <div class="row mt-2 mb-3">
-                                    <div class="col">
-                                        <div class="input-group flexCenter m-auto">
+                                    <div class="col flexCenter m-auto">
+                                        <div class="input-group">
                                             <button 
                                             class="input-group-text uppercase btn btn-sm btn-danger input-group-text"
                                             style="font-size:0.72rem"
