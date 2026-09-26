@@ -1302,7 +1302,7 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
 
         campoExibicao.insertAdjacentHTML('beforeend', `
 
-            <div class="row mb-4 flexCenter container-fluid">
+            <div class="row mb-4 flexCenter">
                 <!-- CABEÇALHO DO EXERCÍCIO -->
                 <div class="row ">
                     <div class="col ">
@@ -1430,19 +1430,19 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
                                     <div class="col flexCenter">
                                         <div class="input-group">
                                             <button 
-                                            class="input-group-text uppercase btn btn-sm btn-danger input-group-text"
+                                            class="input-group-text uppercase btn btn-danger input-group-text"
                                             style="font-size:0.72rem"
                                             onclick="aumentarCarga('${idCarga}', -7)">-7</button>
 
-                                            <button class="input-group-text uppercase btn btn-sm btn-danger input-group-text"
+                                            <button class="input-group-text uppercase btn btn-danger input-group-text"
                                             style="font-size:0.72rem"
                                             onclick="aumentarCarga('${idCarga}', -5)">-5</button>
 
-                                            <button class="input-group-text uppercase btn btn-sm btn-primary input-group-text"
+                                            <button class="input-group-text uppercase btn btn-primary input-group-text"
                                             style="font-size:0.72rem"
                                             onclick="aumentarCarga('${idCarga}', 5)">+5</button>
 
-                                            <button class="input-group-text uppercase btn btn-sm btn-primary input-group-text"
+                                            <button class="input-group-text uppercase btn btn-primary input-group-text"
                                             style="font-size:0.72rem"
                                             onclick="aumentarCarga('${idCarga}', 7)">+7</button>
                                         </div>
