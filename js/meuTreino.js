@@ -1429,16 +1429,21 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
                                 <div class="row mt-2 mb-3">
                                     <div class="col">
                                         <div class="input-group flexCenter">
-                                            <button class="input-group-text uppercase tamanho055 btn btn-sm btn-danger input-group-text"
+                                            <button 
+                                            class="input-group-text uppercase btn btn-sm btn-danger input-group-text"
+                                            style="font-size:0.7rem"
                                             onclick="aumentarCarga('${idCarga}', -7)">-7</button>
 
-                                            <button class="input-group-text uppercase tamanho055 btn btn-sm btn-danger input-group-text"
+                                            <button class="input-group-text uppercase btn btn-sm btn-danger input-group-text"
+                                            style="font-size:0.7rem"
                                             onclick="aumentarCarga('${idCarga}', -5)">-5</button>
 
-                                            <button class="input-group-text uppercase tamanho055 btn btn-sm btn-primary input-group-text"
+                                            <button class="input-group-text uppercase btn btn-sm btn-primary input-group-text"
+                                            style="font-size:0.7rem"
                                             onclick="aumentarCarga('${idCarga}', 5)">+5</button>
 
-                                            <button class="input-group-text uppercase tamanho055 btn btn-sm btn-primary input-group-text"
+                                            <button class="input-group-text uppercase btn btn-sm btn-primary input-group-text"
+                                            style="font-size:0.7rem"
                                             onclick="aumentarCarga('${idCarga}', 7)">+7</button>
                                         </div>
                                     </div>
