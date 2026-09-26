@@ -2051,13 +2051,13 @@ function checaExercicio(idSelect , idThumbs, idThumbsX){
     let thumbsX = document.getElementById(idThumbsX);
     
     if(selectColor.classList.contains('text-danger')){
-        selectColor.classList.replace('text-danger', 'text-light');
+        selectColor.classList.replace('text-danger', 'text-success');
 
         thumbs.classList.replace('d-block','d-none');
         thumbsX.classList.replace('d-none','d-block');
     }
-    else if(selectColor.classList.contains('bg-success')){
-        selectColor.classList.replace('text-light', 'text-danger');
+    else if(selectColor.classList.contains('text-success')){
+        selectColor.classList.replace('text-success', 'text-danger');
 
         thumbs.classList.replace('d-none','d-block');
         thumbsX.classList.replace('d-block','d-none');  
