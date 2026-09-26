@@ -1381,7 +1381,7 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
                                         -
                                     </button>
                                     <input class="form-control" value="${exercicio.series}"
-                                        style="font-size: 0.7rem"
+                                        style="font-size: 0.8rem"
                                         id="${idSeries}"
                                         disabled>
                                     <button class="btn btn-dark input-group-text"
@@ -1393,7 +1393,7 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
 
                             <!-- REPETIÇÕES -->
                             <div class="col-12 mb-3">
-                                <label class="labelText tamanho07">
+                                <label class="labelText tamanho08">
                                     Repetições
                                 </label>
                                 <div class="input-group">
@@ -1403,7 +1403,7 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
                                     </button>
 
                                     <input class="form-control" 
-                                    style="font-size: 0.7rem"
+                                    style="font-size: 0.8rem"
                                     value="${exercicio.repeticoes}"
                                     id="${idRepeticoes}" disabled>
 
@@ -1418,27 +1418,27 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
 
                             <!-- CARGA -->
                             <div class="col-12 mb-3">
-                                <label class="labelText tamanho07">
+                                <label class="labelText tamanho08">
                                     Carga
                                 </label>
                                 <input class="form-control" 
-                                style="font-size: 0.7rem"
+                                style="font-size: 0.8rem"
                                 value="${exercicio.carga}"
                                     id="${idCarga}" disabled>
                                 </div>
                                 <div class="row mt-2 mb-3">
                                     <div class="col">
                                         <div class="input-group flexCenter">
-                                            <button class="input-group-text uppercase tamanho06 btn btn-sm btn-danger input-group-text"
+                                            <button class="input-group-text uppercase tamanho055 btn btn-sm btn-danger input-group-text"
                                             onclick="aumentarCarga('${idCarga}', -7)">-7</button>
 
-                                            <button class="input-group-text uppercase tamanho06 btn btn-sm btn-danger input-group-text"
+                                            <button class="input-group-text uppercase tamanho055 btn btn-sm btn-danger input-group-text"
                                             onclick="aumentarCarga('${idCarga}', -5)">-5</button>
 
-                                            <button class="input-group-text uppercase tamanho06 btn btn-sm btn-primary input-group-text"
+                                            <button class="input-group-text uppercase tamanho055 btn btn-sm btn-primary input-group-text"
                                             onclick="aumentarCarga('${idCarga}', 5)">+5</button>
 
-                                            <button class="input-group-text uppercase tamanho06 btn btn-sm btn-primary input-group-text"
+                                            <button class="input-group-text uppercase tamanho055 btn btn-sm btn-primary input-group-text"
                                             onclick="aumentarCarga('${idCarga}', 7)">+7</button>
                                         </div>
                                     </div>
@@ -1862,6 +1862,8 @@ function confirmaConclusaoTreino(idFicha, letraTreino) {
 
     exibeProximoTreino();
 }
+ 
+
 
 function atualizarDadosExerciciosArray(
     indiceFicha,
