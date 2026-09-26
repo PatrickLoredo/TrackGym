@@ -836,7 +836,7 @@ function populaFichasAbertas(idCampo) {
                                     </span>
                                 </div>
 
-                                <div class="col-auto">
+                                <div class="col-auto mt-3">
                                     <label class="labelText fw-bold text-danger tamanho09">
                                         treinos
                                     </label>
@@ -846,7 +846,7 @@ function populaFichasAbertas(idCampo) {
                                     </span>
                                 </div>
 
-                                <div class="col">
+                                <div class="col mt-3">
                                     <label class="labelText fw-bold text-danger tamanho09">
                                         Exercícios
                                     </label>
@@ -856,7 +856,7 @@ function populaFichasAbertas(idCampo) {
                                     </span>
                                 </div>
 
-                                <div class="col-auto flexCenter gap-2">
+                                <div class="col-12 flexCenter gap-2 mt-3">
                                     <button
                                         class="btn btn-sm btn-dark"
                                         data-bs-toggle="collapse"
