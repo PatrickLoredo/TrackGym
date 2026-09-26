@@ -1304,7 +1304,7 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
 
             <div class="row mb-4 flexCenter">
                 <!-- CABEÇALHO DO EXERCÍCIO -->
-                <div class="row ">
+                <div class="row">
                     <div class="col ">
                         <div class="row">
                             <!-- ID DO EXERCÍCIO -->
@@ -1868,8 +1868,6 @@ function confirmaConclusaoTreino(idFicha, letraTreino) {
     exibeProximoTreino();
 }
  
-
-
 function atualizarDadosExerciciosArray(
     indiceFicha,
     indiceTreino,
@@ -2340,7 +2338,6 @@ function exibeProximoTreino() {
             duration: 2000>
 
                 <div class="row">
-
                     <div class="col">
                         <h6 class="uppercase">
                             ficha de treinamento de hoje:
