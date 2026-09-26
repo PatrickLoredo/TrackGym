@@ -1667,7 +1667,7 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
                             <div class="col-12 mb-3 m-auto">
                                 <div class="col-12 mb-2">
                                     <input type="text" 
-                                    class="form-control input-nome-exercicio bg-light text-dark d-non"
+                                    class="form-control input-nome-exercicio bg-light text-dark d-none"
                                     value="${exercicio.nomeExercicio}" id="${idNome}" disabled>
                                 </div>
                             </div>
@@ -1685,11 +1685,9 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
                         </div>
 
                         <div class="row">
-                            <div class="col"></div>
-
                             <div class="col-auto gap-1 d-flex">
                                 <!-- BOTÃO DO COLLAPSE -->
-                                <button type="button" class="btn btn-sm btn-dark"
+                                <button type="button" class="btn btn-sm btn-dark w-50"
                                     data-bs-toggle="collapse"
                                     data-bs-target="#${idCollapse}"
                                     aria-expanded="false"
@@ -1701,7 +1699,7 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
            
                                 <!-- BOTÃO DO CHECK EXERCICIO -->
                                 <button type="button" 
-                                class="btn btn-sm btn-success d-block"
+                                class="btn btn-sm btn-success d-block w-50"
                                 id="Thumbs_${idChevron}"
                                 onclick="checaExercicio('icone_${exercicio.nomeExercicio}','${idNomeSPAN}', 'Thumbs_${idChevron}', 'ThumbsX_${idChevron}')">
                                     <i class="fa fa-thumbs-up"></i>
@@ -1709,7 +1707,7 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
 
                                 <!-- BOTÃO DO CHECK EXERCICIO -->
                                 <button type="button" 
-                                class="btn btn-sm btn-danger input-group-text d-none w-100" id="ThumbsX_${idChevron}"
+                                class="btn btn-sm btn-danger input-group-text d-none w-50" id="ThumbsX_${idChevron}"
                                 onclick="checaExercicio('icone_${exercicio.nomeExercicio}','${idNomeSPAN}', 'Thumbs_${idChevron}', 'ThumbsX_${idChevron}')">
                                     <i class="fa fa-x"></i>
                                 </button>
