@@ -858,7 +858,7 @@ function populaFichasAbertas(idCampo) {
 
                                 <div class="col-12 flexCenter gap-2 mt-3">
                                     <button
-                                        class="btn btn-sm btn-dark"
+                                        class="btn btn-sm btn-dark w-50"
                                         data-bs-toggle="collapse"
                                         data-bs-target="#campoPrincipalExibeFichasAbertas_${ficha.id}"
                                         id="${ficha.id}_eye"
@@ -868,7 +868,7 @@ function populaFichasAbertas(idCampo) {
                                         <i class="fa fa-eye"></i>
                                     </button>
 
-                                   <button class="btn btn-sm btn-success" 
+                                   <button class="btn btn-sm btn-success w-50" 
                                    onclick="confirmaConclusaoFicha('${ficha.id}')">
                                         <i class="fa-solid fa-check-double"></i>
                                     </button>
