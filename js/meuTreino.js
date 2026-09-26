@@ -1639,8 +1639,8 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
     treino.exercicios.forEach((exercicio, i) => {
         const idEdit = `BTNEDITAR_ficha_${ficha.id}_Treino_${treino.letra}_Exercicio_${i}`;
         const idSave = `BTNSALVAR_ficha_${ficha.id}_Treino_${treino.letra}_Exercicio_${i}`;
-        const colunaSALVAR = `coluna_${idSave}`;
-        const colunaEDITAR = `coluna_${idEdit}`;
+
+        
         const idIDNome = `INPUTIDEXERCICIO_ficha_${ficha.id}_Treino_${treino.letra}_Exercicio_${i}`;
         const idNome = `INPUTEXERCICIO_ficha_${ficha.id}_Treino_${treino.letra}_Exercicio_${i}`;
         const idNomeSPAN = `INPUTEXERCICIOSPAN_ficha_${ficha.id}_Treino_${treino.letra}_Exercicio_${i}`;
@@ -1666,15 +1666,20 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
                             <!-- NOME DO EXERCÍCIO INPUT -->
                             <div class="col-12 mb-3 m-auto">
                                 <div class="col-12 mb-2">
-                                    <input type="text" class="form-control input-nome-exercicio bg-light text-dark d-none"
-                                        value="${exercicio.nomeExercicio}" id="${idNome}" disabled>
+                                    <input type="text" 
+                                    class="form-control input-nome-exercicio bg-light text-dark d-non"
+                                    value="${exercicio.nomeExercicio}" id="${idNome}" disabled>
                                 </div>
                             </div>
 
                             <!-- NOME DO EXERCÍCIO INPUT -->
                             <div class="col-12 mb-3 m-auto">
                                 <div class="col-12 mb-2">
-                                    <span class="uppercase fw-bold text-danger" id="${idNomeSPAN}">${exercicio.nomeExercicio}</span>
+                                    <i class="fa fa-x text-light bg-danger tamanho08 pt-2" 
+                                    style="border-radius:60px; height: 25px; width: 25px;"
+                                    id="icone_${exercicio.nomeExercicio}"></i>&nbsp;
+                                    <span class="uppercase fw-bold text-danger" 
+                                    id="${idNomeSPAN}">${exercicio.nomeExercicio}</span>
                                 </div>
                             </div>
                         </div>
@@ -1698,14 +1703,14 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
                                 <button type="button" 
                                 class="btn btn-sm btn-success d-block"
                                 id="Thumbs_${idChevron}"
-                                onclick="checaExercicio('${idNomeSPAN}', 'Thumbs_${idChevron}', 'ThumbsX_${idChevron}')">
+                                onclick="checaExercicio('icone_${exercicio.nomeExercicio}','${idNomeSPAN}', 'Thumbs_${idChevron}', 'ThumbsX_${idChevron}')">
                                     <i class="fa fa-thumbs-up"></i>
                                 </button>
 
                                 <!-- BOTÃO DO CHECK EXERCICIO -->
                                 <button type="button" 
                                 class="btn btn-sm btn-danger input-group-text d-none w-100" id="ThumbsX_${idChevron}"
-                                onclick="checaExercicio('${idNomeSPAN}', 'Thumbs_${idChevron}', 'ThumbsX_${idChevron}')">
+                                onclick="checaExercicio('icone_${exercicio.nomeExercicio}','${idNomeSPAN}', 'Thumbs_${idChevron}', 'ThumbsX_${idChevron}')">
                                     <i class="fa fa-x"></i>
                                 </button>
                             </div>
@@ -2045,19 +2050,24 @@ function atualizarDadosExerciciosArray(
     );
 }
 
-function checaExercicio(idSelect , idThumbs, idThumbsX){
+function checaExercicio(iconeExercicio, idSelect , idThumbs, idThumbsX){
     let selectColor = document.getElementById(idSelect);
+    let exercicioIcone = document.getElementById(iconeExercicio);
     let thumbs = document.getElementById(idThumbs);
     let thumbsX = document.getElementById(idThumbsX);
     
     if(selectColor.classList.contains('text-danger')){
         selectColor.classList.replace('text-danger', 'text-success');
+        exercicioIcone.classList.replace('bg-danger','bg-success');
+        exercicioIcone.classList.replace('fa-x','fa-check');
 
         thumbs.classList.replace('d-block','d-none');
         thumbsX.classList.replace('d-none','d-block');
     }
     else if(selectColor.classList.contains('text-success')){
         selectColor.classList.replace('text-success', 'text-danger');
+        exercicioIcone.classList.replace('bg-success','bg-danger');
+        exercicioIcone.classList.replace('fa-check','fa-x');
 
         thumbs.classList.replace('d-none','d-block');
         thumbsX.classList.replace('d-block','d-none');  
