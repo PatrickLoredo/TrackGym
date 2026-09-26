@@ -1731,6 +1731,7 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
                                         -
                                     </button>
                                     <input class="form-control" value="${exercicio.series}"
+                                        style="font-size: 0.8rem"
                                         id="${idSeries}"
                                         disabled>
                                     <button class="btn btn-dark input-group-text"
@@ -1751,7 +1752,9 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
                                         -
                                     </button>
 
-                                    <input class="form-control" value="${exercicio.repeticoes}"
+                                    <input class="form-control" 
+                                    style="font-size: 0.8rem"
+                                    value="${exercicio.repeticoes}"
                                     id="${idRepeticoes}" disabled>
 
                                     <button class="btn btn-dark input-group-text"
@@ -1768,7 +1771,9 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
                                 <label class="labelText tamanho08">
                                     Carga
                                 </label>
-                                <input class="form-control" value="${exercicio.carga}"
+                                <input class="form-control" 
+                                style="font-size: 0.8rem"
+                                value="${exercicio.carga}"
                                     id="${idCarga}" disabled>
                                 </div>
                                 <div class="row mt-2 mb-3">
