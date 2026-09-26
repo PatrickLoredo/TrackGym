@@ -1302,10 +1302,10 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
 
         campoExibicao.insertAdjacentHTML('beforeend', `
 
-            <div class="row mb-4 flexCenter">
+            <div class="row mb-4 flexCenter container-fluid">
                 <!-- CABEÇALHO DO EXERCÍCIO -->
-                <div class="row">
-                    <div class="col">
+                <div class="row ">
+                    <div class="col ">
                         <div class="row">
                             <!-- ID DO EXERCÍCIO -->
                             <div class="col-12 mb-3 d-none">
@@ -1417,7 +1417,7 @@ function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
 
 
                             <!-- CARGA -->
-                            <div class="col-12 mb-3">
+                            <div class="col-12 mb-3 ">
                                 <label class="labelText tamanho08">
                                     Carga
                                 </label>
