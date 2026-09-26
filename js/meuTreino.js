@@ -1262,6 +1262,257 @@ function exibeTreinosExercicios(idCampo, indice) {
     });
 }
 
+function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
+    const campoExibicao = document.getElementById(idCampo);
+
+    if (!campoExibicao) {
+        console.error('Campo de exibição não encontrado:', idCampo);
+        return;
+    }
+
+    campoExibicao.innerHTML = '';
+
+    const ficha = arrayFichas[indiceFicha];
+
+    if (!ficha) {
+        console.error('Ficha não encontrada:', indiceFicha);
+        return;
+    }
+
+    const treino = ficha.treinos[indiceTreino];
+
+    if (!treino) {
+        console.error('Treino não encontrado:', indiceTreino);
+        return;
+    }
+
+    treino.exercicios.forEach((exercicio, i) => {
+        const idEdit = `BTNEDITAR_ficha_${ficha.id}_Treino_${treino.letra}_Exercicio_${i}`;
+        const idSave = `BTNSALVAR_ficha_${ficha.id}_Treino_${treino.letra}_Exercicio_${i}`;
+
+        
+        const idIDNome = `INPUTIDEXERCICIO_ficha_${ficha.id}_Treino_${treino.letra}_Exercicio_${i}`;
+        const idNome = `INPUTEXERCICIO_ficha_${ficha.id}_Treino_${treino.letra}_Exercicio_${i}`;
+        const idNomeSPAN = `INPUTEXERCICIOSPAN_ficha_${ficha.id}_Treino_${treino.letra}_Exercicio_${i}`;
+        const idSeries = `INPUTSERIES_ficha_${ficha.id}_Treino_${treino.letra}_Exercicio_${i}`;
+        const idRepeticoes = `INPUTREPETICOES_ficha_${ficha.id}_Treino_${treino.letra}_Exercicio_${i}`;
+        const idCarga = `INPUTCARGA_ficha_${ficha.id}_Treino_${treino.letra}_Exercicio_${i}`;
+        const idCollapse = `collapseDadosExercicio_${ficha.id}_${treino.letra}_${i}`;
+        const idChevron = `chevronDownInfoExercicios_${ficha.id}_${treino.letra}_${i}`;
+
+        campoExibicao.insertAdjacentHTML('beforeend', `
+
+            <div class="row mb-4 flexCenter">
+                <!-- CABEÇALHO DO EXERCÍCIO -->
+                <div class="row">
+                    <div class="col">
+                        <div class="row">
+                            <!-- ID DO EXERCÍCIO -->
+                            <div class="col-12 mb-3 d-none">
+                                <input class="form-control" value="${exercicio.idExercicio}"
+                                    id="${idIDNome}" disabled>
+                            </div>
+
+                            <!-- NOME DO EXERCÍCIO INPUT -->
+                            <div class="col-12 mb-3 m-auto">
+                                <div class="col-12 mb-2">
+                                    <input type="text" 
+                                    class="form-control input-nome-exercicio bg-light text-dark d-none"
+                                    value="${exercicio.nomeExercicio}" id="${idNome}" disabled>
+                                </div>
+                            </div>
+
+                            <!-- NOME DO EXERCÍCIO INPUT -->
+                            <div class="col-12 mb-3 m-auto">
+                                <div class="col-12 mb-2">
+                                    <i class="fa fa-x text-light bg-danger tamanho08 pt-2" 
+                                    style="border-radius:60px; height: 25px; width: 25px;"
+                                    id="icone_${exercicio.nomeExercicio}"></i>&nbsp;
+                                    <span class="uppercase fw-bold text-danger" 
+                                    id="${idNomeSPAN}">${exercicio.nomeExercicio}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12 gap-1 d-flex">
+                                <!-- BOTÃO DO COLLAPSE -->
+                                <button type="button" class="btn btn-sm btn-dark w-50"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#${idCollapse}"
+                                    aria-expanded="false"
+                                    aria-controls="${idCollapse}"
+                                    onclick="mudaChevron('${idChevron}')">
+
+                                    <i class="fa fa-chevron-down" id="${idChevron}"></i>
+                                </button>
+           
+                                <!-- BOTÃO DO CHECK EXERCICIO -->
+                                <button type="button" 
+                                class="btn btn-sm btn-success d-block w-50"
+                                id="Thumbs_${idChevron}"
+                                onclick="checaExercicio('icone_${exercicio.nomeExercicio}','${idNomeSPAN}', 'Thumbs_${idChevron}', 'ThumbsX_${idChevron}')">
+                                    <i class="fa fa-thumbs-up"></i>
+                                </button>
+
+                                <!-- BOTÃO DO CHECK EXERCICIO -->
+                                <button type="button" 
+                                class="btn btn-sm btn-danger input-group-text d-none w-50" id="ThumbsX_${idChevron}"
+                                onclick="checaExercicio('icone_${exercicio.nomeExercicio}','${idNomeSPAN}', 'Thumbs_${idChevron}', 'ThumbsX_${idChevron}')">
+                                    <i class="fa fa-x"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row collapse mt-3" id="${idCollapse}">
+                <hr>
+                    <div class="col">
+                        <div class="row m-auto">
+                            <!-- SÉRIES -->
+                            <div class="col-12 mb-3">
+                                <label class="labelText tamanho08">
+                                    Séries
+                                </label>
+                                <div class="input-group">
+                                    <button class="btn btn-dark input-group-text"
+                                    onclick="aumentarCarga('${idSeries}', -1)">
+                                        -
+                                    </button>
+                                    <input class="form-control" value="${exercicio.series}"
+                                        style="font-size: 0.7rem"
+                                        id="${idSeries}"
+                                        disabled>
+                                    <button class="btn btn-dark input-group-text"
+                                    onclick="aumentarCarga('${idSeries}', 1)">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- REPETIÇÕES -->
+                            <div class="col-12 mb-3">
+                                <label class="labelText tamanho07">
+                                    Repetições
+                                </label>
+                                <div class="input-group">
+                                    <button class="btn btn-dark input-group-text"
+                                    onclick="aumentarCarga('${idRepeticoes}', -1)">
+                                        -
+                                    </button>
+
+                                    <input class="form-control" 
+                                    style="font-size: 0.7rem"
+                                    value="${exercicio.repeticoes}"
+                                    id="${idRepeticoes}" disabled>
+
+                                    <button class="btn btn-dark input-group-text"
+                                    onclick="aumentarCarga('${idRepeticoes}', 1)">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                </div>
+
+                            </div>
+
+
+                            <!-- CARGA -->
+                            <div class="col-12 mb-3">
+                                <label class="labelText tamanho07">
+                                    Carga
+                                </label>
+                                <input class="form-control" 
+                                style="font-size: 0.7rem"
+                                value="${exercicio.carga}"
+                                    id="${idCarga}" disabled>
+                                </div>
+                                <div class="row mt-2 mb-3">
+                                    <div class="col">
+                                        <div class="input-group flexCenter">
+                                            <button class="input-group-text uppercase tamanho06 btn btn-sm btn-danger input-group-text"
+                                            onclick="aumentarCarga('${idCarga}', -7)">-7</button>
+
+                                            <button class="input-group-text uppercase tamanho06 btn btn-sm btn-danger input-group-text"
+                                            onclick="aumentarCarga('${idCarga}', -5)">-5</button>
+
+                                            <button class="input-group-text uppercase tamanho06 btn btn-sm btn-primary input-group-text"
+                                            onclick="aumentarCarga('${idCarga}', 5)">+5</button>
+
+                                            <button class="input-group-text uppercase tamanho06 btn btn-sm btn-primary input-group-text"
+                                            onclick="aumentarCarga('${idCarga}', 7)">+7</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!-- BOTÕES -->
+                            <div class="col m-auto">
+                                <div class="row">
+                                    <!-- EDITAR -->
+                                    <div class="col-6 d-block" id="coluna_${idEdit}">
+                                        <button type="button" class="btn btn-sm btn-primary w-100"
+                                            id="${idEdit}" 
+                                            onclick="alternaBtnSaveEditVarios(
+                                                'editar',
+                                                '${idEdit}',
+                                                '${idSave}',
+                                                '${idNome}',
+                                                '${idSeries}',
+                                                '${idRepeticoes}',
+                                                '${idCarga}',
+                                                'coluna_${idEdit}',
+                                                'coluna_${idSave}')">
+
+                                            <i class="fa fa-edit"></i>
+                                        </button>
+                                    </div>
+
+                                    <!-- SALVAR -->
+                                    <div class="col-6 d-none" id="coluna_${idSave}">
+                                        <button type="button"
+                                            class="btn btn-sm btn-success w-100"
+                                            id="${idSave}"
+
+                                            onclick="atualizarDadosExerciciosArray(
+                                                ${indiceFicha},
+                                                ${indiceTreino},
+                                                ${i},
+                                                '${idEdit}',
+                                                '${idSave}',
+                                                '${idNome}',
+                                                '${idSeries}',
+                                                '${idRepeticoes}',
+                                                '${idCarga}',
+                                                'coluna_${idEdit}',
+                                                'coluna_${idSave}')">
+
+                                            <i class="fa fa-save"></i>
+                                        </button>
+                                    </div>
+
+                                    <!-- EXCLUIR -->
+                                    <div class="col-6">
+                                        <button type="button" class="btn btn-sm btn-danger w-100"
+                                            onclick="excluirExercicioManualmente(
+                                                '${ficha.id}',
+                                                '${treino.letra}',
+                                                ${i})">
+
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+        `);
+    });
+}
+
 function adicionaExercicioManualmenteAoTreino(idFicha, letraFicha) {
 
     const nomeDigitado = prompt('Digite o nome do exercício:');
@@ -1610,257 +1861,6 @@ function confirmaConclusaoTreino(idFicha, letraTreino) {
     populaFichasConcluidas('bodyExibicaoFichasConcluidas');
 
     exibeProximoTreino();
-}
- 
-function exibeExerciciosFichaAberta(idCampo, indiceFicha, indiceTreino) {
-    const campoExibicao = document.getElementById(idCampo);
-
-    if (!campoExibicao) {
-        console.error('Campo de exibição não encontrado:', idCampo);
-        return;
-    }
-
-    campoExibicao.innerHTML = '';
-
-    const ficha = arrayFichas[indiceFicha];
-
-    if (!ficha) {
-        console.error('Ficha não encontrada:', indiceFicha);
-        return;
-    }
-
-    const treino = ficha.treinos[indiceTreino];
-
-    if (!treino) {
-        console.error('Treino não encontrado:', indiceTreino);
-        return;
-    }
-
-    treino.exercicios.forEach((exercicio, i) => {
-        const idEdit = `BTNEDITAR_ficha_${ficha.id}_Treino_${treino.letra}_Exercicio_${i}`;
-        const idSave = `BTNSALVAR_ficha_${ficha.id}_Treino_${treino.letra}_Exercicio_${i}`;
-
-        
-        const idIDNome = `INPUTIDEXERCICIO_ficha_${ficha.id}_Treino_${treino.letra}_Exercicio_${i}`;
-        const idNome = `INPUTEXERCICIO_ficha_${ficha.id}_Treino_${treino.letra}_Exercicio_${i}`;
-        const idNomeSPAN = `INPUTEXERCICIOSPAN_ficha_${ficha.id}_Treino_${treino.letra}_Exercicio_${i}`;
-        const idSeries = `INPUTSERIES_ficha_${ficha.id}_Treino_${treino.letra}_Exercicio_${i}`;
-        const idRepeticoes = `INPUTREPETICOES_ficha_${ficha.id}_Treino_${treino.letra}_Exercicio_${i}`;
-        const idCarga = `INPUTCARGA_ficha_${ficha.id}_Treino_${treino.letra}_Exercicio_${i}`;
-        const idCollapse = `collapseDadosExercicio_${ficha.id}_${treino.letra}_${i}`;
-        const idChevron = `chevronDownInfoExercicios_${ficha.id}_${treino.letra}_${i}`;
-
-        campoExibicao.insertAdjacentHTML('beforeend', `
-
-            <div class="row mb-4 flexCenter">
-                <!-- CABEÇALHO DO EXERCÍCIO -->
-                <div class="row">
-                    <div class="col">
-                        <div class="row">
-                            <!-- ID DO EXERCÍCIO -->
-                            <div class="col-12 mb-3 d-none">
-                                <input class="form-control" value="${exercicio.idExercicio}"
-                                    id="${idIDNome}" disabled>
-                            </div>
-
-                            <!-- NOME DO EXERCÍCIO INPUT -->
-                            <div class="col-12 mb-3 m-auto">
-                                <div class="col-12 mb-2">
-                                    <input type="text" 
-                                    class="form-control input-nome-exercicio bg-light text-dark d-none"
-                                    value="${exercicio.nomeExercicio}" id="${idNome}" disabled>
-                                </div>
-                            </div>
-
-                            <!-- NOME DO EXERCÍCIO INPUT -->
-                            <div class="col-12 mb-3 m-auto">
-                                <div class="col-12 mb-2">
-                                    <i class="fa fa-x text-light bg-danger tamanho08 pt-2" 
-                                    style="border-radius:60px; height: 25px; width: 25px;"
-                                    id="icone_${exercicio.nomeExercicio}"></i>&nbsp;
-                                    <span class="uppercase fw-bold text-danger" 
-                                    id="${idNomeSPAN}">${exercicio.nomeExercicio}</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-12 gap-1 d-flex">
-                                <!-- BOTÃO DO COLLAPSE -->
-                                <button type="button" class="btn btn-sm btn-dark w-50"
-                                    data-bs-toggle="collapse"
-                                    data-bs-target="#${idCollapse}"
-                                    aria-expanded="false"
-                                    aria-controls="${idCollapse}"
-                                    onclick="mudaChevron('${idChevron}')">
-
-                                    <i class="fa fa-chevron-down" id="${idChevron}"></i>
-                                </button>
-           
-                                <!-- BOTÃO DO CHECK EXERCICIO -->
-                                <button type="button" 
-                                class="btn btn-sm btn-success d-block w-50"
-                                id="Thumbs_${idChevron}"
-                                onclick="checaExercicio('icone_${exercicio.nomeExercicio}','${idNomeSPAN}', 'Thumbs_${idChevron}', 'ThumbsX_${idChevron}')">
-                                    <i class="fa fa-thumbs-up"></i>
-                                </button>
-
-                                <!-- BOTÃO DO CHECK EXERCICIO -->
-                                <button type="button" 
-                                class="btn btn-sm btn-danger input-group-text d-none w-50" id="ThumbsX_${idChevron}"
-                                onclick="checaExercicio('icone_${exercicio.nomeExercicio}','${idNomeSPAN}', 'Thumbs_${idChevron}', 'ThumbsX_${idChevron}')">
-                                    <i class="fa fa-x"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row collapse mt-3" id="${idCollapse}">
-                <hr>
-                    <div class="col">
-                        <div class="row m-auto">
-                            <!-- SÉRIES -->
-                            <div class="col-12 mb-3">
-                                <label class="labelText tamanho08">
-                                    Séries
-                                </label>
-                                <div class="input-group">
-                                    <button class="btn btn-dark input-group-text"
-                                    onclick="aumentarCarga('${idSeries}', -1)">
-                                        -
-                                    </button>
-                                    <input class="form-control" value="${exercicio.series}"
-                                        style="font-size: 0.8rem"
-                                        id="${idSeries}"
-                                        disabled>
-                                    <button class="btn btn-dark input-group-text"
-                                    onclick="aumentarCarga('${idSeries}', 1)">
-                                        <i class="fa fa-plus"></i>
-                                    </button>
-                                </div>
-                            </div>
-
-                            <!-- REPETIÇÕES -->
-                            <div class="col-12 mb-3">
-                                <label class="labelText tamanho08">
-                                    Repetições
-                                </label>
-                                <div class="input-group">
-                                    <button class="btn btn-dark input-group-text"
-                                    onclick="aumentarCarga('${idRepeticoes}', -1)">
-                                        -
-                                    </button>
-
-                                    <input class="form-control" 
-                                    style="font-size: 0.8rem"
-                                    value="${exercicio.repeticoes}"
-                                    id="${idRepeticoes}" disabled>
-
-                                    <button class="btn btn-dark input-group-text"
-                                    onclick="aumentarCarga('${idRepeticoes}', 1)">
-                                        <i class="fa fa-plus"></i>
-                                    </button>
-                                </div>
-
-                            </div>
-
-
-                            <!-- CARGA -->
-                            <div class="col-12 mb-3">
-                                <label class="labelText tamanho08">
-                                    Carga
-                                </label>
-                                <input class="form-control" 
-                                style="font-size: 0.8rem"
-                                value="${exercicio.carga}"
-                                    id="${idCarga}" disabled>
-                                </div>
-                                <div class="row mt-2 mb-3">
-                                    <div class="col">
-                                        <div class="input-group flexCenter">
-                                            <button class="input-group-text uppercase tamanho06 btn btn-sm btn-danger input-group-text"
-                                            onclick="aumentarCarga('${idCarga}', -7)">-7</button>
-
-                                            <button class="input-group-text uppercase tamanho06 btn btn-sm btn-danger input-group-text"
-                                            onclick="aumentarCarga('${idCarga}', -5)">-5</button>
-
-                                            <button class="input-group-text uppercase tamanho06 btn btn-sm btn-primary input-group-text"
-                                            onclick="aumentarCarga('${idCarga}', 5)">+5</button>
-
-                                            <button class="input-group-text uppercase tamanho06 btn btn-sm btn-primary input-group-text"
-                                            onclick="aumentarCarga('${idCarga}', 7)">+7</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <!-- BOTÕES -->
-                            <div class="col m-auto">
-                                <div class="row">
-                                    <!-- EDITAR -->
-                                    <div class="col-6 d-block" id="coluna_${idEdit}">
-                                        <button type="button" class="btn btn-sm btn-primary w-100"
-                                            id="${idEdit}" 
-                                            onclick="alternaBtnSaveEditVarios(
-                                                'editar',
-                                                '${idEdit}',
-                                                '${idSave}',
-                                                '${idNome}',
-                                                '${idSeries}',
-                                                '${idRepeticoes}',
-                                                '${idCarga}',
-                                                'coluna_${idEdit}',
-                                                'coluna_${idSave}')">
-
-                                            <i class="fa fa-edit"></i>
-                                        </button>
-                                    </div>
-
-                                    <!-- SALVAR -->
-                                    <div class="col-6 d-none" id="coluna_${idSave}">
-                                        <button type="button"
-                                            class="btn btn-sm btn-success w-100"
-                                            id="${idSave}"
-
-                                            onclick="atualizarDadosExerciciosArray(
-                                                ${indiceFicha},
-                                                ${indiceTreino},
-                                                ${i},
-                                                '${idEdit}',
-                                                '${idSave}',
-                                                '${idNome}',
-                                                '${idSeries}',
-                                                '${idRepeticoes}',
-                                                '${idCarga}',
-                                                'coluna_${idEdit}',
-                                                'coluna_${idSave}')">
-
-                                            <i class="fa fa-save"></i>
-                                        </button>
-                                    </div>
-
-                                    <!-- EXCLUIR -->
-                                    <div class="col-6">
-                                        <button type="button" class="btn btn-sm btn-danger w-100"
-                                            onclick="excluirExercicioManualmente(
-                                                '${ficha.id}',
-                                                '${treino.letra}',
-                                                ${i})">
-
-                                            <i class="fa fa-trash"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <hr>
-        `);
-    });
 }
 
 function atualizarDadosExerciciosArray(
